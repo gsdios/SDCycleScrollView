@@ -6,7 +6,9 @@
     
  ---------------------------------------------------------------------------------------------------------------
  
- # PS:
+ PS:
+ 
+ 如需更详细的设置，参考如下：
  
  1. cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight; // 设置pageControl居右，默认居中
  
