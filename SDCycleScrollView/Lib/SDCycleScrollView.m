@@ -45,7 +45,7 @@ NSString * const ID = @"cycleCell";
 {
     if (self = [super initWithFrame:frame]) {
         self.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-        
+        _autoScrollTimeInterval = 1.0;
         [self setupMainView];
     }
     return self;
@@ -65,6 +65,15 @@ NSString * const ID = @"cycleCell";
     [super setFrame:frame];
     
     _flowLayout.itemSize = self.frame.size;
+}
+
+- (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval
+{
+    _autoScrollTimeInterval = autoScrollTimeInterval;
+    
+    [_timer invalidate];
+    _timer = nil;
+    [self setupTimer];
 }
 
 // 设置显示图片的collectionView
@@ -119,7 +128,7 @@ NSString * const ID = @"cycleCell";
 
 - (void)setupTimer
 {
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.autoScrollTimeInterval target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
     _timer = timer;
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }

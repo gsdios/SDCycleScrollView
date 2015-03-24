@@ -36,6 +36,7 @@
     // 创建不带标题的图片轮播器
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 60, w, 180) imagesGroup:images];
     cycleScrollView.delegate = self;
+    //cycleScrollView.autoScrollTimeInterval = 2.0;
     [self.view addSubview:cycleScrollView];
     
     
