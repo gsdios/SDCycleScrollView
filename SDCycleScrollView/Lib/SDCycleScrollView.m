@@ -42,14 +42,21 @@ NSString * const ID = @"cycleCell";
 
 #pragma mark - Life Cycle
 
+- (void)setup {
+    self.backgroundColor = [UIColor whiteColor];
+    
+    _dotSize = CGSizeMake(8, 8);
+    _hidesForSinglePage = NO;
+    _pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+    _autoScrollTimeInterval = 4.0;
+    
+    [self setupMainView];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        _dotSize = CGSizeMake(8, 8);
-        _hidesForSinglePage = NO;
-        self.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-        _autoScrollTimeInterval = 4.0;
-        [self setupMainView];
+        [self setup];
     }
     return self;
 }
@@ -83,7 +90,7 @@ NSString * const ID = @"cycleCell";
     [super layoutSubviews];
     
     _mainView.frame = self.bounds;
-    if (_mainView.contentOffset.x == 0) {
+    if (_totalItemsCount) {
         [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_totalItemsCount * 0.5 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
     NSInteger numberOfPages = [self numberOfPages];
@@ -111,6 +118,10 @@ NSString * const ID = @"cycleCell";
     _totalItemsCount = numberOfPages * reusePageOffset;
     
     [self setupPageControl];
+    
+    [self.mainView reloadData];
+    
+    [self setNeedsLayout];
 }
 
 #pragma mark - Setup Helper Method
@@ -124,7 +135,7 @@ NSString * const ID = @"cycleCell";
     _flowLayout = flowLayout;
     
     UICollectionView *mainView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:flowLayout];
-    mainView.backgroundColor = [UIColor lightGrayColor];
+    mainView.backgroundColor = self.backgroundColor;
     mainView.pagingEnabled = YES;
     mainView.showsHorizontalScrollIndicator = NO;
     mainView.showsVerticalScrollIndicator = NO;
@@ -136,13 +147,16 @@ NSString * const ID = @"cycleCell";
 }
 
 - (void)setupPageControl {
-    TAPageControl *pageControl = [[TAPageControl alloc] init];
-    pageControl.dotSize = self.dotSize;
-    pageControl.hidesForSinglePage = self.hidesForSinglePage;
+    if (!_pageControl) {
+        TAPageControl *pageControl = [[TAPageControl alloc] init];
+        pageControl.dotSize = self.dotSize;
+        pageControl.hidesForSinglePage = self.hidesForSinglePage;
+        [self addSubview:pageControl];
+        _pageControl = pageControl;
+    }
     NSInteger numberOfPages = [self numberOfPages];
-    pageControl.numberOfPages = numberOfPages;
-    [self addSubview:pageControl];
-    _pageControl = pageControl;
+    _pageControl.numberOfPages = numberOfPages;
+    _pageControl.currentPage = 0;
 }
 
 - (void)automaticScroll {
@@ -156,6 +170,11 @@ NSString * const ID = @"cycleCell";
 }
 
 - (void)setupTimer {
+    if (_timer && [_timer isValid]) {
+        [_timer invalidate];
+        _timer = nil;
+    }
+    
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.autoScrollTimeInterval target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
     _timer = timer;
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];

@@ -132,7 +132,12 @@ static CGSize const kDefaultDotSize = {8, 8};
 
 - (CGSize)sizeForNumberOfPages:(NSInteger)pageCount
 {
-    return CGSizeMake((self.dotSize.width + self.spacingBetweenDots) * pageCount - self.spacingBetweenDots , self.dotSize.height);
+    CGFloat width = (self.dotSize.width + self.spacingBetweenDots) * pageCount;
+    width -= self.spacingBetweenDots;
+    if (width < 0) {
+        width = 0;
+    }
+    return CGSizeMake(width, self.dotSize.height);
 }
 
 
