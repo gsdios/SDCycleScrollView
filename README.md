@@ -12,7 +12,7 @@
  
  1. cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight; // 设置pageControl居右，默认居中
  
- 2. cycleScrollView.titlesGroup = titles; // 如果设置title数组，则会在图片下面添加标题
+ 2. cycleScrollView.titlesGroup =  标题数组（数组元素个数必须和图片数组元素个数保持一致）; // 如果设置title数组，则会在图片下面添加标题
  
  3. cycleScrollView.delegate = self; // 如需监听图片点击，请设置代理，实现代理方法
  
