@@ -33,6 +33,8 @@
 {
     if (self = [super initWithFrame:frame]) {
         UIImageView *imageView = [[UIImageView alloc] init];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         _imageView = imageView;
         [self addSubview:imageView];
         
@@ -67,6 +69,11 @@
     CGFloat titleLabelY = self.sd_height - titleLabelH;
     _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
     _titleLabel.hidden = !_titleLabel.text;
+}
+
+- (void)prepareForReuse {
+    self.imageView.image = nil;
+    self.title = nil;
 }
 
 @end
