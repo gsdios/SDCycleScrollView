@@ -23,6 +23,7 @@
 #import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
+#import "NSData+SDDataCache.h"
 
 
 
@@ -30,6 +31,7 @@ NSString * const ID = @"cycleCell";
 
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property (nonatomic, strong) NSMutableArray *imagesGroup;
 @property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSTimer *timer;
@@ -54,11 +56,15 @@ NSString * const ID = @"cycleCell";
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup
 {
     SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
-    cycleScrollView.imagesGroup = imagesGroup;
+    cycleScrollView.imagesGroup = [NSMutableArray arrayWithArray:imagesGroup];
     return cycleScrollView;
 }
 
-
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLsGroup:(NSArray *)imageURLsGroup{
+    SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.imageURLsGroup = imageURLsGroup;
+    return cycleScrollView;
+}
 
 - (void)setFrame:(CGRect)frame
 {
@@ -97,7 +103,7 @@ NSString * const ID = @"cycleCell";
     _mainView = mainView;
 }
 
-- (void)setImagesGroup:(NSArray *)imagesGroup
+- (void)setImagesGroup:(NSMutableArray *)imagesGroup
 {
     _imagesGroup = imagesGroup;
     _totalItemsCount = imagesGroup.count * 100;
@@ -105,6 +111,60 @@ NSString * const ID = @"cycleCell";
     [self setupTimer];
     [self setupPageControl];
 }
+
+- (void)setImageURLsGroup:(NSArray *)imageURLsGroup
+{
+    _imageURLsGroup = imageURLsGroup;
+    
+    NSMutableArray *images = [NSMutableArray arrayWithCapacity:imageURLsGroup.count];
+    for (int i = 0; i < imageURLsGroup.count; i++) {
+        UIImage *image = [[UIImage alloc] init];
+        [images addObject:image];
+    }
+    self.imagesGroup = images;
+    [self loadImageWithImageURLsGroup:imageURLsGroup];
+}
+
+- (void)loadImageWithImageURLsGroup:(NSArray *)imageURLsGroup
+{
+    for (int i = 0; i < imageURLsGroup.count; i++) {
+        [self loadImageAtIndex:i];
+    }
+}
+
+- (void)loadImageAtIndex:(NSInteger)index
+{
+    NSURL *url = self.imageURLsGroup[index];
+    
+    // 如果有缓存，直接加载缓存
+    NSData *data = [NSData getDataCacheWithIdentifier:url.absoluteString];
+    if (data) {
+        [self.imagesGroup setObject:[UIImage imageWithData:data] atIndexedSubscript:index];
+    } else {
+        
+        // 网络加载图片并缓存图片
+        [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:url]
+                                           queue:[[NSOperationQueue alloc] init]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+                                   if (!connectionError) {
+                                       [self.imagesGroup setObject:[UIImage imageWithData:data] atIndexedSubscript:index];
+                                       [data saveDataCacheWithIdentifier:url.absoluteString];
+                                   } else { // 加载数据失败
+                                       static int repeat = 0;
+                                       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                           if (repeat > 10) return;
+                                           [self loadImageAtIndex:index];
+                                           repeat++;
+                                       });
+                                       
+                                   }
+                               }
+         
+         ];
+    }
+    
+}
+
 
 - (void)setupPageControl
 {

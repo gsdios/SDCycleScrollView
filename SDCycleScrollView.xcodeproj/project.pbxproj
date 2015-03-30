@@ -18,6 +18,7 @@
 		9900D1A21ABEB41B0077A6CB /* h4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9900D19E1ABEB41B0077A6CB /* h4.jpg */; };
 		9900D1A71ABEB9AF0077A6CB /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1A61ABEB9AF0077A6CB /* SDCollectionViewCell.m */; };
 		9900D1AA1ABEDD490077A6CB /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1A91ABEDD490077A6CB /* UIView+SDExtension.m */; };
+		990140F81AC8FABF00D0D74F /* NSData+SDDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 990140F71AC8FABF00D0D74F /* NSData+SDDataCache.m */; };
 		99391A2E1AC060B4009D2E6F /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99391A271AC060B4009D2E6F /* TAAbstractDotView.m */; };
 		99391A2F1AC060B4009D2E6F /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99391A291AC060B4009D2E6F /* TAAnimatedDotView.m */; };
 		99391A301AC060B4009D2E6F /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99391A2B1AC060B4009D2E6F /* TADotView.m */; };
@@ -57,6 +58,8 @@
 		9900D1A61ABEB9AF0077A6CB /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDCollectionViewCell.m; path = ../SDCollectionViewCell.m; sourceTree = "<group>"; };
 		9900D1A81ABEDD490077A6CB /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+SDExtension.h"; path = "../UIView+SDExtension.h"; sourceTree = "<group>"; };
 		9900D1A91ABEDD490077A6CB /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+SDExtension.m"; path = "../UIView+SDExtension.m"; sourceTree = "<group>"; };
+		990140F61AC8FABF00D0D74F /* NSData+SDDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SDDataCache.h"; sourceTree = "<group>"; };
+		990140F71AC8FABF00D0D74F /* NSData+SDDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SDDataCache.m"; sourceTree = "<group>"; };
 		99391A261AC060B4009D2E6F /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAAbstractDotView.h; path = ../../TAAbstractDotView.h; sourceTree = "<group>"; };
 		99391A271AC060B4009D2E6F /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAAbstractDotView.m; path = ../../TAAbstractDotView.m; sourceTree = "<group>"; };
 		99391A281AC060B4009D2E6F /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAAnimatedDotView.h; path = ../../TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 				9900D1A51ABEB9AF0077A6CB /* SDCollectionViewCell.h */,
 				9900D1A61ABEB9AF0077A6CB /* SDCollectionViewCell.m */,
 				99E7B30B1AC11F1C009F9A2E /* PageControl */,
+				990140F61AC8FABF00D0D74F /* NSData+SDDataCache.h */,
+				990140F71AC8FABF00D0D74F /* NSData+SDDataCache.m */,
 			);
 			path = SDCycleScrollView;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 				9900D17A1ABEB2490077A6CB /* ViewController.m in Sources */,
 				9900D1AA1ABEDD490077A6CB /* UIView+SDExtension.m in Sources */,
 				9900D1771ABEB2490077A6CB /* AppDelegate.m in Sources */,
+				990140F81AC8FABF00D0D74F /* NSData+SDDataCache.m in Sources */,
 				99391A2E1AC060B4009D2E6F /* TAAbstractDotView.m in Sources */,
 				9900D1741ABEB2490077A6CB /* main.m in Sources */,
 				99391A311AC060B4009D2E6F /* TAPageControl.m in Sources */,
