@@ -46,7 +46,6 @@
     
     NSString *path = [NSData creatDataPathWithString:identifier];
     [self writeToFile:path atomically:YES];
-    NSLog(@"%@", path);
 }
 
 + (NSData *)getDataCacheWithIdentifier:(NSString *)identifier
