@@ -20,6 +20,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import "SDCollectionViewCell.h"
 
 typedef enum {
     SDCycleScrollViewPageContolAlimentRight,
@@ -34,14 +35,36 @@ typedef enum {
 
 @end
 
+@protocol SDCycleScrollViewDataSource <NSObject>
+
+@required
+- (NSInteger)numberOfPages;
+- (void)collectionViewCell:(SDCollectionViewCell *)cell pageForItemAtIndex:(NSInteger)index cycleScrollView:(SDCycleScrollView *)cycleScrollView;
+
+@end
+
 @interface SDCycleScrollView : UIView
 
-@property (nonatomic, strong) NSArray *imagesGroup;
-@property (nonatomic, strong) NSArray *titlesGroup;
+@property (nonatomic, weak) id <SDCycleScrollViewDelegate> delegate;
+@property (nonatomic, weak) id <SDCycleScrollViewDataSource> dataSource;
+
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
-@property (nonatomic, weak) id<SDCycleScrollViewDelegate> delegate;
 
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup;
+/**
+ *  Dot size for dot views. Default is 8 by 8.
+ */
+@property (nonatomic) CGSize dotSize;
+
+/**
+ *  Hide the control if there is only one page. Default is NO.
+ */
+@property (nonatomic) BOOL hidesForSinglePage;
+
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame
+                                delegate:(id <SDCycleScrollViewDelegate>)delegate
+                              dataSource:(id <SDCycleScrollViewDataSource>)dataSource;
+
+- (void)reloadData;
 
 @end

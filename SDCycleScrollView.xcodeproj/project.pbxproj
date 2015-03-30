@@ -13,17 +13,17 @@
 		9900D17F1ABEB2490077A6CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9900D17E1ABEB2490077A6CB /* Images.xcassets */; };
 		9900D1821ABEB2490077A6CB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9900D1801ABEB2490077A6CB /* LaunchScreen.xib */; };
 		9900D18E1ABEB2490077A6CB /* SDCycleScrollViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D18D1ABEB2490077A6CB /* SDCycleScrollViewTests.m */; };
-		9900D19A1ABEB3D80077A6CB /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1991ABEB3D80077A6CB /* SDCycleScrollView.m */; };
 		9900D1A01ABEB41B0077A6CB /* h2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9900D19C1ABEB41B0077A6CB /* h2.jpg */; };
 		9900D1A21ABEB41B0077A6CB /* h4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9900D19E1ABEB41B0077A6CB /* h4.jpg */; };
-		9900D1A71ABEB9AF0077A6CB /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1A61ABEB9AF0077A6CB /* SDCollectionViewCell.m */; };
-		9900D1AA1ABEDD490077A6CB /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1A91ABEDD490077A6CB /* UIView+SDExtension.m */; };
-		99391A2E1AC060B4009D2E6F /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99391A271AC060B4009D2E6F /* TAAbstractDotView.m */; };
-		99391A2F1AC060B4009D2E6F /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99391A291AC060B4009D2E6F /* TAAnimatedDotView.m */; };
-		99391A301AC060B4009D2E6F /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99391A2B1AC060B4009D2E6F /* TADotView.m */; };
-		99391A311AC060B4009D2E6F /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 99391A2D1AC060B4009D2E6F /* TAPageControl.m */; };
 		999C10981AC14F3B00C11CDB /* h3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10961AC14F3B00C11CDB /* h3.jpg */; };
 		999C109A1AC14F7200C11CDB /* h1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10991AC14F7200C11CDB /* h1.jpg */; };
+		E4CC07261AC24BBA001FD2A0 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC07181AC24BBA001FD2A0 /* UIView+SDExtension.m */; };
+		E4CC07271AC24BBA001FD2A0 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC071A1AC24BBA001FD2A0 /* SDCycleScrollView.m */; };
+		E4CC07281AC24BBA001FD2A0 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC071D1AC24BBA001FD2A0 /* SDCollectionViewCell.m */; };
+		E4CC07291AC24BBA001FD2A0 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC071F1AC24BBA001FD2A0 /* TAAbstractDotView.m */; };
+		E4CC072A1AC24BBA001FD2A0 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC07211AC24BBA001FD2A0 /* TAAnimatedDotView.m */; };
+		E4CC072B1AC24BBA001FD2A0 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC07231AC24BBA001FD2A0 /* TADotView.m */; };
+		E4CC072C1AC24BBA001FD2A0 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E4CC07251AC24BBA001FD2A0 /* TAPageControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,24 +49,24 @@
 		9900D1871ABEB2490077A6CB /* SDCycleScrollViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDCycleScrollViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9900D18C1ABEB2490077A6CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9900D18D1ABEB2490077A6CB /* SDCycleScrollViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollViewTests.m; sourceTree = "<group>"; };
-		9900D1981ABEB3D80077A6CB /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDCycleScrollView.h; path = SDCycleScrollView/Lib/SDCycleScrollView.h; sourceTree = SOURCE_ROOT; };
-		9900D1991ABEB3D80077A6CB /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDCycleScrollView.m; path = SDCycleScrollView/Lib/SDCycleScrollView.m; sourceTree = SOURCE_ROOT; };
 		9900D19C1ABEB41B0077A6CB /* h2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h2.jpg; sourceTree = "<group>"; };
 		9900D19E1ABEB41B0077A6CB /* h4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h4.jpg; sourceTree = "<group>"; };
-		9900D1A51ABEB9AF0077A6CB /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDCollectionViewCell.h; path = ../SDCollectionViewCell.h; sourceTree = "<group>"; };
-		9900D1A61ABEB9AF0077A6CB /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDCollectionViewCell.m; path = ../SDCollectionViewCell.m; sourceTree = "<group>"; };
-		9900D1A81ABEDD490077A6CB /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+SDExtension.h"; path = "../UIView+SDExtension.h"; sourceTree = "<group>"; };
-		9900D1A91ABEDD490077A6CB /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+SDExtension.m"; path = "../UIView+SDExtension.m"; sourceTree = "<group>"; };
-		99391A261AC060B4009D2E6F /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAAbstractDotView.h; path = ../../TAAbstractDotView.h; sourceTree = "<group>"; };
-		99391A271AC060B4009D2E6F /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAAbstractDotView.m; path = ../../TAAbstractDotView.m; sourceTree = "<group>"; };
-		99391A281AC060B4009D2E6F /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAAnimatedDotView.h; path = ../../TAAnimatedDotView.h; sourceTree = "<group>"; };
-		99391A291AC060B4009D2E6F /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAAnimatedDotView.m; path = ../../TAAnimatedDotView.m; sourceTree = "<group>"; };
-		99391A2A1AC060B4009D2E6F /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TADotView.h; path = ../../TADotView.h; sourceTree = "<group>"; };
-		99391A2B1AC060B4009D2E6F /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TADotView.m; path = ../../TADotView.m; sourceTree = "<group>"; };
-		99391A2C1AC060B4009D2E6F /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAPageControl.h; path = ../../TAPageControl.h; sourceTree = "<group>"; };
-		99391A2D1AC060B4009D2E6F /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAPageControl.m; path = ../../TAPageControl.m; sourceTree = "<group>"; };
 		999C10961AC14F3B00C11CDB /* h3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h3.jpg; sourceTree = "<group>"; };
 		999C10991AC14F7200C11CDB /* h1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h1.jpg; sourceTree = "<group>"; };
+		E4CC07171AC24BBA001FD2A0 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		E4CC07181AC24BBA001FD2A0 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		E4CC07191AC24BBA001FD2A0 /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		E4CC071A1AC24BBA001FD2A0 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		E4CC071C1AC24BBA001FD2A0 /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		E4CC071D1AC24BBA001FD2A0 /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		E4CC071E1AC24BBA001FD2A0 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		E4CC071F1AC24BBA001FD2A0 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		E4CC07201AC24BBA001FD2A0 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		E4CC07211AC24BBA001FD2A0 /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		E4CC07221AC24BBA001FD2A0 /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		E4CC07231AC24BBA001FD2A0 /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		E4CC07241AC24BBA001FD2A0 /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
+		E4CC07251AC24BBA001FD2A0 /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +108,7 @@
 		9900D1701ABEB2490077A6CB /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				9900D1971ABEB2C70077A6CB /* Lib */,
+				E4CC07151AC24BBA001FD2A0 /* Lib */,
 				9900D1751ABEB2490077A6CB /* AppDelegate.h */,
 				9900D1761ABEB2490077A6CB /* AppDelegate.m */,
 				9900D1781ABEB2490077A6CB /* ViewController.h */,
@@ -150,41 +150,41 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9900D1971ABEB2C70077A6CB /* Lib */ = {
+		E4CC07151AC24BBA001FD2A0 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				99E7B30A1AC11F1C009F9A2E /* SDCycleScrollView */,
+				E4CC07191AC24BBA001FD2A0 /* SDCycleScrollView.h */,
+				E4CC071A1AC24BBA001FD2A0 /* SDCycleScrollView.m */,
+				E4CC071B1AC24BBA001FD2A0 /* Views */,
+				E4CC07161AC24BBA001FD2A0 /* Category */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
 		};
-		99E7B30A1AC11F1C009F9A2E /* SDCycleScrollView */ = {
+		E4CC07161AC24BBA001FD2A0 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				9900D1A81ABEDD490077A6CB /* UIView+SDExtension.h */,
-				9900D1A91ABEDD490077A6CB /* UIView+SDExtension.m */,
-				9900D1981ABEB3D80077A6CB /* SDCycleScrollView.h */,
-				9900D1991ABEB3D80077A6CB /* SDCycleScrollView.m */,
-				9900D1A51ABEB9AF0077A6CB /* SDCollectionViewCell.h */,
-				9900D1A61ABEB9AF0077A6CB /* SDCollectionViewCell.m */,
-				99E7B30B1AC11F1C009F9A2E /* PageControl */,
+				E4CC07171AC24BBA001FD2A0 /* UIView+SDExtension.h */,
+				E4CC07181AC24BBA001FD2A0 /* UIView+SDExtension.m */,
 			);
-			path = SDCycleScrollView;
+			path = Category;
 			sourceTree = "<group>";
 		};
-		99E7B30B1AC11F1C009F9A2E /* PageControl */ = {
+		E4CC071B1AC24BBA001FD2A0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				99391A261AC060B4009D2E6F /* TAAbstractDotView.h */,
-				99391A271AC060B4009D2E6F /* TAAbstractDotView.m */,
-				99391A281AC060B4009D2E6F /* TAAnimatedDotView.h */,
-				99391A291AC060B4009D2E6F /* TAAnimatedDotView.m */,
-				99391A2A1AC060B4009D2E6F /* TADotView.h */,
-				99391A2B1AC060B4009D2E6F /* TADotView.m */,
-				99391A2C1AC060B4009D2E6F /* TAPageControl.h */,
-				99391A2D1AC060B4009D2E6F /* TAPageControl.m */,
+				E4CC071C1AC24BBA001FD2A0 /* SDCollectionViewCell.h */,
+				E4CC071D1AC24BBA001FD2A0 /* SDCollectionViewCell.m */,
+				E4CC071E1AC24BBA001FD2A0 /* TAAbstractDotView.h */,
+				E4CC071F1AC24BBA001FD2A0 /* TAAbstractDotView.m */,
+				E4CC07201AC24BBA001FD2A0 /* TAAnimatedDotView.h */,
+				E4CC07211AC24BBA001FD2A0 /* TAAnimatedDotView.m */,
+				E4CC07221AC24BBA001FD2A0 /* TADotView.h */,
+				E4CC07231AC24BBA001FD2A0 /* TADotView.m */,
+				E4CC07241AC24BBA001FD2A0 /* TAPageControl.h */,
+				E4CC07251AC24BBA001FD2A0 /* TAPageControl.m */,
 			);
-			path = PageControl;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,16 +290,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99391A2F1AC060B4009D2E6F /* TAAnimatedDotView.m in Sources */,
-				99391A301AC060B4009D2E6F /* TADotView.m in Sources */,
+				E4CC072A1AC24BBA001FD2A0 /* TAAnimatedDotView.m in Sources */,
+				E4CC072B1AC24BBA001FD2A0 /* TADotView.m in Sources */,
 				9900D17A1ABEB2490077A6CB /* ViewController.m in Sources */,
-				9900D1AA1ABEDD490077A6CB /* UIView+SDExtension.m in Sources */,
 				9900D1771ABEB2490077A6CB /* AppDelegate.m in Sources */,
-				99391A2E1AC060B4009D2E6F /* TAAbstractDotView.m in Sources */,
 				9900D1741ABEB2490077A6CB /* main.m in Sources */,
-				99391A311AC060B4009D2E6F /* TAPageControl.m in Sources */,
-				9900D1A71ABEB9AF0077A6CB /* SDCollectionViewCell.m in Sources */,
-				9900D19A1ABEB3D80077A6CB /* SDCycleScrollView.m in Sources */,
+				E4CC07291AC24BBA001FD2A0 /* TAAbstractDotView.m in Sources */,
+				E4CC07261AC24BBA001FD2A0 /* UIView+SDExtension.m in Sources */,
+				E4CC072C1AC24BBA001FD2A0 /* TAPageControl.m in Sources */,
+				E4CC07271AC24BBA001FD2A0 /* SDCycleScrollView.m in Sources */,
+				E4CC07281AC24BBA001FD2A0 /* SDCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
