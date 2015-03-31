@@ -169,6 +169,7 @@ NSString * const ID = @"cycleCell";
 
 - (void)setupPageControl
 {
+    if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     TAPageControl *pageControl = [[TAPageControl alloc] init];
     pageControl.numberOfPages = self.imagesGroup.count;
     [self addSubview:pageControl];
@@ -178,6 +179,7 @@ NSString * const ID = @"cycleCell";
 
 - (void)automaticScroll
 {
+    if (0 == _totalItemsCount) return;
     int currentIndex = _mainView.contentOffset.x / _flowLayout.itemSize.width;
     int targetIndex = currentIndex + 1;
     if (targetIndex == _totalItemsCount) {
@@ -199,7 +201,7 @@ NSString * const ID = @"cycleCell";
     [super layoutSubviews];
     
     _mainView.frame = self.bounds;
-    if (_mainView.contentOffset.x == 0) {
+    if (_mainView.contentOffset.x == 0 &&  _totalItemsCount) {
         [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_totalItemsCount * 0.5 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
     
