@@ -123,6 +123,7 @@ NSString * const ID = @"cycleCell";
     }
     self.imagesGroup = images;
     [self loadImageWithImageURLsGroup:imageURLsGroup];
+    [self.mainView reloadData];
 }
 
 - (void)loadImageWithImageURLsGroup:(NSArray *)imageURLsGroup
