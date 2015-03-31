@@ -46,15 +46,15 @@
     
     CGFloat w = self.view.bounds.size.width;
     
-    // 创建不带标题的图片轮播器
+    // 本地加载 --- 创建不带标题的图片轮播器
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 60, w, 180) imagesGroup:images];
     cycleScrollView.delegate = self;
     [self.view addSubview:cycleScrollView];
-    // 轮播时间间隔，默认1.0秒，可自定义
+    //         --- 轮播时间间隔，默认1.0秒，可自定义
     //cycleScrollView.autoScrollTimeInterval = 4.0;
     
     
-    // 创建带标题的图片轮播器
+    // 网络加载 --- 创建带标题的图片轮播器
     SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) imageURLsGroup:imagesURL];
     cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView2.delegate = self;
