@@ -39,6 +39,9 @@
     //cycleScrollView.autoScrollTimeInterval = 2.0;
     [self.view addSubview:cycleScrollView];
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [cycleScrollView removeFromSuperview];
+    });
     
     // 创建带标题的图片轮播器
     SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) imagesGroup:images];

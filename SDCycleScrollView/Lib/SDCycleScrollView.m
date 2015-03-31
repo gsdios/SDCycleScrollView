@@ -58,8 +58,6 @@ NSString * const ID = @"cycleCell";
     return cycleScrollView;
 }
 
-
-
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
@@ -190,6 +188,7 @@ NSString * const ID = @"cycleCell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     int itemIndex = (scrollView.contentOffset.x + self.mainView.sd_width * 0.5) / self.mainView.sd_width;
+    if (!self.imagesGroup.count) return; // 解决清除timer时偶尔会出现的问题
     int indexOnPageControl = itemIndex % self.imagesGroup.count;
     _pageControl.currentPage = indexOnPageControl;
 }
