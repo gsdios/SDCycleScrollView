@@ -151,7 +151,14 @@ NSString * const ID = @"cycleCell";
     _pageControl.frame = CGRectMake(x, y, size.width, size.height);
     [_pageControl sizeToFit];
 }
-
+//解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    if (!newSuperview) {
+        [_timer invalidate];
+        _timer = nil;
+    }
+}
 
 #pragma mark - UICollectionViewDataSource
 
