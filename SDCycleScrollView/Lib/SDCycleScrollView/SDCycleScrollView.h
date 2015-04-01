@@ -52,6 +52,7 @@ typedef enum {
 @property (nonatomic, assign) CGFloat titleLabelHeight;
 
 
+
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup;
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLsGroup:(NSArray *)imageURLsGroup;
