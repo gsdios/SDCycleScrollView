@@ -32,4 +32,6 @@
 @property (nonatomic, strong) UIColor *titleLabelBackgroundColor;
 @property (nonatomic, assign) CGFloat titleLabelHeight;
 
+@property (nonatomic, assign) BOOL hasConfigured;
+
 @end

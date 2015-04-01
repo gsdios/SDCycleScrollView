@@ -257,11 +257,12 @@ NSString * const ID = @"cycleCell";
         cell.title = _titlesGroup[itemIndex];
     }
     
-    if (!cell.titleLabelBackgroundColor) {
+    if (!cell.hasConfigured) {
         cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
         cell.titleLabelHeight = self.titleLabelHeight;
         cell.titleLabelTextColor = self.titleLabelTextColor;
         cell.titleLabelTextFont = self.titleLabelTextFont;
+        cell.hasConfigured = YES;
     }
     
     return cell;
