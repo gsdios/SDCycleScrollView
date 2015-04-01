@@ -85,6 +85,12 @@ NSString * const ID = @"cycleCell";
     _pageControl.dotSize = pageControlDotSize;
 }
 
+- (void)setDotColor:(UIColor *)dotColor
+{
+    _dotColor = dotColor;
+    _pageControl.dotColor = dotColor;
+}
+
 - (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval
 {
     _autoScrollTimeInterval = autoScrollTimeInterval;

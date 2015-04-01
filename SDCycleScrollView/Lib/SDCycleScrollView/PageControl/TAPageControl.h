@@ -42,6 +42,8 @@
 @property (nonatomic) CGSize dotSize;
 
 
+@property (nonatomic, strong) UIColor *dotColor;
+
 /**
  *  Spacing between two dot views. Default is 8.
  */

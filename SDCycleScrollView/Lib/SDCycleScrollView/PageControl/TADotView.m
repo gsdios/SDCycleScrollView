@@ -42,7 +42,6 @@
     return self;
 }
 
-
 - (void)initialization
 {
     self.backgroundColor    = [UIColor clearColor];

@@ -215,6 +215,9 @@ static CGSize const kDefaultDotSize = {8, 8};
     
     if (self.dotViewClass) {
         dotView = [[self.dotViewClass alloc] initWithFrame:CGRectMake(0, 0, self.dotSize.width, self.dotSize.height)];
+        if ([dotView isKindOfClass:[TAAnimatedDotView class]] && self.dotColor) {
+            ((TAAnimatedDotView *)dotView).dotColor = self.dotColor;
+        }
     } else {
         dotView = [[UIImageView alloc] initWithImage:self.dotImage];
         dotView.frame = CGRectMake(0, 0, self.dotSize.width, self.dotSize.height);
@@ -225,8 +228,7 @@ static CGSize const kDefaultDotSize = {8, 8};
         [self.dots addObject:dotView];
     }
     
-    dotView.userInteractionEnabled = YES;
-    
+    dotView.userInteractionEnabled = YES;    
     return dotView;
 }
 

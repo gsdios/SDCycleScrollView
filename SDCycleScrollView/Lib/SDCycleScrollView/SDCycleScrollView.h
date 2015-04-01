@@ -44,10 +44,12 @@ typedef enum {
 // 自定义样式
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment; // 分页控件位置
 @property (nonatomic, assign) CGSize pageControlDotSize; // 分页控件小圆标大小
+@property (nonatomic, strong) UIColor *dotColor; // 分页控件小圆标颜色
 @property (nonatomic, strong) UIColor *titleLabelTextColor;
 @property (nonatomic, strong) UIFont *titleLabelTextFont;
 @property (nonatomic, strong) UIColor *titleLabelBackgroundColor;
 @property (nonatomic, assign) CGFloat titleLabelHeight;
+
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup;
 
