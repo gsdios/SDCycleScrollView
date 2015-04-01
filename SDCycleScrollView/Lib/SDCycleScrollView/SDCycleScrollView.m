@@ -46,8 +46,13 @@ NSString * const ID = @"cycleCell";
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+        _pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
         _autoScrollTimeInterval = 1.0;
+        _titleLabelTextColor = [UIColor whiteColor];
+        _titleLabelTextFont= [UIFont systemFontOfSize:14];
+        _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        _titleLabelHeight = 30;
+        
         [self setupMainView];
     }
     return self;
@@ -72,6 +77,12 @@ NSString * const ID = @"cycleCell";
     [super setFrame:frame];
     
     _flowLayout.itemSize = self.frame.size;
+}
+
+- (void)setPageControlDotSize:(CGSize)pageControlDotSize
+{
+    _pageControlDotSize = pageControlDotSize;
+    _pageControl.dotSize = pageControlDotSize;
 }
 
 - (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval
@@ -239,6 +250,14 @@ NSString * const ID = @"cycleCell";
     if (_titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
     }
+    
+    if (!cell.titleLabelBackgroundColor) {
+        cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
+        cell.titleLabelHeight = self.titleLabelHeight;
+        cell.titleLabelTextColor = self.titleLabelTextColor;
+        cell.titleLabelTextFont = self.titleLabelTextFont;
+    }
+    
     return cell;
 }
 
