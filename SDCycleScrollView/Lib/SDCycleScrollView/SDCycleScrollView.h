@@ -36,6 +36,7 @@ typedef enum {
 
 @interface SDCycleScrollView : UIView
 
+@property (nonatomic, strong) NSArray *localizationImagesGroup; // 本地图片数组
 @property (nonatomic, strong) NSArray *imageURLsGroup;
 @property (nonatomic, strong) NSArray *titlesGroup;
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;

@@ -31,9 +31,10 @@ NSString * const ID = @"cycleCell";
 
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *imagesGroup;
+
 @property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
+@property (nonatomic, strong) NSMutableArray *imagesGroup;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) NSInteger totalItemsCount;
 @property (nonatomic, weak) TAPageControl *pageControl;
@@ -46,16 +47,29 @@ NSString * const ID = @"cycleCell";
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        _pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-        _autoScrollTimeInterval = 1.0;
-        _titleLabelTextColor = [UIColor whiteColor];
-        _titleLabelTextFont= [UIFont systemFontOfSize:14];
-        _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        _titleLabelHeight = 30;
-        
+        [self initialization];
         [self setupMainView];
     }
     return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder]) {
+        [self initialization];
+        [self setupMainView];
+    }
+    return self;
+}
+
+- (void)initialization
+{
+    _pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
+    _autoScrollTimeInterval = 1.0;
+    _titleLabelTextColor = [UIColor whiteColor];
+    _titleLabelTextFont= [UIFont systemFontOfSize:14];
+    _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    _titleLabelHeight = 30;
 }
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup
@@ -142,6 +156,12 @@ NSString * const ID = @"cycleCell";
     self.imagesGroup = images;
     [self loadImageWithImageURLsGroup:imageURLsGroup];
     [self.mainView reloadData];
+}
+
+- (void)setLocalizationImagesGroup:(NSArray *)localizationImagesGroup
+{
+    _localizationImagesGroup = localizationImagesGroup;
+    self.imagesGroup = [NSMutableArray arrayWithArray:localizationImagesGroup];
 }
 
 - (void)loadImageWithImageURLsGroup:(NSArray *)imageURLsGroup
