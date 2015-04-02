@@ -187,7 +187,9 @@ NSString * const ID = @"cycleCell";
                                            queue:[[NSOperationQueue alloc] init]
                                completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
                                    if (!connectionError) {
-                                       [self.imagesGroup setObject:[UIImage imageWithData:data] atIndexedSubscript:index];
+                                       UIImage *image = [UIImage imageWithData:data];
+                                       if (!image) return; // 防止错误数据导致崩溃
+                                       [self.imagesGroup setObject:image atIndexedSubscript:index];
                                        [data saveDataCacheWithIdentifier:url.absoluteString];
                                    } else { // 加载数据失败
                                        static int repeat = 0;
