@@ -54,12 +54,16 @@
     
     
     // 网络加载 --- 创建带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) imageURLsGroup:imagesURL];
+    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) imageURLsGroup:nil];
     cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView2.delegate = self;
     cycleScrollView2.titlesGroup = titles;
     cycleScrollView2.dotColor = [UIColor yellowColor]; // 自定义分页控件小圆标颜色
     [self.view addSubview:cycleScrollView2];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        cycleScrollView2.imageURLsGroup = imagesURL;
+    });
     
 
 }

@@ -213,6 +213,7 @@ NSString * const ID = @"cycleCell";
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     TAPageControl *pageControl = [[TAPageControl alloc] init];
     pageControl.numberOfPages = self.imagesGroup.count;
+    pageControl.dotColor = self.dotColor;
     [self addSubview:pageControl];
     _pageControl = pageControl;
 }
