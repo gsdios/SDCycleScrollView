@@ -143,6 +143,7 @@ NSString * const ID = @"cycleCell";
     
     [self setupTimer];
     [self setupPageControl];
+    [self.mainView reloadData];
 }
 
 - (void)setImageURLsGroup:(NSArray *)imageURLsGroup
@@ -156,7 +157,6 @@ NSString * const ID = @"cycleCell";
     }
     self.imagesGroup = images;
     [self loadImageWithImageURLsGroup:imageURLsGroup];
-    [self.mainView reloadData];
 }
 
 - (void)setLocalizationImagesGroup:(NSArray *)localizationImagesGroup
@@ -190,6 +190,9 @@ NSString * const ID = @"cycleCell";
                                        UIImage *image = [UIImage imageWithData:data];
                                        if (!image) return; // 防止错误数据导致崩溃
                                        [self.imagesGroup setObject:image atIndexedSubscript:index];
+                                       if (index == 0) {
+                                           [self.mainView reloadData];
+                                       }
                                        [data saveDataCacheWithIdentifier:url.absoluteString];
                                    } else { // 加载数据失败
                                        static int repeat = 0;
