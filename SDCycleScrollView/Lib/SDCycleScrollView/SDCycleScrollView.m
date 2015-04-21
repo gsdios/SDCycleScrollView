@@ -190,9 +190,11 @@ NSString * const ID = @"cycleCell";
                                        UIImage *image = [UIImage imageWithData:data];
                                        if (!image) return; // 防止错误数据导致崩溃
                                        [self.imagesGroup setObject:image atIndexedSubscript:index];
-                                       if (index == 0) {
-                                           [self.mainView reloadData];
-                                       }
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           if (index == 0) {
+                                               [self.mainView reloadData];
+                                           }
+                                       });
                                        [data saveDataCacheWithIdentifier:url.absoluteString];
                                    } else { // 加载数据失败
                                        static int repeat = 0;

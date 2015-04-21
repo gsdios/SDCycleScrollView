@@ -61,7 +61,7 @@
     cycleScrollView2.dotColor = [UIColor yellowColor]; // 自定义分页控件小圆标颜色
     [self.view addSubview:cycleScrollView2];
     
-    // 模拟加载延迟
+    //         --- 模拟加载延迟
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        cycleScrollView2.imageURLsGroup = imagesURL;
 //    });
