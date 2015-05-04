@@ -141,7 +141,12 @@ NSString * const ID = @"cycleCell";
     _imagesGroup = imagesGroup;
     _totalItemsCount = imagesGroup.count * 100;
     
-    [self setupTimer];
+    if (imagesGroup.count != 1) {
+        [self setupTimer];
+    } else {
+        self.mainView.scrollEnabled = NO;
+    }
+    
     [self setupPageControl];
     [self.mainView reloadData];
 }
@@ -246,6 +251,8 @@ NSString * const ID = @"cycleCell";
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    _flowLayout.itemSize = self.frame.size;
     
     _mainView.frame = self.bounds;
     if (_mainView.contentOffset.x == 0 &&  _totalItemsCount) {
