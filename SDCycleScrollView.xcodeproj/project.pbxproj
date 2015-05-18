@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4855B1931B09CBA500AA0788 /* placeholder@2x.png */; };
 		9900D1741ABEB2490077A6CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1731ABEB2490077A6CB /* main.m */; };
 		9900D1771ABEB2490077A6CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1761ABEB2490077A6CB /* AppDelegate.m */; };
 		9900D17A1ABEB2490077A6CB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1791ABEB2490077A6CB /* ViewController.m */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4855B1931B09CBA500AA0788 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		9900D16E1ABEB2490077A6CB /* SDCycleScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDCycleScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9900D1721ABEB2490077A6CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9900D1731ABEB2490077A6CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		9900D1711ABEB2490077A6CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4855B1931B09CBA500AA0788 /* placeholder@2x.png */,
 				999C10991AC14F7200C11CDB /* h1.jpg */,
 				999C10961AC14F3B00C11CDB /* h3.jpg */,
 				9900D19C1ABEB41B0077A6CB /* h2.jpg */,
@@ -276,6 +279,7 @@
 				999C109A1AC14F7200C11CDB /* h1.jpg in Resources */,
 				999C10981AC14F3B00C11CDB /* h3.jpg in Resources */,
 				9900D1821ABEB2490077A6CB /* LaunchScreen.xib in Resources */,
+				4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */,
 				9900D17F1ABEB2490077A6CB /* Images.xcassets in Resources */,
 				9900D1A01ABEB41B0077A6CB /* h2.jpg in Resources */,
 			);

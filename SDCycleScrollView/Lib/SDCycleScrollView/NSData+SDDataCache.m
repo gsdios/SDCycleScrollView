@@ -56,7 +56,6 @@
         NSFileManager *manager = [NSFileManager defaultManager];
         NSArray *contents = [manager contentsOfDirectoryAtPath:[self cachePath] error:nil];
         if (contents.count >= kSDMaxCacheFileAmount) {
-            NSLog(@"%@", [self cachePath]);
             [manager removeItemAtPath:[self cachePath] error:nil];
         }
         isCheckedCacheDisk = YES;

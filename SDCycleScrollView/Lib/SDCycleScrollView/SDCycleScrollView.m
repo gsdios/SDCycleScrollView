@@ -288,7 +288,11 @@ NSString * const ID = @"cycleCell";
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     long itemIndex = indexPath.item % self.imagesGroup.count;
-    cell.imageView.image = self.imagesGroup[itemIndex];
+    UIImage *image = self.imagesGroup[itemIndex];
+    if (image.size.width == 0 && self.placeholderImage) {
+        image = self.placeholderImage;
+    }
+    cell.imageView.image = image;
     if (_titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
     }
@@ -333,6 +337,11 @@ NSString * const ID = @"cycleCell";
     [self setupTimer];
 }
 
-
+/**
+ 
+ (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval { _autoScrollTimeInterval = autoScrollTimeInterval; [self setupTimer]; } 每设置一次autoScrollTimeInterval就会多一个timer. 同理还有这里 - (void)setImagesGroup:(NSMutableArray *)imagesGroup. 在setupTimer中一次性加上其他地方写过的
+ [_timer invalidate]; _timer = nil; 2.建议用约束写collectionView和pageControl,就能在xib中用约束直接这个控件; 3.建议增加placeholderImage和pageControlBackgroundColor属性. 4..pageControl的valuechange事件也可以带动scrollView的滚动
+ 
+ */
 
 @end

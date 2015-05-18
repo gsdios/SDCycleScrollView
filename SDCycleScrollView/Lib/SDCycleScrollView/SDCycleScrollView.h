@@ -43,6 +43,7 @@ typedef enum {
 @property (nonatomic, weak) id<SDCycleScrollViewDelegate> delegate;
 
 // 自定义样式
+@property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment; // 分页控件位置
 @property (nonatomic, assign) CGSize pageControlDotSize; // 分页控件小圆标大小
 @property (nonatomic, strong) UIColor *dotColor; // 分页控件小圆标颜色
