@@ -47,7 +47,10 @@
     
     // 本地加载 --- 创建不带标题的图片轮播器
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 60, w, 180) imagesGroup:images];
+
+    cycleScrollView.infiniteLoop = YES;
     cycleScrollView.delegate = self;
+    cycleScrollView.autoScroll = YES;
     [self.view addSubview:cycleScrollView];
     //         --- 轮播时间间隔，默认1.0秒，可自定义
     //cycleScrollView.autoScrollTimeInterval = 4.0;
@@ -58,6 +61,7 @@
     cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView2.delegate = self;
     cycleScrollView2.titlesGroup = titles;
+        cycleScrollView2.infiniteLoop = YES;
     cycleScrollView2.dotColor = [UIColor yellowColor]; // 自定义分页控件小圆标颜色
     cycleScrollView2.placeholderImage = [UIImage imageNamed:@"placeholder"];
     [self.view addSubview:cycleScrollView2];
