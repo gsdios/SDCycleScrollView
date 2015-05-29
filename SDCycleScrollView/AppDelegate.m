@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "RootViewController.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +19,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[ViewController alloc] init];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    RootViewController *rootCtl = [[RootViewController alloc] initWithNibName:@"RootViewController" bundle:nil];
+    UINavigationController *navCtl = [[UINavigationController alloc] initWithRootViewController:rootCtl];
+    
+    self.window.rootViewController = navCtl;
     
     [self.window makeKeyAndVisible];
     return YES;

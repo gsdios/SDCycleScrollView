@@ -56,7 +56,7 @@
     //cycleScrollView.autoScrollTimeInterval = 4.0;
     
     
-    // 网络加载 --- 创建带标题的图片轮播器
+     //网络加载 --- 创建带标题的图片轮播器
     SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) imageURLsGroup:imagesURL];
     cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView2.delegate = self;
@@ -66,12 +66,22 @@
     cycleScrollView2.placeholderImage = [UIImage imageNamed:@"placeholder"];
     [self.view addSubview:cycleScrollView2];
     
-    //         --- 模拟加载延迟
+//             --- 模拟加载延迟
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        cycleScrollView2.imageURLsGroup = imagesURL;
 //    });
     
 
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    NSLog(@"xxxxxxxxxxxxxxxxxxx");
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    NSLog(@"yyyyyyyy");
 }
 
 #pragma mark - SDCycleScrollViewDelegate

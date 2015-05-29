@@ -142,7 +142,7 @@ NSString * const ID = @"cycleCell";
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     _flowLayout = flowLayout;
     
-    UICollectionView *mainView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:flowLayout];
+    UICollectionView *mainView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     mainView.backgroundColor = [UIColor clearColor];
     mainView.pagingEnabled = YES;
     mainView.showsHorizontalScrollIndicator = NO;
@@ -300,10 +300,14 @@ NSString * const ID = @"cycleCell";
     _pageControl.frame = CGRectMake(x, y, size.width, size.height);
     [_pageControl sizeToFit];
 }
+
 //解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     if (!newSuperview) {
+        //解决当timer释放后 回调scrollViewDidScroll时访问野指针导致崩溃
+        _mainView.delegate = nil;
+        _mainView.dataSource = nil;
         [_timer invalidate];
         _timer = nil;
     }
