@@ -43,6 +43,11 @@ NSString * const ID = @"cycleCell";
 
 @implementation SDCycleScrollView
 
+//解决当timer释放后 回调scrollViewDidScroll时访问野指针导致崩溃
+- (void)dealloc {
+    _mainView.delegate = nil;
+    _mainView.dataSource = nil;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -305,9 +310,6 @@ NSString * const ID = @"cycleCell";
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     if (!newSuperview) {
-        //解决当timer释放后 回调scrollViewDidScroll时访问野指针导致崩溃
-        _mainView.delegate = nil;
-        _mainView.dataSource = nil;
         [_timer invalidate];
         _timer = nil;
     }
