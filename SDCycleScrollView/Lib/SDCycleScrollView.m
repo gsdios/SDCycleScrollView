@@ -40,6 +40,11 @@ NSString * const ID = @"cycleCell";
 
 @implementation SDCycleScrollView
 
+- (void)dealloc
+{
+    _mainView.delegate = nil;
+    _mainView.dataSource = nil;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
