@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		339E36501B17EFF9000F4D43 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 339E364E1B17EFF9000F4D43 /* RootViewController.m */; };
-		339E36511B17EFF9000F4D43 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 339E364F1B17EFF9000F4D43 /* RootViewController.xib */; };
 		4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4855B1931B09CBA500AA0788 /* placeholder@2x.png */; };
 		9900D1741ABEB2490077A6CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1731ABEB2490077A6CB /* main.m */; };
 		9900D1771ABEB2490077A6CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1761ABEB2490077A6CB /* AppDelegate.m */; };
@@ -28,6 +26,7 @@
 		9901410D1AC9420E00D0D74F /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9901410A1AC9420E00D0D74F /* UIView+SDExtension.m */; };
 		999C10981AC14F3B00C11CDB /* h3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10961AC14F3B00C11CDB /* h3.jpg */; };
 		999C109A1AC14F7200C11CDB /* h1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10991AC14F7200C11CDB /* h1.jpg */; };
+		99A732631B24AB660033E878 /* 005.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99A732621B24AB660033E878 /* 005.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,9 +40,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		339E364D1B17EFF9000F4D43 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		339E364E1B17EFF9000F4D43 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		339E364F1B17EFF9000F4D43 /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		4855B1931B09CBA500AA0788 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		9900D16E1ABEB2490077A6CB /* SDCycleScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDCycleScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9900D1721ABEB2490077A6CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,6 +73,7 @@
 		9901410A1AC9420E00D0D74F /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		999C10961AC14F3B00C11CDB /* h3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h3.jpg; sourceTree = "<group>"; };
 		999C10991AC14F7200C11CDB /* h1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h1.jpg; sourceTree = "<group>"; };
+		99A732621B24AB660033E878 /* 005.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 005.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,9 +120,6 @@
 				9900D1761ABEB2490077A6CB /* AppDelegate.m */,
 				9900D1781ABEB2490077A6CB /* ViewController.h */,
 				9900D1791ABEB2490077A6CB /* ViewController.m */,
-				339E364D1B17EFF9000F4D43 /* RootViewController.h */,
-				339E364E1B17EFF9000F4D43 /* RootViewController.m */,
-				339E364F1B17EFF9000F4D43 /* RootViewController.xib */,
 				9900D17E1ABEB2490077A6CB /* Images.xcassets */,
 				9900D1801ABEB2490077A6CB /* LaunchScreen.xib */,
 				9900D1711ABEB2490077A6CB /* Supporting Files */,
@@ -136,6 +130,7 @@
 		9900D1711ABEB2490077A6CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				99A732621B24AB660033E878 /* 005.jpg */,
 				4855B1931B09CBA500AA0788 /* placeholder@2x.png */,
 				999C10991AC14F7200C11CDB /* h1.jpg */,
 				999C10961AC14F3B00C11CDB /* h3.jpg */,
@@ -285,8 +280,8 @@
 			files = (
 				9900D1A21ABEB41B0077A6CB /* h4.jpg in Resources */,
 				999C109A1AC14F7200C11CDB /* h1.jpg in Resources */,
-				339E36511B17EFF9000F4D43 /* RootViewController.xib in Resources */,
 				999C10981AC14F3B00C11CDB /* h3.jpg in Resources */,
+				99A732631B24AB660033E878 /* 005.jpg in Resources */,
 				9900D1821ABEB2490077A6CB /* LaunchScreen.xib in Resources */,
 				4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */,
 				9900D17F1ABEB2490077A6CB /* Images.xcassets in Resources */,
@@ -310,7 +305,6 @@
 			files = (
 				9900D17A1ABEB2490077A6CB /* ViewController.m in Sources */,
 				990141031AC941FD00D0D74F /* TADotView.m in Sources */,
-				339E36501B17EFF9000F4D43 /* RootViewController.m in Sources */,
 				990141011AC941FD00D0D74F /* TAAbstractDotView.m in Sources */,
 				990141021AC941FD00D0D74F /* TAAnimatedDotView.m in Sources */,
 				9901410D1AC9420E00D0D74F /* UIView+SDExtension.m in Sources */,

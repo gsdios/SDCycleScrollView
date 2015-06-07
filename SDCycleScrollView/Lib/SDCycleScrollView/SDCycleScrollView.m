@@ -35,19 +35,13 @@ NSString * const ID = @"cycleCell";
 @property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSMutableArray *imagesGroup;
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, weak) NSTimer *timer;
 @property (nonatomic, assign) NSInteger totalItemsCount;
 @property (nonatomic, weak) TAPageControl *pageControl;
 
 @end
 
 @implementation SDCycleScrollView
-
-//解决当timer释放后 回调scrollViewDidScroll时访问野指针导致崩溃
-- (void)dealloc {
-    _mainView.delegate = nil;
-    _mainView.dataSource = nil;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -70,13 +64,16 @@ NSString * const ID = @"cycleCell";
 - (void)initialization
 {
     _pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-    _autoScrollTimeInterval = 1.0;
+    _autoScrollTimeInterval = 2.0;
     _titleLabelTextColor = [UIColor whiteColor];
     _titleLabelTextFont= [UIFont systemFontOfSize:14];
     _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     _titleLabelHeight = 30;
+    _autoScroll = YES;
+    _infiniteLoop = YES;
     
     self.backgroundColor = [UIColor lightGrayColor];
+    
 }
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup
@@ -86,56 +83,11 @@ NSString * const ID = @"cycleCell";
     return cycleScrollView;
 }
 
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLsGroup:(NSArray *)imageURLsGroup
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLsGroup
 {
     SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
-    cycleScrollView.imageURLsGroup = [NSMutableArray arrayWithArray:imageURLsGroup];
+    cycleScrollView.imageURLStringsGroup = [NSMutableArray arrayWithArray:imageURLsGroup];
     return cycleScrollView;
-}
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    
-    _flowLayout.itemSize = self.frame.size;
-}
-
-- (void)setPageControlDotSize:(CGSize)pageControlDotSize
-{
-    _pageControlDotSize = pageControlDotSize;
-    _pageControl.dotSize = pageControlDotSize;
-}
-
-- (void)setDotColor:(UIColor *)dotColor
-{
-    _dotColor = dotColor;
-    _pageControl.dotColor = dotColor;
-}
-
-- (void)setInfiniteLoop:(BOOL)infiniteLoop {
-    _infiniteLoop = infiniteLoop;
-    if (infiniteLoop) {
-        _totalItemsCount = self.imagesGroup.count * 100;
-    }else{
-        _totalItemsCount = self.imagesGroup.count;
-    }
-}
-
--(void)setAutoScroll:(BOOL)autoScroll{
-    _autoScroll = autoScroll;
-    [_timer invalidate];
-    _timer = nil;
-    
-    if (_autoScroll) {
-        [self setupTimer];
-    }
-}
-
-- (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval
-{
-    _autoScrollTimeInterval = autoScrollTimeInterval;
-    
-    [self setAutoScroll:self.autoScroll];
 }
 
 // 设置显示图片的collectionView
@@ -159,17 +111,54 @@ NSString * const ID = @"cycleCell";
     _mainView = mainView;
 }
 
+
+#pragma mark - properties
+
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    
+    _flowLayout.itemSize = self.frame.size;
+}
+
+- (void)setPageControlDotSize:(CGSize)pageControlDotSize
+{
+    _pageControlDotSize = pageControlDotSize;
+    _pageControl.dotSize = pageControlDotSize;
+}
+
+- (void)setDotColor:(UIColor *)dotColor
+{
+    _dotColor = dotColor;
+    _pageControl.dotColor = dotColor;
+}
+
+-(void)setAutoScroll:(BOOL)autoScroll{
+    _autoScroll = autoScroll;
+    [_timer invalidate];
+    _timer = nil;
+    
+    if (_autoScroll) {
+        [self setupTimer];
+    }
+}
+
+- (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval
+{
+    _autoScrollTimeInterval = autoScrollTimeInterval;
+    
+    [self setAutoScroll:self.autoScroll];
+}
+
 - (void)setImagesGroup:(NSMutableArray *)imagesGroup
 {
     _imagesGroup = imagesGroup;
-    if (self.infiniteLoop) {
-        _totalItemsCount = imagesGroup.count * 100;
-    }else{
-        _totalItemsCount = imagesGroup.count;
-    }
     
     if (imagesGroup.count != 1) {
-        [self setAutoScroll:self.autoScroll];
+        if (self.autoScroll) {
+            [self setupTimer];
+        }
     } else {
         self.mainView.scrollEnabled = NO;
     }
@@ -178,17 +167,17 @@ NSString * const ID = @"cycleCell";
     [self.mainView reloadData];
 }
 
-- (void)setImageURLsGroup:(NSArray *)imageURLsGroup
+- (void)setImageURLStringsGroup:(NSArray *)imageURLStringsGroup
 {
-    _imageURLsGroup = imageURLsGroup;
+    _imageURLStringsGroup = imageURLStringsGroup;
     
-    NSMutableArray *images = [NSMutableArray arrayWithCapacity:imageURLsGroup.count];
-    for (int i = 0; i < imageURLsGroup.count; i++) {
+    NSMutableArray *images = [NSMutableArray arrayWithCapacity:imageURLStringsGroup.count];
+    for (int i = 0; i < imageURLStringsGroup.count; i++) {
         UIImage *image = [[UIImage alloc] init];
         [images addObject:image];
     }
     self.imagesGroup = images;
-    [self loadImageWithImageURLsGroup:imageURLsGroup];
+    [self loadImageWithImageURLsGroup:imageURLStringsGroup];
 }
 
 - (void)setLocalizationImagesGroup:(NSArray *)localizationImagesGroup
@@ -196,6 +185,8 @@ NSString * const ID = @"cycleCell";
     _localizationImagesGroup = localizationImagesGroup;
     self.imagesGroup = [NSMutableArray arrayWithArray:localizationImagesGroup];
 }
+
+#pragma mark - actions
 
 - (void)loadImageWithImageURLsGroup:(NSArray *)imageURLsGroup
 {
@@ -206,10 +197,10 @@ NSString * const ID = @"cycleCell";
 
 - (void)loadImageAtIndex:(NSInteger)index
 {
-    NSURL *url = self.imageURLsGroup[index];
-    
+    NSString *urlStr = self.imageURLStringsGroup[index];
+    NSURL *url = [NSURL URLWithString:urlStr];
     // 如果有缓存，直接加载缓存
-    NSData *data = [NSData getDataCacheWithIdentifier:url.absoluteString];
+    NSData *data = [NSData getDataCacheWithIdentifier:urlStr];
     if (data) {
         [self.imagesGroup setObject:[UIImage imageWithData:data] atIndexedSubscript:index];
     } else {
@@ -279,6 +270,8 @@ NSString * const ID = @"cycleCell";
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
+#pragma mark - life circles
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -312,7 +305,15 @@ NSString * const ID = @"cycleCell";
     if (!newSuperview) {
         [_timer invalidate];
         _timer = nil;
+    } else {
+        _totalItemsCount = self.infiniteLoop ? self.imagesGroup.count * 100 : self.imagesGroup.count;
     }
+}
+
+//解决当timer释放后 回调scrollViewDidScroll时访问野指针导致崩溃
+- (void)dealloc {
+    _mainView.delegate = nil;
+    _mainView.dataSource = nil;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -379,11 +380,5 @@ NSString * const ID = @"cycleCell";
     }
 }
 
-/**
- 
- (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval { _autoScrollTimeInterval = autoScrollTimeInterval; [self setupTimer]; } 每设置一次autoScrollTimeInterval就会多一个timer. 同理还有这里 - (void)setImagesGroup:(NSMutableArray *)imagesGroup. 在setupTimer中一次性加上其他地方写过的
- [_timer invalidate]; _timer = nil; 2.建议用约束写collectionView和pageControl,就能在xib中用约束直接这个控件; 3.建议增加placeholderImage和pageControlBackgroundColor属性. 4..pageControl的valuechange事件也可以带动scrollView的滚动
- 
- */
 
 @end

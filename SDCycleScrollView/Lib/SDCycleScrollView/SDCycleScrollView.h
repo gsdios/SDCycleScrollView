@@ -41,9 +41,9 @@ typedef enum {
 @property (nonatomic, strong) NSArray *localizationImagesGroup;
 
 /**
- *  网络图片url数组
+ *  网络图片 url string 数组
  */
-@property (nonatomic, strong) NSArray *imageURLsGroup;
+@property (nonatomic, strong) NSArray *imageURLStringsGroup;
 
 /**
  *  每张图片对应要显示的文字数组
@@ -51,17 +51,17 @@ typedef enum {
 @property (nonatomic, strong) NSArray *titlesGroup;
 
 /**
- *  自动滚动间隔时间,默认1s
+ *  自动滚动间隔时间,默认2s
  */
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
 
 /**
- *  是否无限循环,默认否
+ *  是否无限循环,默认Yes
  */
 @property(nonatomic,assign) BOOL infiniteLoop;
 
 /**
- *  是否自动滚动,默认否
+ *  是否自动滚动,默认Yes
  */
 @property(nonatomic,assign) BOOL autoScroll;
 
@@ -95,6 +95,6 @@ typedef enum {
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup;
 
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLsGroup:(NSArray *)imageURLsGroup;
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLStringsGroup;
 
 @end
