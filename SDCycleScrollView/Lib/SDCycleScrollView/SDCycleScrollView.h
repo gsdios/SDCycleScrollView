@@ -35,23 +35,62 @@ typedef enum {
 @end
 
 @interface SDCycleScrollView : UIView
+/**
+ *  本地图片数组
+ */
+@property (nonatomic, strong) NSArray *localizationImagesGroup;
 
-@property (nonatomic, strong) NSArray *localizationImagesGroup; // 本地图片数组
+/**
+ *  网络图片url数组
+ */
 @property (nonatomic, strong) NSArray *imageURLsGroup;
+
+/**
+ *  每张图片对应要显示的文字数组
+ */
 @property (nonatomic, strong) NSArray *titlesGroup;
+
+/**
+ *  自动滚动间隔时间,默认1s
+ */
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
+
+/**
+ *  是否无限循环,默认否
+ */
+@property(nonatomic,assign) BOOL infiniteLoop;
+
+/**
+ *  是否自动滚动,默认否
+ */
+@property(nonatomic,assign) BOOL autoScroll;
+
 @property (nonatomic, weak) id<SDCycleScrollViewDelegate> delegate;
 
 // 自定义样式
+/**
+ *  占位图，用于网络的
+ */
 @property (nonatomic, strong) UIImage *placeholderImage;
-@property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment; // 分页控件位置
-@property (nonatomic, assign) CGSize pageControlDotSize; // 分页控件小圆标大小
-@property (nonatomic, strong) UIColor *dotColor; // 分页控件小圆标颜色
+
+/**
+ * 分页控件位置
+ */
+@property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
+
+/**
+ *  分页控件小圆标大小
+ */
+@property (nonatomic, assign) CGSize pageControlDotSize;
+
+/**
+ *  分页控件小圆标颜色
+ */
+@property (nonatomic, strong) UIColor *dotColor;
 @property (nonatomic, strong) UIColor *titleLabelTextColor;
-@property (nonatomic, strong) UIFont *titleLabelTextFont;
+@property (nonatomic, strong) UIFont  *titleLabelTextFont;
 @property (nonatomic, strong) UIColor *titleLabelBackgroundColor;
 @property (nonatomic, assign) CGFloat titleLabelHeight;
-
 
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup;

@@ -43,6 +43,11 @@ NSString * const ID = @"cycleCell";
 
 @implementation SDCycleScrollView
 
+//解决当timer释放后 回调scrollViewDidScroll时访问野指针导致崩溃
+- (void)dealloc {
+    _mainView.delegate = nil;
+    _mainView.dataSource = nil;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -70,6 +75,7 @@ NSString * const ID = @"cycleCell";
     _titleLabelTextFont= [UIFont systemFontOfSize:14];
     _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     _titleLabelHeight = 30;
+    
     self.backgroundColor = [UIColor lightGrayColor];
 }
 
@@ -106,13 +112,30 @@ NSString * const ID = @"cycleCell";
     _pageControl.dotColor = dotColor;
 }
 
+- (void)setInfiniteLoop:(BOOL)infiniteLoop {
+    _infiniteLoop = infiniteLoop;
+    if (infiniteLoop) {
+        _totalItemsCount = self.imagesGroup.count * 100;
+    }else{
+        _totalItemsCount = self.imagesGroup.count;
+    }
+}
+
+-(void)setAutoScroll:(BOOL)autoScroll{
+    _autoScroll = autoScroll;
+    [_timer invalidate];
+    _timer = nil;
+    
+    if (_autoScroll) {
+        [self setupTimer];
+    }
+}
+
 - (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval
 {
     _autoScrollTimeInterval = autoScrollTimeInterval;
     
-    [_timer invalidate];
-    _timer = nil;
-    [self setupTimer];
+    [self setAutoScroll:self.autoScroll];
 }
 
 // 设置显示图片的collectionView
@@ -124,7 +147,7 @@ NSString * const ID = @"cycleCell";
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     _flowLayout = flowLayout;
     
-    UICollectionView *mainView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:flowLayout];
+    UICollectionView *mainView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     mainView.backgroundColor = [UIColor clearColor];
     mainView.pagingEnabled = YES;
     mainView.showsHorizontalScrollIndicator = NO;
@@ -139,10 +162,14 @@ NSString * const ID = @"cycleCell";
 - (void)setImagesGroup:(NSMutableArray *)imagesGroup
 {
     _imagesGroup = imagesGroup;
-    _totalItemsCount = imagesGroup.count * 100;
+    if (self.infiniteLoop) {
+        _totalItemsCount = imagesGroup.count * 100;
+    }else{
+        _totalItemsCount = imagesGroup.count;
+    }
     
     if (imagesGroup.count != 1) {
-        [self setupTimer];
+        [self setAutoScroll:self.autoScroll];
     } else {
         self.mainView.scrollEnabled = NO;
     }
@@ -235,7 +262,11 @@ NSString * const ID = @"cycleCell";
     int currentIndex = _mainView.contentOffset.x / _flowLayout.itemSize.width;
     int targetIndex = currentIndex + 1;
     if (targetIndex == _totalItemsCount) {
-        targetIndex = _totalItemsCount * 0.5;
+        if (self.infiniteLoop) {
+            targetIndex = _totalItemsCount * 0.5;
+        }else{
+            targetIndex = 0;
+        }
         [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
     [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
@@ -256,7 +287,13 @@ NSString * const ID = @"cycleCell";
     
     _mainView.frame = self.bounds;
     if (_mainView.contentOffset.x == 0 &&  _totalItemsCount) {
-        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_totalItemsCount * 0.5 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        int targetIndex = 0;
+        if (self.infiniteLoop) {
+            targetIndex = _totalItemsCount * 0.5;
+        }else{
+            targetIndex = 0;
+        }
+        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
     
     CGSize size = [_pageControl sizeForNumberOfPages:self.imagesGroup.count];
@@ -268,6 +305,7 @@ NSString * const ID = @"cycleCell";
     _pageControl.frame = CGRectMake(x, y, size.width, size.height);
     [_pageControl sizeToFit];
 }
+
 //解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
@@ -328,13 +366,17 @@ NSString * const ID = @"cycleCell";
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [_timer invalidate];
-    _timer = nil;
+    if (self.autoScroll) {
+        [_timer invalidate];
+        _timer = nil;
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    [self setupTimer];
+    if (self.autoScroll) {
+        [self setupTimer];
+    }
 }
 
 /**
