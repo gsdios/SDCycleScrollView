@@ -158,9 +158,8 @@ NSString * const ID = @"cycleCell";
     _totalItemsCount = self.infiniteLoop ? self.imagesGroup.count * 100 : self.imagesGroup.count;
     
     if (imagesGroup.count != 1) {
-        if (self.autoScroll) {
-            [self setupTimer];
-        }
+        self.mainView.scrollEnabled = YES;
+        [self setAutoScroll:self.autoScroll];
     } else {
         self.mainView.scrollEnabled = NO;
     }
