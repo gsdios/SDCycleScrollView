@@ -155,6 +155,8 @@ NSString * const ID = @"cycleCell";
 {
     _imagesGroup = imagesGroup;
     
+    _totalItemsCount = self.infiniteLoop ? self.imagesGroup.count * 100 : self.imagesGroup.count;
+    
     if (imagesGroup.count != 1) {
         if (self.autoScroll) {
             [self setupTimer];
@@ -305,8 +307,6 @@ NSString * const ID = @"cycleCell";
     if (!newSuperview) {
         [_timer invalidate];
         _timer = nil;
-    } else {
-        _totalItemsCount = self.infiniteLoop ? self.imagesGroup.count * 100 : self.imagesGroup.count;
     }
 }
 
