@@ -37,7 +37,7 @@ NSString * const ID = @"cycleCell";
 @property (nonatomic, strong) NSMutableArray *imagesGroup;
 @property (nonatomic, weak) NSTimer *timer;
 @property (nonatomic, assign) NSInteger totalItemsCount;
-@property (nonatomic, weak) TAPageControl *pageControl;
+@property (nonatomic, weak) UIControl *pageControl;
 
 @end
 
@@ -71,6 +71,9 @@ NSString * const ID = @"cycleCell";
     _titleLabelHeight = 30;
     _autoScroll = YES;
     _infiniteLoop = YES;
+    _showPageControl = YES;
+    _pageControlDotSize = CGSizeMake(10, 10);
+    _pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
     
     self.backgroundColor = [UIColor lightGrayColor];
     
@@ -125,13 +128,30 @@ NSString * const ID = @"cycleCell";
 - (void)setPageControlDotSize:(CGSize)pageControlDotSize
 {
     _pageControlDotSize = pageControlDotSize;
-    _pageControl.dotSize = pageControlDotSize;
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageContol = (TAPageControl *)_pageControl;
+        pageContol.dotSize = pageControlDotSize;
+    }
+}
+
+- (void)setShowPageControl:(BOOL)showPageControl
+{
+    _showPageControl = showPageControl;
+    
+    _pageControl.hidden = !showPageControl;
 }
 
 - (void)setDotColor:(UIColor *)dotColor
 {
     _dotColor = dotColor;
-    _pageControl.dotColor = dotColor;
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageControl = (TAPageControl *)_pageControl;
+        pageControl.dotColor = dotColor;
+    } else {
+        UIPageControl *pageControl = (UIPageControl *)_pageControl;
+        pageControl.currentPageIndicatorTintColor = dotColor;
+    }
+    
 }
 
 -(void)setAutoScroll:(BOOL)autoScroll{
@@ -149,6 +169,13 @@ NSString * const ID = @"cycleCell";
     _autoScrollTimeInterval = autoScrollTimeInterval;
     
     [self setAutoScroll:self.autoScroll];
+}
+
+- (void)setPageControlStyle:(SDCycleScrollViewPageContolStyle)pageControlStyle
+{
+    _pageControlStyle = pageControlStyle;
+    
+    [self setupPageControl];
 }
 
 - (void)setImagesGroup:(NSMutableArray *)imagesGroup
@@ -240,11 +267,31 @@ NSString * const ID = @"cycleCell";
 - (void)setupPageControl
 {
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
-    TAPageControl *pageControl = [[TAPageControl alloc] init];
-    pageControl.numberOfPages = self.imagesGroup.count;
-    pageControl.dotColor = self.dotColor;
-    [self addSubview:pageControl];
-    _pageControl = pageControl;
+    
+    switch (self.pageControlStyle) {
+        case SDCycleScrollViewPageContolStyleAnimated:
+        {
+            TAPageControl *pageControl = [[TAPageControl alloc] init];
+            pageControl.numberOfPages = self.imagesGroup.count;
+            pageControl.dotColor = self.dotColor;
+            [self addSubview:pageControl];
+            _pageControl = pageControl;
+        }
+            break;
+            
+        case SDCycleScrollViewPageContolStyleClassic:
+        {
+            UIPageControl *pageControl = [[UIPageControl alloc] init];
+            pageControl.numberOfPages = self.imagesGroup.count;
+            pageControl.currentPageIndicatorTintColor = self.dotColor;
+            [self addSubview:pageControl];
+            _pageControl = pageControl;
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
@@ -290,14 +337,27 @@ NSString * const ID = @"cycleCell";
         [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
     
-    CGSize size = [_pageControl sizeForNumberOfPages:self.imagesGroup.count];
+    CGSize size = CGSizeZero;
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageControl = (TAPageControl *)_pageControl;
+        size = [pageControl sizeForNumberOfPages:self.imagesGroup.count];
+    } else {
+        size = CGSizeMake(self.imagesGroup.count * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
+    }
     CGFloat x = (self.sd_width - size.width) * 0.5;
     if (self.pageControlAliment == SDCycleScrollViewPageContolAlimentRight) {
         x = self.mainView.sd_width - size.width - 10;
     }
     CGFloat y = self.mainView.sd_height - size.height - 10;
+    
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageControl = (TAPageControl *)_pageControl;
+        [pageControl sizeToFit];
+    }
+    
     _pageControl.frame = CGRectMake(x, y, size.width, size.height);
-    [_pageControl sizeToFit];
+    _pageControl.hidden = !_showPageControl;
+    
 }
 
 //解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题
@@ -313,6 +373,13 @@ NSString * const ID = @"cycleCell";
 - (void)dealloc {
     _mainView.delegate = nil;
     _mainView.dataSource = nil;
+}
+
+#pragma mark - public actions
+
+- (void)clearCache
+{
+    [NSData clearCache];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -361,7 +428,14 @@ NSString * const ID = @"cycleCell";
     int itemIndex = (scrollView.contentOffset.x + self.mainView.sd_width * 0.5) / self.mainView.sd_width;
     if (!self.imagesGroup.count) return; // 解决清除timer时偶尔会出现的问题
     int indexOnPageControl = itemIndex % self.imagesGroup.count;
-    _pageControl.currentPage = indexOnPageControl;
+    
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageControl = (TAPageControl *)_pageControl;
+        pageControl.currentPage = indexOnPageControl;
+    } else {
+        UIPageControl *pageControl = (UIPageControl *)_pageControl;
+        pageControl.currentPage = indexOnPageControl;
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

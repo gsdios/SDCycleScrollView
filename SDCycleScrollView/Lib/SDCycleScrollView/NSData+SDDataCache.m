@@ -65,4 +65,10 @@
     return data;
 }
 
++ (void)clearCache
+{
+    NSFileManager *manager = [NSFileManager defaultManager];
+    [manager removeItemAtPath:[self cachePath] error:nil];
+}
+
 @end
