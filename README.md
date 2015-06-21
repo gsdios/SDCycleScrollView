@@ -2,8 +2,8 @@
 无限循环自动图片轮播器(一步设置即可使用)
 
      // 网络加载图片的轮播器
-     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame: imageURLsGroup:图片url数组]; 
-
+     cycleScrollView.imageURLStringsGroup = imagesURLStrings;
+     
      // 本地加载图片的轮播器
      SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame: imagesGroup:图片数组];
     
