@@ -23,5 +23,6 @@
  
  4. cycleScrollView.autoScrollTimeInterval = ;// 自定义轮播时间间隔 
 
+![](http://ww4.sinaimg.cn/bmiddle/9b8146edjw1esvytq7lwrg208p0fce82.gif)
 
 ![](http://cdn.cocimg.com/bbs/attachment/Fid_19/19_441660_d01407e9c4b63d1.gif)
