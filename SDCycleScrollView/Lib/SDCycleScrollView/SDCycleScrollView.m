@@ -128,6 +128,7 @@ NSString * const ID = @"cycleCell";
 - (void)setPageControlDotSize:(CGSize)pageControlDotSize
 {
     _pageControlDotSize = pageControlDotSize;
+    [self setupPageControl];
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageContol = (TAPageControl *)_pageControl;
         pageContol.dotSize = pageControlDotSize;
