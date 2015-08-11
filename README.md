@@ -1,7 +1,7 @@
 # SDCycleScrollView
 无限循环自动图片轮播器(可自定义扩展版本)
 
-#pragma mark - SDCycleScrollViewDataSource
+>> pragma mark - SDCycleScrollViewDataSource
 
 - (NSInteger)numberOfPages {
     
@@ -19,7 +19,7 @@
     
 }
 
-#pragma mark - SDCycleScrollViewDelegate
+>> pragma mark - SDCycleScrollViewDelegate
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
