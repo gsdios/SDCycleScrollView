@@ -3,28 +3,17 @@
 
 >> pragma mark - SDCycleScrollViewDataSource
 
-- (NSInteger)numberOfPages {
-    
-}
+- (NSInteger)numberOfPages {}
 
-- (void)collectionViewCell:(SDCollectionViewCell *)cell pageForItemAtIndex:(NSInteger)index cycleScrollView:(SDCycleScrollView *)cycleScrollView {
+- (void)collectionViewCell:(SDCollectionViewCell *)cell pageForItemAtIndex:(NSInteger)index cycleScrollView:(SDCycleScrollView *)cycleScrollView {}
 
-}
+- (void)configrePageWithCollectonViewCell:(SDCollectionViewCell *)cell atItem:(id)item {}
 
-- (void)configrePageWithCollectonViewCell:(SDCollectionViewCell *)cell atItem:(id)item {
-    
-}
-
-- (void)configrePageWithCollectonViewCell:(SDCollectionViewCell *)cell atIndex:(NSInteger)index {
-    
-}
+- (void)configrePageWithCollectonViewCell:(SDCollectionViewCell *)cell atIndex:(NSInteger)index {}
 
 >> pragma mark - SDCycleScrollViewDelegate
 
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
-{
-   
-}
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{}
     
     
  ---------------------------------------------------------------------------------------------------------------
