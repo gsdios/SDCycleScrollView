@@ -163,6 +163,7 @@ NSString * const ID = @"cycleCell";
 }
 
 - (void)automaticScroll {
+    if ([self numberOfPages] == 0) return;
     int currentIndex = _mainView.contentOffset.x / _flowLayout.itemSize.width;
     int targetIndex = currentIndex + 1;
     if (targetIndex == _totalItemsCount) {
@@ -240,7 +241,7 @@ NSString * const ID = @"cycleCell";
 {
     int itemIndex = (scrollView.contentOffset.x + self.mainView.sd_width * 0.5) / self.mainView.sd_width;
     NSInteger numberOfPages = [self numberOfPages];
-
+    if (numberOfPages == 0) return;
     int indexOnPageControl = itemIndex % numberOfPages;
     _pageControl.currentPage = indexOnPageControl;
 }
