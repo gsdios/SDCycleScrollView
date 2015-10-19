@@ -74,6 +74,7 @@ NSString * const ID = @"cycleCell";
     _showPageControl = YES;
     _pageControlDotSize = CGSizeMake(10, 10);
     _pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+    _hidesForSinglePage = YES;
     
     self.backgroundColor = [UIColor lightGrayColor];
     
@@ -269,6 +270,10 @@ NSString * const ID = @"cycleCell";
 {
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     
+    if ((self.imagesGroup.count <= 1) && self.hidesForSinglePage) {
+        return;
+    }
+    
     switch (self.pageControlStyle) {
         case SDCycleScrollViewPageContolStyleAnimated:
         {
@@ -293,6 +298,8 @@ NSString * const ID = @"cycleCell";
         default:
             break;
     }
+    
+    
 }
 
 
