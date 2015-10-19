@@ -385,7 +385,7 @@ NSString * const ID = @"cycleCell";
 
 #pragma mark - public actions
 
-- (void)clearCache
++ (void)clearCache
 {
     [NSData clearCache];
 }
