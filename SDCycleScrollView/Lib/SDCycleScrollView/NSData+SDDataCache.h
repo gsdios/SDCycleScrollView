@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+// 暂时用分类，随后改为cacheManager单例形式管理缓存
 
 @interface NSData (SDDataCache)
 
