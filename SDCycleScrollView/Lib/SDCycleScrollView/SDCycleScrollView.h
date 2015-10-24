@@ -105,9 +105,7 @@ typedef enum {
 
 
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>  清除缓存接口
 
-+ (void)clearCache;
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup;
 
