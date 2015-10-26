@@ -18,9 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:0.99];
-    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"005.jpg"]];
-    backgroundView.frame = self.view.bounds;
-    [self.view addSubview:backgroundView];
+//    UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"005.jpg"]];
+//    backgroundView.frame = self.view.bounds;
+//    [self.view addSubview:backgroundView];
     
     // 情景一：采用本地图片实现
     NSArray *images = @[[UIImage imageNamed:@"h1.jpg"],
