@@ -73,11 +73,6 @@
     });
     
 
-    // 清除缓存
-//    [cycleScrollView2 clearCache];
-
-    
-
 }
 
 
