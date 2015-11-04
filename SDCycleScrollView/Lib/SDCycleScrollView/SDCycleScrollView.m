@@ -238,7 +238,9 @@ NSString * const ID = @"cycleCell";
         [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
             if (image) {
                 [self.imagesGroup setObject:image atIndexedSubscript:index];
-                [self.mainView reloadData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.mainView reloadData];
+                });
             }
         }];
     }
