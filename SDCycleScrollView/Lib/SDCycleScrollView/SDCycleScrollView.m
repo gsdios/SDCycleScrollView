@@ -237,10 +237,12 @@ NSString * const ID = @"cycleCell";
     } else {
         [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
             if (image) {
-                [self.imagesGroup setObject:image atIndexedSubscript:index];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.mainView reloadData];
-                });
+                if (index < self.imageURLStringsGroup.count && [self.imageURLStringsGroup[index] isEqualToString:urlStr]) { // 修复频繁刷新异步数组越界问题
+                    [self.imagesGroup setObject:image atIndexedSubscript:index];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.mainView reloadData];
+                    });
+                }
             }
         }];
     }
