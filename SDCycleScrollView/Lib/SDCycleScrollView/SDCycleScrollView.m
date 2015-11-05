@@ -386,6 +386,10 @@ NSString * const ID = @"cycleCell";
         [self loadImageAtIndex:itemIndex];
     }
     cell.imageView.image = image;
+    if (_imageViewContentMode) {
+        cell.imageView.contentMode = _imageViewContentMode;
+    }
+    
     if (_titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
     }
