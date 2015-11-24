@@ -40,6 +40,8 @@ NSString * const ID = @"cycleCell";
 @property (nonatomic, assign) NSInteger totalItemsCount;
 @property (nonatomic, weak) UIControl *pageControl;
 
+@property (nonatomic, weak) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
+
 @end
 
 @implementation SDCycleScrollView
@@ -125,6 +127,19 @@ NSString * const ID = @"cycleCell";
     [super setFrame:frame];
     
     _flowLayout.itemSize = self.frame.size;
+}
+
+- (void)setPlaceholderImage:(UIImage *)placeholderImage
+{
+    _placeholderImage = placeholderImage;
+    
+    if (!self.backgroundImageView) {
+        UIImageView *bgImageView = [UIImageView new];
+        [self insertSubview:bgImageView belowSubview:self.mainView];
+        self.backgroundImageView = bgImageView;
+    }
+    
+    self.backgroundImageView.image = placeholderImage;
 }
 
 - (void)setPageControlDotSize:(CGSize)pageControlDotSize
@@ -315,8 +330,6 @@ NSString * const ID = @"cycleCell";
 {
     [super layoutSubviews];
     
-    _flowLayout.itemSize = self.frame.size;
-    
     _mainView.frame = self.bounds;
     if (_mainView.contentOffset.x == 0 &&  _totalItemsCount) {
         int targetIndex = 0;
@@ -348,6 +361,10 @@ NSString * const ID = @"cycleCell";
     
     _pageControl.frame = CGRectMake(x, y, size.width, size.height);
     _pageControl.hidden = !_showPageControl;
+    
+    if (self.backgroundImageView) {
+        self.backgroundImageView.frame = self.bounds;
+    }
     
 }
 
