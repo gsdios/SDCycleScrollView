@@ -23,8 +23,8 @@
 #import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
-#import "SDWebImageDownloader.h"
 #import "SDImageCache.h"
+#import "SDWebImageManager.h"
 
 
 
@@ -41,6 +41,8 @@ NSString * const ID = @"cycleCell";
 @property (nonatomic, weak) UIControl *pageControl;
 
 @property (nonatomic, weak) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
+
+@property (nonatomic, assign) NSInteger networkFailedRetryCount;
 
 @end
 
@@ -244,13 +246,20 @@ NSString * const ID = @"cycleCell";
 - (void)loadImageAtIndex:(NSInteger)index
 {
     NSString *urlStr = self.imageURLStringsGroup[index];
-    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURL *url = nil;
+    
+    
+    if ([urlStr isKindOfClass:[NSString class]]) {
+        url = [NSURL URLWithString:urlStr];
+    } else if ([urlStr isKindOfClass:[NSURL class]]) { // 兼容NSURL
+        url = (NSURL *)urlStr;
+    }
     
     UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:urlStr];
     if (image) {
         [self.imagesGroup setObject:image atIndexedSubscript:index];
     } else {
-        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:url options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+        [[SDWebImageManager sharedManager] downloadImageWithURL:url options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             if (image) {
                 if (index < self.imageURLStringsGroup.count && [self.imageURLStringsGroup[index] isEqualToString:urlStr]) { // 修复频繁刷新异步数组越界问题
                     [self.imagesGroup setObject:image atIndexedSubscript:index];
@@ -258,9 +267,17 @@ NSString * const ID = @"cycleCell";
                         [self.mainView reloadData];
                     });
                 }
+            } else {
+                if (self.networkFailedRetryCount > 30) return;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self loadImageAtIndex:index];
+                });
+                self.networkFailedRetryCount++;
             }
         }];
     }
+    
+    
 }
 
 
