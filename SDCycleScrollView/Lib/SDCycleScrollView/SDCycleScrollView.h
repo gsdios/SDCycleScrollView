@@ -38,6 +38,9 @@ typedef enum {
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
 
+// 滚动完成的回调，可用于实现页码显示等定制
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
+
 @end
 
 @interface SDCycleScrollView : UIView
