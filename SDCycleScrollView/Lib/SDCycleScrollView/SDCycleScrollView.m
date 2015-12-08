@@ -6,15 +6,23 @@
 //  Copyright (c) 2015年 GSD. All rights reserved.
 //
 
-/**
+/*
  
- *******************************************************
- *                                                      *
- * 感谢您的支持， 如果下载的代码在使用过程中出现BUG或者其他问题    *
- * 您可以发邮件到gsdios@126.com 或者 到                       *
- * https://github.com/gsdios?tab=repositories 提交问题     *
- *                                                      *
- *******************************************************
+ *********************************************************************************
+ *
+ * 在您使用此自动轮播库的过程中如果出现bug请及时以以下任意一种方式联系我们，我们会及时修复bug并
+ * 帮您解决问题。
+ * 新浪微博:GSD_iOS
+ * Email : gsdios@126.com
+ * GitHub: https://github.com/gsdios
+ *
+ * 另（我的自动布局库SDAutoLayout）：
+ *  一行代码搞定自动布局！支持Cell和Tableview高度自适应，Label和ScrollView内容自适应，致力于
+ *  做最简单易用的AutoLayout库。
+ * 视频教程：http://www.letv.com/ptv/vplay/24038772.html
+ * 用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
+ * GitHub：https://github.com/gsdios/SDAutoLayout
+ *********************************************************************************
  
  */
 
@@ -57,13 +65,10 @@ NSString * const ID = @"cycleCell";
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (void)awakeFromNib
 {
-    if (self = [super initWithCoder:aDecoder]) {
-        [self initialization];
-        [self setupMainView];
-    }
-    return self;
+    [self initialization];
+    [self setupMainView];
 }
 
 - (void)initialization
@@ -78,8 +83,10 @@ NSString * const ID = @"cycleCell";
     _infiniteLoop = YES;
     _showPageControl = YES;
     _pageControlDotSize = CGSizeMake(10, 10);
-    _pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+    _pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     _hidesForSinglePage = YES;
+    _currentPageDotColor = [UIColor whiteColor];
+    _pageDotColor = [UIColor lightGrayColor];
     
     self.backgroundColor = [UIColor lightGrayColor];
     
@@ -99,11 +106,19 @@ NSString * const ID = @"cycleCell";
     return cycleScrollView;
 }
 
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<SDCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage
+{
+    SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.delegate = delegate;
+    cycleScrollView.placeholderImage = placeholderImage;
+    
+    return cycleScrollView;
+}
+
 // 设置显示图片的collectionView
 - (void)setupMainView
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = self.frame.size;
     flowLayout.minimumLineSpacing = 0;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     _flowLayout = flowLayout;
@@ -161,17 +176,27 @@ NSString * const ID = @"cycleCell";
     _pageControl.hidden = !showPageControl;
 }
 
-- (void)setDotColor:(UIColor *)dotColor
+- (void)setCurrentPageDotColor:(UIColor *)currentPageDotColor
 {
-    _dotColor = dotColor;
+    _currentPageDotColor = currentPageDotColor;
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
-        pageControl.dotColor = dotColor;
+        pageControl.dotColor = currentPageDotColor;
     } else {
         UIPageControl *pageControl = (UIPageControl *)_pageControl;
-        pageControl.currentPageIndicatorTintColor = dotColor;
+        pageControl.currentPageIndicatorTintColor = currentPageDotColor;
     }
     
+}
+
+- (void)setPageDotColor:(UIColor *)pageDotColor
+{
+    _pageDotColor = pageDotColor;
+    
+    if ([self.pageDotColor isKindOfClass:[UIPageControl class]]) {
+        UIPageControl *pageControl = (UIPageControl *)_pageControl;
+        pageControl.pageIndicatorTintColor = pageDotColor;
+    }
 }
 
 -(void)setAutoScroll:(BOOL)autoScroll{
@@ -294,7 +319,8 @@ NSString * const ID = @"cycleCell";
         {
             TAPageControl *pageControl = [[TAPageControl alloc] init];
             pageControl.numberOfPages = self.imagesGroup.count;
-            pageControl.dotColor = self.dotColor;
+            pageControl.dotColor = self.currentPageDotColor;
+            pageControl.userInteractionEnabled = NO;
             [self addSubview:pageControl];
             _pageControl = pageControl;
         }
@@ -304,7 +330,9 @@ NSString * const ID = @"cycleCell";
         {
             UIPageControl *pageControl = [[UIPageControl alloc] init];
             pageControl.numberOfPages = self.imagesGroup.count;
-            pageControl.currentPageIndicatorTintColor = self.dotColor;
+            pageControl.currentPageIndicatorTintColor = self.currentPageDotColor;
+            pageControl.pageIndicatorTintColor = self.pageDotColor;
+            pageControl.userInteractionEnabled = NO;
             [self addSubview:pageControl];
             _pageControl = pageControl;
         }
@@ -347,6 +375,8 @@ NSString * const ID = @"cycleCell";
 {
     [super layoutSubviews];
     
+    _flowLayout.itemSize = self.frame.size;
+    
     _mainView.frame = self.bounds;
     if (_mainView.contentOffset.x == 0 &&  _totalItemsCount) {
         int targetIndex = 0;
@@ -376,8 +406,8 @@ NSString * const ID = @"cycleCell";
         [pageControl sizeToFit];
     }
     
-    _pageControl.frame = CGRectMake(x, y, size.width, size.height);
-    _pageControl.hidden = !_showPageControl;
+    self.pageControl.frame = CGRectMake(x, y, size.width, size.height);
+    self.pageControl.hidden = !_showPageControl;
     
     if (self.backgroundImageView) {
         self.backgroundImageView.frame = self.bounds;

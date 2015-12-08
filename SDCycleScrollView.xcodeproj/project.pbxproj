@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48377B901C1027F5007B8C21 /* DemoVCWithXib.m in Sources */ = {isa = PBXBuildFile; fileRef = 48377B8E1C1027F5007B8C21 /* DemoVCWithXib.m */; };
+		48377B911C1027F5007B8C21 /* DemoVCWithXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48377B8F1C1027F5007B8C21 /* DemoVCWithXib.xib */; };
 		4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4855B1931B09CBA500AA0788 /* placeholder@2x.png */; };
 		9900D1741ABEB2490077A6CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1731ABEB2490077A6CB /* main.m */; };
 		9900D1771ABEB2490077A6CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9900D1761ABEB2490077A6CB /* AppDelegate.m */; };
@@ -55,6 +57,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		48377B8D1C1027F5007B8C21 /* DemoVCWithXib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoVCWithXib.h; sourceTree = "<group>"; };
+		48377B8E1C1027F5007B8C21 /* DemoVCWithXib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoVCWithXib.m; sourceTree = "<group>"; };
+		48377B8F1C1027F5007B8C21 /* DemoVCWithXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoVCWithXib.xib; sourceTree = "<group>"; };
 		4855B1931B09CBA500AA0788 /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		9900D16E1ABEB2490077A6CB /* SDCycleScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDCycleScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9900D1721ABEB2490077A6CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,6 +145,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		48377B8A1C10265E007B8C21 /* DemoVC */ = {
+			isa = PBXGroup;
+			children = (
+				48377B8B1C102758007B8C21 /* 纯代码demo */,
+				48377B8C1C102758007B8C21 /* xib的demo */,
+			);
+			path = DemoVC;
+			sourceTree = "<group>";
+		};
+		48377B8B1C102758007B8C21 /* 纯代码demo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "纯代码demo";
+			sourceTree = "<group>";
+		};
+		48377B8C1C102758007B8C21 /* xib的demo */ = {
+			isa = PBXGroup;
+			children = (
+				48377B8D1C1027F5007B8C21 /* DemoVCWithXib.h */,
+				48377B8E1C1027F5007B8C21 /* DemoVCWithXib.m */,
+				48377B8F1C1027F5007B8C21 /* DemoVCWithXib.xib */,
+			);
+			path = "xib的demo";
+			sourceTree = "<group>";
+		};
 		9900D1651ABEB2490077A6CB = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +192,7 @@
 		9900D1701ABEB2490077A6CB /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				48377B8A1C10265E007B8C21 /* DemoVC */,
 				99E727CD1BDBB91D00771161 /* SDWebImage */,
 				9900D1971ABEB2C70077A6CB /* Lib */,
 				9900D1751ABEB2490077A6CB /* AppDelegate.h */,
@@ -369,6 +401,7 @@
 				99A732631B24AB660033E878 /* 005.jpg in Resources */,
 				9900D1821ABEB2490077A6CB /* LaunchScreen.xib in Resources */,
 				4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */,
+				48377B911C1027F5007B8C21 /* DemoVCWithXib.xib in Resources */,
 				9900D17F1ABEB2490077A6CB /* Images.xcassets in Resources */,
 				9900D1A01ABEB41B0077A6CB /* h2.jpg in Resources */,
 			);
@@ -404,6 +437,7 @@
 				99E727FA1BDBB91D00771161 /* UIImage+MultiFormat.m in Sources */,
 				99E727FD1BDBB91D00771161 /* UIImageView+WebCache.m in Sources */,
 				990141041AC941FD00D0D74F /* TAPageControl.m in Sources */,
+				48377B901C1027F5007B8C21 /* DemoVCWithXib.m in Sources */,
 				99E727FE1BDBB91D00771161 /* UIView+WebCacheOperation.m in Sources */,
 				9900D1741ABEB2490077A6CB /* main.m in Sources */,
 				99E727F41BDBB91D00771161 /* SDWebImageDownloader.m in Sources */,
