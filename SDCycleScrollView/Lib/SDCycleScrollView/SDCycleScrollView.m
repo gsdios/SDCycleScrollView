@@ -446,8 +446,11 @@ NSString * const ID = @"cycleCell";
     long itemIndex = indexPath.item % self.imagesGroup.count;
     UIImage *image = self.imagesGroup[itemIndex];
     if (image.size.width == 0 && self.placeholderImage) {
+        cell.imageView.contentMode = UIViewContentModeCenter;
         image = self.placeholderImage;
         [self loadImageAtIndex:itemIndex];
+    } else {
+        cell.imageView.contentMode = UIViewContentModeScaleToFill;
     }
     cell.imageView.image = image;
     if (_titlesGroup.count) {
