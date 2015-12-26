@@ -1,4 +1,4 @@
-# SDCycleScrollView
+# SDCycleScrollView（新建QQ交流群：185534916）
 无限循环自动图片轮播器(一步设置即可使用)
 
      // 网络加载图片的轮播器
