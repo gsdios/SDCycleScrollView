@@ -416,12 +416,6 @@ NSString * const ID = @"cycleCell";
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     long itemIndex = indexPath.item % self.imageURLsGroup.count;
-//    UIImage *image = self.imagesGroup[itemIndex];
-//    if (image.size.width == 0 && self.placeholderImage) {
-//        image = self.placeholderImage;
-//        [self loadImageAtIndex:itemIndex];
-//    }
-//    cell.imageView.image = image;
     
     NSURL *url = self.imageURLsGroup[itemIndex];
     [cell.imageView sd_setImageWithURL:url placeholderImage:self.placeholderImage];

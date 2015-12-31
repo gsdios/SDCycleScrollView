@@ -46,6 +46,8 @@ typedef enum {
 
 @protocol SDCycleScrollViewDelegate <NSObject>
 
+@optional
+
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
 
