@@ -90,11 +90,21 @@
     cycleScrollView2.titlesGroup = titles;
     cycleScrollView2.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     [self.view addSubview:cycleScrollView2];
+    cycleScrollView2.infiniteLoop = NO;
     
     //         --- 模拟加载延迟
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         cycleScrollView2.imageURLStringsGroup = imagesURLStrings;
     });
+    
+    /*
+     block监听点击方式
+     
+     cycleScrollView2.clickItemOperationBlock = ^(NSInteger index) {
+        NSLog(@">>>>>  %ld", (long)index);
+     };
+     
+     */
 }
 
 

@@ -56,13 +56,13 @@ typedef enum {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>  数据源接口
 
-// 本地图片数组
+/** 本地图片数组 */
 @property (nonatomic, strong) NSArray *localizationImagesGroup;
 
-// 网络图片 url string 数组
+/** 网络图片 url string 数组 */
 @property (nonatomic, strong) NSArray *imageURLStringsGroup;
 
-// 每张图片对应要显示的文字数组
+/** 每张图片对应要显示的文字数组 */
 @property (nonatomic, strong) NSArray *titlesGroup;
 
 
@@ -71,50 +71,66 @@ typedef enum {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>  滚动控制接口
 
-// 自动滚动间隔时间,默认2s
+/** 自动滚动间隔时间,默认2s */
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
 
-// 是否无限循环,默认Yes
+/** 是否无限循环,默认Yes */
 @property(nonatomic,assign) BOOL infiniteLoop;
 
-// 是否自动滚动,默认Yes
+/** 是否自动滚动,默认Yes */
 @property(nonatomic,assign) BOOL autoScroll;
 
 @property (nonatomic, weak) id<SDCycleScrollViewDelegate> delegate;
 
+/** block监听点击方式 */
+@property (nonatomic, copy) void (^clickItemOperationBlock)(NSInteger currentIndex);
 
 
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  自定义样式接口
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>  自定义样式接口
+/** 轮播图片的ContentMode */
+@property (nonatomic, assign) UIViewContentMode bannerImageViewContentMode;
 
-// 是否显示分页控件
-@property (nonatomic, assign) BOOL showPageControl;
-
-// 是否在只有一张图时隐藏pagecontrol，默认为YES
-@property(nonatomic) BOOL hidesForSinglePage;
-
-// pagecontrol 样式，默认为动画样式
-@property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
-
-// 占位图，用于网络未加载到图片时
+/** 占位图，用于网络未加载到图片时 */
 @property (nonatomic, strong) UIImage *placeholderImage;
 
-// 分页控件位置
+
+
+/** 是否显示分页控件 */
+@property (nonatomic, assign) BOOL showPageControl;
+
+/** 是否在只有一张图时隐藏pagecontrol，默认为YES */
+@property(nonatomic) BOOL hidesForSinglePage;
+
+/** pagecontrol 样式，默认为动画样式 */
+@property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
+
+/** 分页控件位置 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
 
-// 分页控件小圆标大小
+/** 分页控件小圆标大小 */
 @property (nonatomic, assign) CGSize pageControlDotSize;
 
-// 当前分页控件小圆标颜色
+/** 当前分页控件小圆标颜色 */
 @property (nonatomic, strong) UIColor *currentPageDotColor;
 
-// 其他分页控件小圆标颜色
+/** 其他分页控件小圆标颜色 */
 @property (nonatomic, strong) UIColor *pageDotColor;
 
+
+
+/** 轮播文字label字体颜色 */
 @property (nonatomic, strong) UIColor *titleLabelTextColor;
+
+/** 轮播文字label字体大小 */
 @property (nonatomic, strong) UIFont  *titleLabelTextFont;
+
+/** 轮播文字label背景颜色 */
 @property (nonatomic, strong) UIColor *titleLabelBackgroundColor;
+
+/** 轮播文字label高度 */
 @property (nonatomic, assign) CGFloat titleLabelHeight;
+
 
 
 // 网络图片轮播初始化方式

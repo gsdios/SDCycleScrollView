@@ -89,6 +89,7 @@ NSString * const ID = @"cycleCell";
     _hidesForSinglePage = YES;
     _currentPageDotColor = [UIColor whiteColor];
     _pageDotColor = [UIColor lightGrayColor];
+    _bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     
     self.backgroundColor = [UIColor lightGrayColor];
     
@@ -357,7 +358,7 @@ NSString * const ID = @"cycleCell";
         if (self.infiniteLoop) {
             targetIndex = _totalItemsCount * 0.5;
         }else{
-            targetIndex = 0;
+            return;
         }
         [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
@@ -462,6 +463,7 @@ NSString * const ID = @"cycleCell";
         cell.titleLabelTextColor = self.titleLabelTextColor;
         cell.titleLabelTextFont = self.titleLabelTextFont;
         cell.hasConfigured = YES;
+        cell.imageView.contentMode = self.bannerImageViewContentMode;
     }
     
     return cell;
@@ -471,6 +473,9 @@ NSString * const ID = @"cycleCell";
 {
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didSelectItemAtIndex:)]) {
         [self.delegate cycleScrollView:self didSelectItemAtIndex:indexPath.item % self.imagesGroup.count];
+    }
+    if (self.clickItemOperationBlock) {
+        self.clickItemOperationBlock(indexPath.item % self.imagesGroup.count);
     }
 }
 
