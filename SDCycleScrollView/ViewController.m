@@ -90,7 +90,6 @@
     cycleScrollView2.titlesGroup = titles;
     cycleScrollView2.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     [self.view addSubview:cycleScrollView2];
-    cycleScrollView2.infiniteLoop = NO;
     
     //         --- 模拟加载延迟
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -116,5 +115,16 @@
     
     [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
 }
+
+
+/*
+ 
+// 滚动到第几张图回调
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index
+{
+    NSLog(@">>>>>> 滚动到第%ld张图", (long)index);
+}
+ 
+ */
 
 @end

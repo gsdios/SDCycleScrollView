@@ -512,5 +512,16 @@ NSString * const ID = @"cycleCell";
     }
 }
 
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    int itemIndex = (scrollView.contentOffset.x + self.mainView.sd_width * 0.5) / self.mainView.sd_width;
+    if (!self.imagesGroup.count) return; // 解决清除timer时偶尔会出现的问题
+    int indexOnPageControl = itemIndex % self.imagesGroup.count;
+    
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
+        [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
+    }
+}
+
 
 @end
