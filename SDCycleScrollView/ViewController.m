@@ -46,11 +46,11 @@
     [self.view addSubview:backgroundView];
     
     // 情景一：采用本地图片实现
-    NSArray *images = @[[UIImage imageNamed:@"h1.jpg"],
-                        [UIImage imageNamed:@"h2.jpg"],
-                        [UIImage imageNamed:@"h3.jpg"],
-                        [UIImage imageNamed:@"h4.jpg"]
-                        ];
+    NSArray *imageNames = @[@"h1.jpg",
+                            @"h2.jpg",
+                            @"h3.jpg",
+                            @"h4.jpg"
+                            ];
     
     // 情景二：采用网络图片实现
     NSArray *imagesURLStrings = @[
@@ -72,7 +72,7 @@
     CGFloat w = self.view.bounds.size.width;
     
     // 本地加载 --- 创建不带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) imagesGroup:images];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) imageNamesGroup:imageNames];
 
     cycleScrollView.infiniteLoop = YES;
     cycleScrollView.delegate = self;

@@ -61,7 +61,7 @@ typedef enum {
 // >>>>>>>>>>>>>>>>>>>>>>>>>>  数据源接口
 
 /** 本地图片数组 */
-@property (nonatomic, strong) NSArray *localizationImagesGroup;
+@property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
 /** 网络图片 url string 数组 */
 @property (nonatomic, strong) NSArray *imageURLStringsGroup;
@@ -145,6 +145,6 @@ typedef enum {
 
 
 // 本地图片轮播初始化方式
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imagesGroup:(NSArray *)imagesGroup;
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup;
 
 @end
