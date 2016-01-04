@@ -123,6 +123,12 @@ typedef enum {
 /** 其他分页控件小圆标颜色 */
 @property (nonatomic, strong) UIColor *pageDotColor;
 
+/** 当前分页控件小圆标图片 */
+@property (nonatomic, strong) UIImage *currentPageDotImage;
+
+/** 其他分页控件小圆标图片 */
+@property (nonatomic, strong) UIImage *pageDotImage;
+
 
 
 /** 轮播文字label字体颜色 */

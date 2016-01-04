@@ -201,6 +201,41 @@ NSString * const ID = @"cycleCell";
     }
 }
 
+- (void)setCurrentPageDotImage:(UIImage *)currentPageDotImage
+{
+    _currentPageDotImage = currentPageDotImage;
+    
+    [self setCustomPageControlDotImage:currentPageDotImage isCurrentPageDot:YES];
+}
+
+- (void)setPageDotImage:(UIImage *)pageDotImage
+{
+    _pageDotImage = pageDotImage;
+    
+    [self setCustomPageControlDotImage:pageDotImage isCurrentPageDot:NO];
+}
+
+- (void)setCustomPageControlDotImage:(UIImage *)image isCurrentPageDot:(BOOL)isCurrentPageDot
+{
+    if (!image || !self.pageControl) return;
+    
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageControl = (TAPageControl *)_pageControl;
+        if (isCurrentPageDot) {
+            pageControl.currentDotImage = image;
+        } else {
+            pageControl.dotImage = image;
+        }
+    } else {
+        UIPageControl *pageControl = (UIPageControl *)_pageControl;
+        if (isCurrentPageDot) {
+            [pageControl setValue:image forKey:@"_currentPageImage"];
+        } else {
+            [pageControl setValue:image forKey:@"_pageImage"];
+        }
+    }
+}
+
 -(void)setAutoScroll:(BOOL)autoScroll{
     _autoScroll = autoScroll;
     [_timer invalidate];
@@ -314,7 +349,9 @@ NSString * const ID = @"cycleCell";
             break;
     }
     
-    
+    // 重设pagecontroldot图片
+    self.currentPageDotImage = self.currentPageDotImage;
+    self.pageDotImage = self.pageDotImage;
 }
 
 

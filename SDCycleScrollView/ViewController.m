@@ -39,11 +39,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"轮播Demo";
+    
     self.view.backgroundColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:0.99];
     UIImageView *backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"005.jpg"]];
     backgroundView.frame = self.view.bounds;
     [self.view addSubview:backgroundView];
+    
+    UIScrollView *demoContainerView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+    demoContainerView.contentSize = CGSizeMake(self.view.frame.size.width, 1200);
+    [self.view addSubview:demoContainerView];
+    
+    self.title = @"轮播Demo";
+
     
     // 情景一：采用本地图片实现
     NSArray *imageNames = @[@"h1.jpg",
@@ -66,10 +73,11 @@
                         @"您可以发邮件到gsdios@126.com"
                         ];
     
-    
-    
-    
     CGFloat w = self.view.bounds.size.width;
+    
+    
+
+// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 本地加载 --- 创建不带标题的图片轮播器
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) imageNamesGroup:imageNames];
@@ -77,11 +85,12 @@
     cycleScrollView.infiniteLoop = YES;
     cycleScrollView.delegate = self;
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
-    [self.view addSubview:cycleScrollView];
+    [demoContainerView addSubview:cycleScrollView];
     //         --- 轮播时间间隔，默认1.0秒，可自定义
     //cycleScrollView.autoScrollTimeInterval = 4.0;
     
     
+// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 网络加载 --- 创建带标题的图片轮播器
     SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
@@ -89,7 +98,7 @@
     cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView2.titlesGroup = titles;
     cycleScrollView2.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
-    [self.view addSubview:cycleScrollView2];
+    [demoContainerView addSubview:cycleScrollView2];
     
     //         --- 模拟加载延迟
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -104,6 +113,18 @@
      };
      
      */
+    
+    
+// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图3 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    
+    // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
+    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    cycleScrollView3.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
+    cycleScrollView3.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
+    cycleScrollView3.imageURLStringsGroup = imagesURLStrings;
+    
+    [demoContainerView addSubview:cycleScrollView3];
+    
 }
 
 
