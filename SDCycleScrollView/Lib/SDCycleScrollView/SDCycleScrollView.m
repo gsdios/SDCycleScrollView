@@ -34,6 +34,7 @@
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
 #import "UIImageView+WebCache.h"
+#import "SDImageCache.h"
 
 
 
@@ -376,6 +377,16 @@ NSString * const ID = @"cycleCell";
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.autoScrollTimeInterval target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
     _timer = timer;
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)clearCache
+{
+    [[self class] clearImagesCache];
+}
+
++ (void)clearImagesCache
+{
+    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
 }
 
 #pragma mark - life circles
