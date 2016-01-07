@@ -1,5 +1,25 @@
 # SDCycleScrollView（新建QQ交流群：185534916）
 ## ☆☆☆ “iOS第一轮播图” ☆☆☆
+### 提示：昨天（2016.01.06）升级了pod上的代码版本，pagecontrol的小圆点自定义接口改为：
+
+/** 当前分页控件小圆标颜色 */
+
+@property (nonatomic, strong) UIColor *currentPageDotColor;
+
+/** 其他分页控件小圆标颜色 */
+
+@property (nonatomic, strong) UIColor *pageDotColor;
+
+/** 当前分页控件小圆标图片 */
+
+@property (nonatomic, strong) UIImage *currentPageDotImage;
+
+/** 其他分页控件小圆标图片 */
+
+@property (nonatomic, strong) UIImage *pageDotImage;
+
+
+
 无限循环自动图片轮播器(一步设置即可使用)
 
      // 网络加载图片的轮播器
