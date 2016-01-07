@@ -15,4 +15,9 @@
     return [UIColor redColor];
 }
 
+-(NSString *)title
+{
+    return @"第一个CELL";
+}
+
 @end

@@ -18,11 +18,6 @@ NSString * const ThirdID = @"thirdcycleCell";
 
 
 #define kTRCellCount 3
-@interface TRCycleScrollView()
-
-@property (nonatomic, assign) NSInteger totalItemsCount;
-
-@end
 
 @implementation TRCycleScrollView
 
@@ -30,13 +25,9 @@ NSString * const ThirdID = @"thirdcycleCell";
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _totalItemsCount = kTRCellCount * 100;
-
-        [super setAutoScroll:YES];
-        [super setupPageControl];
+        [super setupMainViewAndPageControl];
     }
     return self;
-    
 }
 
 // 设置显示图片的collectionView
@@ -46,14 +37,9 @@ NSString * const ThirdID = @"thirdcycleCell";
     [self.mainView registerClass:[TRFirstCell class] forCellWithReuseIdentifier:FirstID];
     [self.mainView registerClass:[TRSecondCell class] forCellWithReuseIdentifier:SecondID];
     [self.mainView registerClass:[TRThirdCell class] forCellWithReuseIdentifier:ThirdID];
-    self.mainView.scrollEnabled = YES;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return _totalItemsCount;
-}
-
+//重写父类的方法
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     long itemIndex = indexPath.item % kTRCellCount;
@@ -75,6 +61,12 @@ NSString * const ThirdID = @"thirdcycleCell";
     TRCollectoinViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIndentifier forIndexPath:indexPath];
     
     return cell;
+}
+
+//总共有多少自定义的view
+-(NSInteger)countOfItems
+{
+    return kTRCellCount;
 }
 
 @end

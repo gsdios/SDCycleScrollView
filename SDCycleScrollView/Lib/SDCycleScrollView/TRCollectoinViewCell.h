@@ -13,4 +13,5 @@
 @property (nonatomic, weak) UIView *customView;
 @property (nonatomic, strong) UIColor *bgColor;
 
+-(void)setupUI;
 @end

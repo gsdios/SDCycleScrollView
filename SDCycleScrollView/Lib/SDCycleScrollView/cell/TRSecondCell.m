@@ -15,4 +15,10 @@
     return [UIColor yellowColor];
 }
 
+-(NSString *)title
+{
+    return @"第二个CELL";
+}
+
+
 @end

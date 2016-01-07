@@ -263,9 +263,16 @@ NSString * const ID = @"cycleCell";
 {
     _imageURLsGroup = imageURLsGroup;
     
-    _totalItemsCount = self.infiniteLoop ? self.imageURLsGroup.count * 100 : self.imageURLsGroup.count;
+    [self setupMainViewAndPageControl];
+    
+    [self.mainView reloadData];
+}
 
-    if (imageURLsGroup.count != 1) {
+- (void)setupMainViewAndPageControl
+{
+    _totalItemsCount = self.infiniteLoop ? [self countOfItems] * 100 : [self countOfItems];
+    
+    if ([self countOfItems] != 1) {
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
     } else {
@@ -273,7 +280,6 @@ NSString * const ID = @"cycleCell";
     }
     
     [self setupPageControl];
-    [self.mainView reloadData];
 }
 
 - (void)setImageURLStringsGroup:(NSArray *)imageURLStringsGroup
@@ -316,7 +322,7 @@ NSString * const ID = @"cycleCell";
 {
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     
-    if ((self.imageURLsGroup.count <= 1) && self.hidesForSinglePage) {
+    if (([self countOfItems] <= 1) && self.hidesForSinglePage) {
         return;
     }
     
@@ -324,7 +330,7 @@ NSString * const ID = @"cycleCell";
         case SDCycleScrollViewPageContolStyleAnimated:
         {
             TAPageControl *pageControl = [[TAPageControl alloc] init];
-            pageControl.numberOfPages = self.imageURLsGroup.count;
+            pageControl.numberOfPages = [self countOfItems];
             pageControl.dotColor = self.currentPageDotColor;
             pageControl.userInteractionEnabled = NO;
             [self addSubview:pageControl];
@@ -335,7 +341,7 @@ NSString * const ID = @"cycleCell";
         case SDCycleScrollViewPageContolStyleClassic:
         {
             UIPageControl *pageControl = [[UIPageControl alloc] init];
-            pageControl.numberOfPages = self.imageURLsGroup.count;
+            pageControl.numberOfPages = [self countOfItems];
             pageControl.currentPageIndicatorTintColor = self.currentPageDotColor;
             pageControl.pageIndicatorTintColor = self.pageDotColor;
             pageControl.userInteractionEnabled = NO;
@@ -353,6 +359,10 @@ NSString * const ID = @"cycleCell";
     self.pageDotImage = self.pageDotImage;
 }
 
+-(NSInteger)countOfItems
+{
+    return self.imageURLsGroup.count;
+}
 
 - (void)automaticScroll
 {
@@ -409,9 +419,9 @@ NSString * const ID = @"cycleCell";
     CGSize size = CGSizeZero;
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
-        size = [pageControl sizeForNumberOfPages:self.imageURLsGroup.count];
+        size = [pageControl sizeForNumberOfPages:[self countOfItems]];
     } else {
-        size = CGSizeMake(self.imageURLsGroup.count * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
+        size = CGSizeMake([self countOfItems] * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
     }
     CGFloat x = (self.sd_width - size.width) * 0.5;
     if (self.pageControlAliment == SDCycleScrollViewPageContolAlimentRight) {
@@ -461,7 +471,7 @@ NSString * const ID = @"cycleCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    long itemIndex = indexPath.item % self.imageURLsGroup.count;
+    long itemIndex = indexPath.item % [self countOfItems];
     
     NSURL *url = self.imageURLsGroup[itemIndex];
     [cell.imageView sd_setImageWithURL:url placeholderImage:self.placeholderImage];
@@ -485,10 +495,10 @@ NSString * const ID = @"cycleCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didSelectItemAtIndex:)]) {
-        [self.delegate cycleScrollView:self didSelectItemAtIndex:indexPath.item % self.imageURLsGroup.count];
+        [self.delegate cycleScrollView:self didSelectItemAtIndex:indexPath.item % [self countOfItems]];
     }
     if (self.clickItemOperationBlock) {
-        self.clickItemOperationBlock(indexPath.item % self.imageURLsGroup.count);
+        self.clickItemOperationBlock(indexPath.item % [self countOfItems]);
     }
 }
 
@@ -498,8 +508,8 @@ NSString * const ID = @"cycleCell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     int itemIndex = (scrollView.contentOffset.x + self.mainView.sd_width * 0.5) / self.mainView.sd_width;
-    if (!self.imageURLsGroup.count) return; // 解决清除timer时偶尔会出现的问题
-    int indexOnPageControl = itemIndex % self.imageURLsGroup.count;
+    if (![self countOfItems]) return; // 解决清除timer时偶尔会出现的问题
+    int indexOnPageControl = itemIndex % [self countOfItems];
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
@@ -528,8 +538,8 @@ NSString * const ID = @"cycleCell";
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     int itemIndex = (scrollView.contentOffset.x + self.mainView.sd_width * 0.5) / self.mainView.sd_width;
-    if (!self.imageURLsGroup.count) return; // 解决清除timer时偶尔会出现的问题
-    int indexOnPageControl = itemIndex % self.imageURLsGroup.count;
+    if (![self countOfItems]) return; // 解决清除timer时偶尔会出现的问题
+    int indexOnPageControl = itemIndex % [self countOfItems];
     
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
         [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];

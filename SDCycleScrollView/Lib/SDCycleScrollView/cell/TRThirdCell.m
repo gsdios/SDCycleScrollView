@@ -15,4 +15,10 @@
     return [UIColor blueColor];
 }
 
+-(NSString *)title
+{
+    return @"第三个CELL";
+}
+
+
 @end

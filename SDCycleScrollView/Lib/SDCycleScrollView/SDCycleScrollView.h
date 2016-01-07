@@ -60,13 +60,13 @@ typedef enum {
 
 /**
  对外发布接口
- 
  */
-- (void)setupMainView;
-- (void)setAutoScroll:(BOOL)autoScroll;
-- (void)setupPageControl;
+- (void)setupMainView; //设置collectionView
+- (void)setupPageControl; //设置pageControl
+- (void)setAutoScroll:(BOOL)autoScroll; //设置自动滚动
+- (NSInteger)countOfItems; //自定义View的数量
+- (void)setupMainViewAndPageControl; //设置mainView与pageControl
 @property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
-
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>  数据源接口
