@@ -30,6 +30,7 @@
 
 #import "ViewController.h"
 #import "SDCycleScrollView.h"
+#import "TRCycleScrollView.h"
 
 @interface ViewController () <SDCycleScrollViewDelegate>
 
@@ -50,7 +51,14 @@
     [self.view addSubview:demoContainerView];
     
     self.title = @"轮播Demo";
+    
+    TRCycleScrollView *banner2 = [TRCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 300, [UIScreen mainScreen].bounds.size.width, 140) delegate:self placeholderImage:nil];
+    banner2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    
+    [demoContainerView addSubview:banner2];
 
+    
+    /*
     
     // 情景一：采用本地图片实现
     NSArray *imageNames = @[@"h1.jpg",
@@ -104,6 +112,8 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         cycleScrollView2.imageURLStringsGroup = imagesURLStrings;
     });
+     
+     */
     
     /*
      block监听点击方式
@@ -115,6 +125,7 @@
      */
     
     
+    /*
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图3 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
@@ -124,6 +135,8 @@
     cycleScrollView3.imageURLStringsGroup = imagesURLStrings;
     
     [demoContainerView addSubview:cycleScrollView3];
+     
+     */
     
 }
 

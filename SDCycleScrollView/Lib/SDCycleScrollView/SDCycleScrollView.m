@@ -42,8 +42,6 @@ NSString * const ID = @"cycleCell";
 
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
-
-@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSArray *imageURLsGroup;
 @property (nonatomic, weak) NSTimer *timer;
@@ -114,7 +112,7 @@ NSString * const ID = @"cycleCell";
     SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
     cycleScrollView.delegate = delegate;
     cycleScrollView.placeholderImage = placeholderImage;
-    
+
     return cycleScrollView;
 }
 
@@ -266,7 +264,7 @@ NSString * const ID = @"cycleCell";
     _imageURLsGroup = imageURLsGroup;
     
     _totalItemsCount = self.infiniteLoop ? self.imageURLsGroup.count * 100 : self.imageURLsGroup.count;
-    
+
     if (imageURLsGroup.count != 1) {
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];

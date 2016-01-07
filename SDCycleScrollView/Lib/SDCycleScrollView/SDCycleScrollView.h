@@ -58,6 +58,15 @@ typedef enum {
 
 @interface SDCycleScrollView : UIView
 
+/**
+ 对外发布接口
+ 
+ */
+- (void)setupMainView;
+- (void)setAutoScroll:(BOOL)autoScroll;
+- (void)setupPageControl;
+@property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
+
 
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>  数据源接口
