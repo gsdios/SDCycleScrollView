@@ -48,11 +48,11 @@
 		99E727FC1BDBB91D00771161 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E727EA1BDBB91D00771161 /* UIImageView+HighlightedWebCache.m */; };
 		99E727FD1BDBB91D00771161 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E727EC1BDBB91D00771161 /* UIImageView+WebCache.m */; };
 		99E727FE1BDBB91D00771161 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E727EE1BDBB91D00771161 /* UIView+WebCacheOperation.m */; };
-		9A9450F81C3E5FF700966A99 /* TRFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9450F31C3E5FF700966A99 /* TRFirstCell.m */; };
-		9A9450F91C3E5FF700966A99 /* TRSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9450F51C3E5FF700966A99 /* TRSecondCell.m */; };
-		9A9450FA1C3E5FF700966A99 /* TRThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9450F71C3E5FF700966A99 /* TRThirdCell.m */; };
 		9A9450FF1C3E600D00966A99 /* TRCollectoinViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9450FC1C3E600D00966A99 /* TRCollectoinViewCell.m */; };
 		9A9451001C3E600D00966A99 /* TRCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9450FE1C3E600D00966A99 /* TRCycleScrollView.m */; };
+		9A9451071C3E63DF00966A99 /* TRFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9451021C3E63DF00966A99 /* TRFirstCell.m */; };
+		9A9451081C3E63DF00966A99 /* TRSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9451041C3E63DF00966A99 /* TRSecondCell.m */; };
+		9A9451091C3E63DF00966A99 /* TRThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9451061C3E63DF00966A99 /* TRThirdCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,16 +138,16 @@
 		99E727EC1BDBB91D00771161 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		99E727ED1BDBB91D00771161 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		99E727EE1BDBB91D00771161 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
-		9A9450F21C3E5FF700966A99 /* TRFirstCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRFirstCell.h; sourceTree = "<group>"; };
-		9A9450F31C3E5FF700966A99 /* TRFirstCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRFirstCell.m; sourceTree = "<group>"; };
-		9A9450F41C3E5FF700966A99 /* TRSecondCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRSecondCell.h; sourceTree = "<group>"; };
-		9A9450F51C3E5FF700966A99 /* TRSecondCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRSecondCell.m; sourceTree = "<group>"; };
-		9A9450F61C3E5FF700966A99 /* TRThirdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRThirdCell.h; sourceTree = "<group>"; };
-		9A9450F71C3E5FF700966A99 /* TRThirdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRThirdCell.m; sourceTree = "<group>"; };
 		9A9450FB1C3E600D00966A99 /* TRCollectoinViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRCollectoinViewCell.h; sourceTree = "<group>"; };
 		9A9450FC1C3E600D00966A99 /* TRCollectoinViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRCollectoinViewCell.m; sourceTree = "<group>"; };
 		9A9450FD1C3E600D00966A99 /* TRCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRCycleScrollView.h; sourceTree = "<group>"; };
 		9A9450FE1C3E600D00966A99 /* TRCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRCycleScrollView.m; sourceTree = "<group>"; };
+		9A9451011C3E63DF00966A99 /* TRFirstCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TRFirstCell.h; path = SDCycleScrollView/Lib/SDCycleScrollView/cell/TRFirstCell.h; sourceTree = SOURCE_ROOT; };
+		9A9451021C3E63DF00966A99 /* TRFirstCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TRFirstCell.m; path = SDCycleScrollView/Lib/SDCycleScrollView/cell/TRFirstCell.m; sourceTree = SOURCE_ROOT; };
+		9A9451031C3E63DF00966A99 /* TRSecondCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TRSecondCell.h; path = SDCycleScrollView/Lib/SDCycleScrollView/cell/TRSecondCell.h; sourceTree = SOURCE_ROOT; };
+		9A9451041C3E63DF00966A99 /* TRSecondCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TRSecondCell.m; path = SDCycleScrollView/Lib/SDCycleScrollView/cell/TRSecondCell.m; sourceTree = SOURCE_ROOT; };
+		9A9451051C3E63DF00966A99 /* TRThirdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TRThirdCell.h; path = SDCycleScrollView/Lib/SDCycleScrollView/cell/TRThirdCell.h; sourceTree = SOURCE_ROOT; };
+		9A9451061C3E63DF00966A99 /* TRThirdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TRThirdCell.m; path = SDCycleScrollView/Lib/SDCycleScrollView/cell/TRThirdCell.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,12 +350,12 @@
 		9A9450F11C3E5FF700966A99 /* cell */ = {
 			isa = PBXGroup;
 			children = (
-				9A9450F21C3E5FF700966A99 /* TRFirstCell.h */,
-				9A9450F31C3E5FF700966A99 /* TRFirstCell.m */,
-				9A9450F41C3E5FF700966A99 /* TRSecondCell.h */,
-				9A9450F51C3E5FF700966A99 /* TRSecondCell.m */,
-				9A9450F61C3E5FF700966A99 /* TRThirdCell.h */,
-				9A9450F71C3E5FF700966A99 /* TRThirdCell.m */,
+				9A9451011C3E63DF00966A99 /* TRFirstCell.h */,
+				9A9451021C3E63DF00966A99 /* TRFirstCell.m */,
+				9A9451031C3E63DF00966A99 /* TRSecondCell.h */,
+				9A9451041C3E63DF00966A99 /* TRSecondCell.m */,
+				9A9451051C3E63DF00966A99 /* TRThirdCell.h */,
+				9A9451061C3E63DF00966A99 /* TRThirdCell.m */,
 			);
 			name = cell;
 			path = ../../../../../scroll/SDCycleScrollView/SDCycleScrollView/Lib/SDCycleScrollView/cell;
@@ -481,7 +481,7 @@
 				990141021AC941FD00D0D74F /* TAAnimatedDotView.m in Sources */,
 				9901410D1AC9420E00D0D74F /* UIView+SDExtension.m in Sources */,
 				99E727F81BDBB91D00771161 /* UIButton+WebCache.m in Sources */,
-				9A9450FA1C3E5FF700966A99 /* TRThirdCell.m in Sources */,
+				9A9451081C3E63DF00966A99 /* TRSecondCell.m in Sources */,
 				99E727F51BDBB91D00771161 /* SDWebImageDownloaderOperation.m in Sources */,
 				99E727EF1BDBB91D00771161 /* MKAnnotationView+WebCache.m in Sources */,
 				99E727F21BDBB91D00771161 /* SDWebImageCompat.m in Sources */,
@@ -491,13 +491,13 @@
 				99E727FD1BDBB91D00771161 /* UIImageView+WebCache.m in Sources */,
 				990141041AC941FD00D0D74F /* TAPageControl.m in Sources */,
 				48377B901C1027F5007B8C21 /* DemoVCWithXib.m in Sources */,
+				9A9451071C3E63DF00966A99 /* TRFirstCell.m in Sources */,
 				99E727FE1BDBB91D00771161 /* UIView+WebCacheOperation.m in Sources */,
 				9900D1741ABEB2490077A6CB /* main.m in Sources */,
+				9A9451091C3E63DF00966A99 /* TRThirdCell.m in Sources */,
 				99E727F41BDBB91D00771161 /* SDWebImageDownloader.m in Sources */,
-				9A9450F91C3E5FF700966A99 /* TRSecondCell.m in Sources */,
 				99E727FC1BDBB91D00771161 /* UIImageView+HighlightedWebCache.m in Sources */,
 				99E727F31BDBB91D00771161 /* SDWebImageDecoder.m in Sources */,
-				9A9450F81C3E5FF700966A99 /* TRFirstCell.m in Sources */,
 				99E727FB1BDBB91D00771161 /* UIImage+WebP.m in Sources */,
 				99E727F61BDBB91D00771161 /* SDWebImageManager.m in Sources */,
 				9901410B1AC9420E00D0D74F /* SDCollectionViewCell.m in Sources */,
