@@ -89,7 +89,7 @@ NSString * const ID = @"cycleCell";
     _hidesForSinglePage = YES;
     _currentPageDotColor = [UIColor whiteColor];
     _pageDotColor = [UIColor lightGrayColor];
-    _bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
+    _bannerImageViewContentMode = UIViewContentModeScaleToFill;
     
     self.backgroundColor = [UIColor lightGrayColor];
     
