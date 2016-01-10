@@ -479,6 +479,7 @@ NSString * const ID = @"cycleCell";
         cell.titleLabelTextFont = self.titleLabelTextFont;
         cell.hasConfigured = YES;
         cell.imageView.contentMode = self.bannerImageViewContentMode;
+        cell.clipsToBounds = YES;
     }
     
     return cell;
