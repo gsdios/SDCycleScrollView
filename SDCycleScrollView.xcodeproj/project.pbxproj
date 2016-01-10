@@ -31,6 +31,7 @@
 		9901410D1AC9420E00D0D74F /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9901410A1AC9420E00D0D74F /* UIView+SDExtension.m */; };
 		999C10981AC14F3B00C11CDB /* h3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10961AC14F3B00C11CDB /* h3.jpg */; };
 		999C109A1AC14F7200C11CDB /* h1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10991AC14F7200C11CDB /* h1.jpg */; };
+		99A6977B1C4250CC004EA699 /* h6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 99A6977A1C4250CC004EA699 /* h6@2x.png */; };
 		99A732631B24AB660033E878 /* 005.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99A732621B24AB660033E878 /* 005.jpg */; };
 		99E727EF1BDBB91D00771161 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E727CF1BDBB91D00771161 /* MKAnnotationView+WebCache.m */; };
 		99E727F01BDBB91D00771161 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E727D11BDBB91D00771161 /* NSData+ImageContentType.m */; };
@@ -99,6 +100,7 @@
 		9901410A1AC9420E00D0D74F /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		999C10961AC14F3B00C11CDB /* h3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h3.jpg; sourceTree = "<group>"; };
 		999C10991AC14F7200C11CDB /* h1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h1.jpg; sourceTree = "<group>"; };
+		99A6977A1C4250CC004EA699 /* h6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "h6@2x.png"; sourceTree = "<group>"; };
 		99A732621B24AB660033E878 /* 005.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 005.jpg; sourceTree = "<group>"; };
 		99E727CE1BDBB91D00771161 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		99E727CF1BDBB91D00771161 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		9900D1711ABEB2490077A6CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				99A6977A1C4250CC004EA699 /* h6@2x.png */,
 				485B54731C3A196C001944FA /* pageControlDot@2x.png */,
 				485B54741C3A196C001944FA /* pageControlDot@3x.png */,
 				485B54751C3A196C001944FA /* pageControlCurrentDot@3x.png */,
@@ -414,6 +417,7 @@
 				485B54771C3A196C001944FA /* pageControlDot@2x.png in Resources */,
 				99A732631B24AB660033E878 /* 005.jpg in Resources */,
 				9900D1821ABEB2490077A6CB /* LaunchScreen.xib in Resources */,
+				99A6977B1C4250CC004EA699 /* h6@2x.png in Resources */,
 				485B54781C3A196C001944FA /* pageControlDot@3x.png in Resources */,
 				4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */,
 				485B547A1C3A196C001944FA /* pageControlCurrentDot@2x.png in Resources */,

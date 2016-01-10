@@ -56,7 +56,8 @@
     NSArray *imageNames = @[@"h1.jpg",
                             @"h2.jpg",
                             @"h3.jpg",
-                            @"h4.jpg"
+                            @"h4.jpg",
+                            @"h6@2x.png" // 本地图片请填写全名
                             ];
     
     // 情景二：采用网络图片实现
