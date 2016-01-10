@@ -94,7 +94,7 @@ typedef enum {
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  自定义样式接口
 
-/** 轮播图片的ContentMode */
+/** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
 @property (nonatomic, assign) UIViewContentMode bannerImageViewContentMode;
 
 /** 占位图，用于网络未加载到图片时 */
