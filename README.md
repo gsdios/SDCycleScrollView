@@ -5,7 +5,7 @@
 
 2016.01.15 -- 兼容assets存放的本地图片
 
-2016.01.06 -- pagecontrol的小圆点自定义接口改为：currentPageDotColor、pageDotColor、currentPageDotImage、pageDotImage;
+2016.01.06 -- 0.图片管理使用SDWebImage；1.优化内存，提升性能；2.添加图片contentmode接口；3.block监听点击接口；4.滚动到某张图片监听；5.增加自定义图片pageControl接口；6.其他等等。其中有一处接口改动：pagecontrol的小圆点自定义接口改为：currentPageDotColor、pageDotColor、currentPageDotImage、pageDotImage。
 
            
 ### 无限循环自动图片轮播器(一步设置即可使用)
