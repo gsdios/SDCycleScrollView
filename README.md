@@ -8,9 +8,10 @@
 2016.01.06 -- pagecontrol的小圆点自定义接口改为：currentPageDotColor、pageDotColor、currentPageDotImage、pageDotImage;
 
            
-无限循环自动图片轮播器(一步设置即可使用)
+### 无限循环自动图片轮播器(一步设置即可使用)
 
      // 网络加载图片的轮播器
+     SDCycleScrollView *cycleScrollView = [cycleScrollViewWithFrame:frame delegate:delegate placeholderImage:placeholderImage];
      cycleScrollView.imageURLStringsGroup = imagesURLStrings;
      
      // 本地加载图片的轮播器
