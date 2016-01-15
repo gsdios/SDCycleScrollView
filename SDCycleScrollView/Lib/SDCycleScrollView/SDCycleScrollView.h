@@ -158,6 +158,8 @@ typedef enum {
 /** 本地图片轮播初始化方式 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup;
 
+/** 本地图片轮播初始化方式2,infiniteLoop:是否无限循环 */
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>  清除缓存接口
 

@@ -57,7 +57,7 @@
                             @"h2.jpg",
                             @"h3.jpg",
                             @"h4.jpg",
-                            @"h6@2x.png" // 本地图片请填写全名
+                            @"h7" // 本地图片请填写全名
                             ];
     
     // 情景二：采用网络图片实现
@@ -81,11 +81,10 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 本地加载 --- 创建不带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) imageNamesGroup:imageNames];
-
-    cycleScrollView.infiniteLoop = YES;
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) shouldInfiniteLoop:YES imageNamesGroup:imageNames];
     cycleScrollView.delegate = self;
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+    
     [demoContainerView addSubview:cycleScrollView];
     //         --- 轮播时间间隔，默认1.0秒，可自定义
     //cycleScrollView.autoScrollTimeInterval = 4.0;
