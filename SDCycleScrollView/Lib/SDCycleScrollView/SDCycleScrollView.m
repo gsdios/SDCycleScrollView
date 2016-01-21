@@ -149,14 +149,6 @@ NSString * const ID = @"cycleCell";
 
 #pragma mark - properties
 
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    
-    _flowLayout.itemSize = self.frame.size;
-}
-
 - (void)setPlaceholderImage:(UIImage *)placeholderImage
 {
     _placeholderImage = placeholderImage;
