@@ -71,7 +71,7 @@
 {
     UIImageView *imageView = [[UIImageView alloc] init];
     _imageView = imageView;
-    [self addSubview:imageView];
+    [self.contentView addSubview:imageView];
 }
 
 - (void)setupTitleLabel
@@ -79,7 +79,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     _titleLabel = titleLabel;
     _titleLabel.hidden = YES;
-    [self addSubview:titleLabel];
+    [self.contentView addSubview:titleLabel];
 }
 
 - (void)setTitle:(NSString *)title
