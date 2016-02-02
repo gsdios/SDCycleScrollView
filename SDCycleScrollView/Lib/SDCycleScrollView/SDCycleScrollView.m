@@ -197,7 +197,7 @@ NSString * const ID = @"cycleCell";
 {
     _pageDotColor = pageDotColor;
     
-    if ([self.pageDotColor isKindOfClass:[UIPageControl class]]) {
+    if ([self.pageControl isKindOfClass:[UIPageControl class]]) {
         UIPageControl *pageControl = (UIPageControl *)_pageControl;
         pageControl.pageIndicatorTintColor = pageDotColor;
     }
