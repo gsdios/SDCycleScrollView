@@ -28,7 +28,7 @@
  
 #PS:
  
- 现已支持cocoapods导入：pod 'SDCycleScrollView','~> 1.6'
+ 现已支持cocoapods导入：pod 'SDCycleScrollView','~> 1.61'
  
  
  如需更详细的设置，参考如下：
