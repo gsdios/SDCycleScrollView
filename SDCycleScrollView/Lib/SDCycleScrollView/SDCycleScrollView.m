@@ -362,7 +362,16 @@ NSString * const ID = @"cycleCell";
 - (void)automaticScroll
 {
     if (0 == _totalItemsCount) return;
-    int currentIndex = _mainView.contentOffset.x / _flowLayout.itemSize.width;
+    
+        //此处为MISSAJJ修改bug
+        //原因：在做IOS多屏幕适配时，算出的currentIndex会出错，会导致出现轮播几次就被停止了
+        
+        //解释：我们有的时候会通过以iphone5屏幕（kDeviceWidth/320，kDeviceHeight/568）为基础标准的尺寸比例，去缩放IPhone6，6plus的尺寸
+        //而经过屏幕适配后所获得的控件CGfloat W宽有的时候会出现类似254.66666这样的float浮点，_mainView.contentOffset.x也为float浮点,
+        //所以将两者都先强转为int，再算currentIndex就不再出错了
+    int currentIndex = (int)_mainView.contentOffset.x / (int)_flowLayout.itemSize.width;
+    //int currentIndex = _mainView.contentOffset.x /_flowLayout.itemSize.width;  //此句为原作者的代码
+    
     int targetIndex = currentIndex + 1;
     if (targetIndex == _totalItemsCount) {
         if (self.infiniteLoop) {
