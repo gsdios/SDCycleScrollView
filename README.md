@@ -33,7 +33,7 @@
  
  如需更详细的设置，参考如下：
  
- 1. cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight; // 设置pageControl居右，默认居中
+ 1. cycleScrollView.pageControlAliment = SDCycleScrollViewPageControlAlimentRight; // 设置pageControl居右，默认居中
  
  2. cycleScrollView.titlesGroup =  标题数组（数组元素个数必须和图片数组元素个数保持一致）; // 如果设置title数组，则会在图片下面添加标题
  
