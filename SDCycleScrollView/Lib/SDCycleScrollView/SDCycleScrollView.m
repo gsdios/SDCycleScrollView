@@ -539,6 +539,7 @@ NSString * const ID = @"cycleCell";
     if (self.autoScroll) {
         [self setupTimer];
     }
+    [self scrollViewDidEndScrollingAnimation:self.mainView];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
