@@ -29,6 +29,8 @@
 #PS:
  
  现已支持cocoapods导入：pod 'SDCycleScrollView','~> 1.61'
+
+ 如果发现pod search SDAutoLayout 搜索出来的不是最新版本，需要在终端执行cd转换文件路径命令退回到desktop，然后执行pod setup命令更新本地spec缓存（可能需    要几分钟），然后再搜索就可以了
  
  
  如需更详细的设置，参考如下：
