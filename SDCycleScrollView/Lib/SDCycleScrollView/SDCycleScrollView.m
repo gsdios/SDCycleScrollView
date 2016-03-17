@@ -144,6 +144,7 @@ NSString * const ID = @"cycleCell";
     mainView.delegate = self;
     [self addSubview:mainView];
     _mainView = mainView;
+    _mainView.scrollsToTop = NO; //解决点击状态栏,tableView 不滚动到顶部问题
 }
 
 
