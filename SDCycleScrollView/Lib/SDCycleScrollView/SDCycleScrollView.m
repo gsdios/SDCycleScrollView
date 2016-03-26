@@ -479,7 +479,11 @@ NSString * const ID = @"cycleCell";
         if ([imagePath hasPrefix:@"http"]) {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
         } else {
-            cell.imageView.image = [UIImage imageNamed:imagePath];
+            UIImage *image = [UIImage imageNamed:imagePath];
+            if (!image) {
+                [UIImage imageWithContentsOfFile:imagePath];
+            }
+            cell.imageView.image = image;
         }
     } else if ([imagePath isKindOfClass:[UIImage class]]) {
         cell.imageView.image = (UIImage *)imagePath;
