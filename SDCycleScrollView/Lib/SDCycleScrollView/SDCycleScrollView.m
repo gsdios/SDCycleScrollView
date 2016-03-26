@@ -273,6 +273,10 @@ NSString * const ID = @"cycleCell";
 
 - (void)setImagePathsGroup:(NSArray *)imagePathsGroup
 {
+    if (imagePathsGroup.count < _imagePathsGroup.count) {
+        [_mainView setContentOffset:CGPointZero animated:NO];
+    }
+    
     _imagePathsGroup = imagePathsGroup;
     
     _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count;
