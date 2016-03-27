@@ -7,7 +7,7 @@
 //
 
 /*
- 
+
  *********************************************************************************
  *
  * 🌟🌟🌟 新建SDCycleScrollView交流QQ群：185534916 🌟🌟🌟
@@ -25,26 +25,26 @@
  * 用法示例：https://github.com/gsdios/SDAutoLayout/blob/master/README.md
  * GitHub：https://github.com/gsdios/SDAutoLayout
  *********************************************************************************
- 
+
  */
 
 /*
- * 当前版本为1.6 
+ * 当前版本为1.6
  * 更新日期：2016.01.10
  */
 
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    SDCycleScrollViewPageContolAlimentRight,
-    SDCycleScrollViewPageContolAlimentCenter
-} SDCycleScrollViewPageContolAliment;
+    SDCycleScrollViewPageControlAlimentRight,
+    SDCycleScrollViewPageControlAlimentCenter
+} SDCycleScrollViewPageControlAliment;
 
 typedef enum {
-    SDCycleScrollViewPageContolStyleClassic,        // 系统自带经典样式
-    SDCycleScrollViewPageContolStyleAnimated,       // 动画效果pagecontrol
-    SDCycleScrollViewPageContolStyleNone            // 不显示pagecontrol
-} SDCycleScrollViewPageContolStyle;
+    SDCycleScrollViewPageControlStyleClassic,        // 系统自带经典样式
+    SDCycleScrollViewPageControlStyleAnimated,       // 动画效果pagecontrol
+    SDCycleScrollViewPageControlStyleNone            // 不显示pagecontrol
+} SDCycleScrollViewPageControlStyle;
 
 @class SDCycleScrollView;
 
@@ -113,10 +113,10 @@ typedef enum {
 @property(nonatomic) BOOL hidesForSinglePage;
 
 /** pagecontrol 样式，默认为动画样式 */
-@property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
+@property (nonatomic, assign) SDCycleScrollViewPageControlStyle pageControlStyle;
 
 /** 分页控件位置 */
-@property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
+@property (nonatomic, assign) SDCycleScrollViewPageControlAliment pageControlAliment;
 
 /** 分页控件小圆标大小 */
 @property (nonatomic, assign) CGSize pageControlDotSize;
