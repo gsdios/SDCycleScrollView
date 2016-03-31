@@ -258,6 +258,13 @@ NSString * const ID = @"cycleCell";
     }
 }
 
+- (void)setScrollDirection:(UICollectionViewScrollDirection)scrollDirection
+{
+    _scrollDirection = scrollDirection;
+    
+    _flowLayout.scrollDirection = scrollDirection;
+}
+
 - (void)setAutoScrollTimeInterval:(CGFloat)autoScrollTimeInterval
 {
     _autoScrollTimeInterval = autoScrollTimeInterval;
@@ -367,7 +374,7 @@ NSString * const ID = @"cycleCell";
 - (void)automaticScroll
 {
     if (0 == _totalItemsCount) return;
-    int currentIndex = _mainView.contentOffset.x / _flowLayout.itemSize.width;
+    int currentIndex = [self currentIndex];
     int targetIndex = currentIndex + 1;
     if (targetIndex == _totalItemsCount) {
         if (self.infiniteLoop) {
@@ -379,6 +386,17 @@ NSString * const ID = @"cycleCell";
         return;
     }
     [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+}
+
+- (int)currentIndex
+{
+    int index = 0;
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+        index = (_mainView.contentOffset.x + _flowLayout.itemSize.width * 0.5) / _flowLayout.itemSize.width;
+    } else {
+        index = (_mainView.contentOffset.y + _flowLayout.itemSize.height * 0.5) / _flowLayout.itemSize.height;
+    }
+    return index;
 }
 
 - (void)setupTimer
@@ -522,8 +540,8 @@ NSString * const ID = @"cycleCell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    int itemIndex = (scrollView.contentOffset.x + self.mainView.sd_width * 0.5) / self.mainView.sd_width;
     if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
+    int itemIndex = [self currentIndex];
     int indexOnPageControl = itemIndex % self.imagePathsGroup.count;
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
@@ -553,8 +571,8 @@ NSString * const ID = @"cycleCell";
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    int itemIndex = (scrollView.contentOffset.x + self.mainView.sd_width * 0.5) / self.mainView.sd_width;
     if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
+    int itemIndex = [self currentIndex];
     int indexOnPageControl = itemIndex % self.imagePathsGroup.count;
     
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
