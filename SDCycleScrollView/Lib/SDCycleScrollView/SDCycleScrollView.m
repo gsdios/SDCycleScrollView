@@ -142,6 +142,7 @@ NSString * const ID = @"cycleCell";
     [mainView registerClass:[SDCollectionViewCell class] forCellWithReuseIdentifier:ID];
     mainView.dataSource = self;
     mainView.delegate = self;
+    mainView.scrollsToTop = NO;
     [self addSubview:mainView];
     _mainView = mainView;
 }
