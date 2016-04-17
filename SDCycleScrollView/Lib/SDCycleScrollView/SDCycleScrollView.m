@@ -50,7 +50,7 @@ NSString * const ID = @"cycleCell";
 @property (nonatomic, assign) NSInteger totalItemsCount;
 @property (nonatomic, weak) UIControl *pageControl;
 
-@property (nonatomic, weak) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
+@property (nonatomic, strong) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
 
 @property (nonatomic, assign) NSInteger networkFailedRetryCount;
 
@@ -298,6 +298,14 @@ NSString * const ID = @"cycleCell";
     
     [self setupPageControl];
     [self.mainView reloadData];
+    
+    if (imagePathsGroup.count) {
+        [self.backgroundImageView removeFromSuperview];
+    } else {
+        if (self.backgroundImageView && !self.backgroundImageView.superview) {
+            [self insertSubview:self.backgroundImageView belowSubview:self.mainView];
+        }
+    }
 }
 
 - (void)setImageURLStringsGroup:(NSArray *)imageURLStringsGroup
