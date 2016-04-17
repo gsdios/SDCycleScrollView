@@ -333,9 +333,11 @@ NSString * const ID = @"cycleCell";
 {
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     
-    if ((self.imagePathsGroup.count <= 1) && self.hidesForSinglePage) {
-        return;
-    }
+    if (self.imagePathsGroup.count == 0) return;
+    
+    if ((self.imagePathsGroup.count == 1) && self.hidesForSinglePage) return;
+    
+    int indexOnPageControl = [self currentIndex] % self.imagePathsGroup.count;
     
     switch (self.pageControlStyle) {
         case SDCycleScrollViewPageContolStyleAnimated:
@@ -344,6 +346,7 @@ NSString * const ID = @"cycleCell";
             pageControl.numberOfPages = self.imagePathsGroup.count;
             pageControl.dotColor = self.currentPageDotColor;
             pageControl.userInteractionEnabled = NO;
+            pageControl.currentPage = indexOnPageControl;
             [self addSubview:pageControl];
             _pageControl = pageControl;
         }
@@ -356,6 +359,7 @@ NSString * const ID = @"cycleCell";
             pageControl.currentPageIndicatorTintColor = self.currentPageDotColor;
             pageControl.pageIndicatorTintColor = self.pageDotColor;
             pageControl.userInteractionEnabled = NO;
+            pageControl.currentPage = indexOnPageControl;
             [self addSubview:pageControl];
             _pageControl = pageControl;
         }
