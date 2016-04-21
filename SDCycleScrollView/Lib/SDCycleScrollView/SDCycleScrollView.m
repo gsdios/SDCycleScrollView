@@ -392,8 +392,12 @@ NSString * const ID = @"cycleCell";
     }
     
     // 重设pagecontroldot图片
-    self.currentPageDotImage = self.currentPageDotImage;
-    self.pageDotImage = self.pageDotImage;
+    if (self.currentPageDotImage) {
+        self.currentPageDotImage = self.currentPageDotImage;
+    }
+    if (self.pageDotImage) {
+        self.pageDotImage = self.pageDotImage;
+    }
 }
 
 
