@@ -36,7 +36,7 @@
 #import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
 
-
+#define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
 NSString * const ID = @"cycleCell";
 
@@ -84,7 +84,7 @@ NSString * const ID = @"cycleCell";
     _autoScroll = YES;
     _infiniteLoop = YES;
     _showPageControl = YES;
-    _pageControlDotSize = CGSizeMake(10, 10);
+    _pageControlDotSize = kCycleScrollViewInitialPageControlDotSize;
     _pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     _hidesForSinglePage = YES;
     _currentPageDotColor = [UIColor whiteColor];
@@ -208,12 +208,20 @@ NSString * const ID = @"cycleCell";
 {
     _currentPageDotImage = currentPageDotImage;
     
+    if (self.pageControlStyle != SDCycleScrollViewPageContolStyleAnimated) {
+        self.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+    }
+    
     [self setCustomPageControlDotImage:currentPageDotImage isCurrentPageDot:YES];
 }
 
 - (void)setPageDotImage:(UIImage *)pageDotImage
 {
     _pageDotImage = pageDotImage;
+    
+    if (self.pageControlStyle != SDCycleScrollViewPageContolStyleAnimated) {
+        self.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+    }
     
     [self setCustomPageControlDotImage:pageDotImage isCurrentPageDot:NO];
 }
@@ -229,13 +237,6 @@ NSString * const ID = @"cycleCell";
         } else {
             pageControl.dotImage = image;
         }
-    } else {
-        UIPageControl *pageControl = (UIPageControl *)_pageControl;
-        if (isCurrentPageDot) {
-            [pageControl setValue:image forKey:@"_currentPageImage"];
-        } else {
-            [pageControl setValue:image forKey:@"_pageImage"];
-        }
     }
 }
 
@@ -250,8 +251,8 @@ NSString * const ID = @"cycleCell";
 
 -(void)setAutoScroll:(BOOL)autoScroll{
     _autoScroll = autoScroll;
-    [_timer invalidate];
-    _timer = nil;
+    
+    [self invalidateTimer];
     
     if (_autoScroll) {
         [self setupTimer];
@@ -293,6 +294,7 @@ NSString * const ID = @"cycleCell";
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
     } else {
+        [self invalidateTimer];
         self.mainView.scrollEnabled = NO;
     }
     
@@ -336,6 +338,18 @@ NSString * const ID = @"cycleCell";
 
 #pragma mark - actions
 
+- (void)setupTimer
+{
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.autoScrollTimeInterval target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
+    _timer = timer;
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+}
+
+- (void)invalidateTimer
+{
+    [_timer invalidate];
+    _timer = nil;
+}
 
 - (void)setupPageControl
 {
@@ -413,13 +427,6 @@ NSString * const ID = @"cycleCell";
     return index;
 }
 
-- (void)setupTimer
-{
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.autoScrollTimeInterval target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
-    _timer = timer;
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-}
-
 - (void)clearCache
 {
     [[self class] clearImagesCache];
@@ -452,6 +459,9 @@ NSString * const ID = @"cycleCell";
     CGSize size = CGSizeZero;
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
+        if (!(self.pageDotImage && self.currentPageDotImage && CGSizeEqualToSize(kCycleScrollViewInitialPageControlDotSize, self.pageControlDotSize))) {
+            pageControl.dotSize = self.pageControlDotSize;
+        }
         size = [pageControl sizeForNumberOfPages:self.imagePathsGroup.count];
     } else {
         size = CGSizeMake(self.imagePathsGroup.count * self.pageControlDotSize.width * 1.2, self.pageControlDotSize.height);
@@ -480,8 +490,7 @@ NSString * const ID = @"cycleCell";
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     if (!newSuperview) {
-        [_timer invalidate];
-        _timer = nil;
+        [self invalidateTimer];
     }
 }
 
@@ -570,8 +579,7 @@ NSString * const ID = @"cycleCell";
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if (self.autoScroll) {
-        [_timer invalidate];
-        _timer = nil;
+        [self invalidateTimer];
     }
 }
 
