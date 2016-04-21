@@ -592,6 +592,10 @@ NSString * const ID = @"cycleCell";
     if (self.autoScroll) {
         [self setupTimer];
     }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
     [self scrollViewDidEndScrollingAnimation:self.mainView];
 }
 
@@ -603,6 +607,8 @@ NSString * const ID = @"cycleCell";
     
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
         [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
+    } else if (self.itemDidScrollOperationBlock) {
+        self.itemDidScrollOperationBlock(indexOnPageControl);
     }
 }
 
