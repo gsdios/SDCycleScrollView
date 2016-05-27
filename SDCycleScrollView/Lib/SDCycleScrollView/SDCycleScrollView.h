@@ -114,7 +114,7 @@ typedef enum {
 @property (nonatomic, copy) void (^itemDidScrollOperationBlock)(NSInteger currentIndex);
 
 /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
-- (void)adjustWhenControllerWillAppera;
+- (void)adjustWhenControllerViewWillAppera;
 
 //////////////////////  自定义样式接口  //////////////////////
 

@@ -519,7 +519,7 @@ NSString * const ID = @"cycleCell";
 
 #pragma mark - public actions
 
-- (void)adjustWhenControllerWillAppera
+- (void)adjustWhenControllerViewWillAppera
 {
     long targetIndex = [self currentIndex];
     if (targetIndex < _totalItemsCount) {

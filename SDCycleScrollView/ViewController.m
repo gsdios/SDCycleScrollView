@@ -148,7 +148,7 @@
     [super viewWillAppear:animated];
     
     // 如果你发现你的CycleScrollview会在viewWillAppear时图片卡在中间位置，你可以调用此方法调整图片位置
-//    [你的CycleScrollview adjustWhenControllerWillAppera];
+//    [你的CycleScrollview adjustWhenControllerViewWillAppera];
 }
 
 
