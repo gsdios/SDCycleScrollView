@@ -33,6 +33,7 @@
 #import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
+#import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
@@ -89,7 +90,7 @@ NSString * const ID = @"cycleCell";
     _currentPageDotColor = [UIColor whiteColor];
     _pageDotColor = [UIColor lightGrayColor];
     _bannerImageViewContentMode = UIViewContentModeScaleToFill;
-    _options = 0;
+    
     self.backgroundColor = [UIColor lightGrayColor];
     
 }
@@ -522,7 +523,7 @@ NSString * const ID = @"cycleCell";
     
     if ([imagePath isKindOfClass:[NSString class]]) {
         if ([imagePath hasPrefix:@"http"]) {
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage options:_options];
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
         } else {
             UIImage *image = [UIImage imageNamed:imagePath];
             if (!image) {
