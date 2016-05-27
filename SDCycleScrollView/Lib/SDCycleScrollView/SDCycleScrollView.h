@@ -34,6 +34,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "UIImageView+WebCache.h"
 
 typedef enum {
     SDCycleScrollViewPageContolAlimentRight,
@@ -88,6 +89,8 @@ typedef enum {
 /** 本地图片数组 */
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
+/** SDWebImageOptions 加载选项*/
+@property (nonatomic, assign) SDWebImageOptions options;
 
 
 
