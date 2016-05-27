@@ -76,7 +76,6 @@ typedef enum {
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
 
-
 //////////////////////  数据源接口  //////////////////////
 
 /** 网络图片 url string 数组 */
@@ -114,9 +113,11 @@ typedef enum {
 /** block方式监听滚动 */
 @property (nonatomic, copy) void (^itemDidScrollOperationBlock)(NSInteger currentIndex);
 
-
+/** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
+- (void)adjustWhenControllerWillAppera;
 
 //////////////////////  自定义样式接口  //////////////////////
+
 
 /** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
 @property (nonatomic, assign) UIViewContentMode bannerImageViewContentMode;
@@ -129,6 +130,9 @@ typedef enum {
 
 /** 是否在只有一张图时隐藏pagecontrol，默认为YES */
 @property(nonatomic) BOOL hidesForSinglePage;
+
+/** 只展示文字轮播 */
+@property (nonatomic, assign) BOOL onlyDisplayText;
 
 /** pagecontrol 样式，默认为动画样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;

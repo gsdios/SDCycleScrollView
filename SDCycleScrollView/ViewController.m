@@ -125,6 +125,30 @@
     
     [demoContainerView addSubview:cycleScrollView3];
     
+// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图4 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    
+    // 网络加载 --- 创建只上下滚动展示文字的轮播器
+    // 由于模拟器的渲染问题，如果发现轮播时有一条线不必处理，模拟器放大到100%或者真机调试是不会出现那条线的
+    SDCycleScrollView *cycleScrollView4 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 750, w, 40) delegate:self placeholderImage:nil];
+    cycleScrollView4.scrollDirection = UICollectionViewScrollDirectionVertical;
+    cycleScrollView4.onlyDisplayText = YES;
+    
+    NSMutableArray *titlesArray = [NSMutableArray new];
+    [titlesArray addObject:@"纯文字上下滚动轮播"];
+    [titlesArray addObject:@"纯文字上下滚动轮播 -- demo轮播图4"];
+    [titlesArray addObjectsFromArray:titles];
+    cycleScrollView4.titlesGroup = [titlesArray copy];
+    
+    [demoContainerView addSubview:cycleScrollView4];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 如果你发现你的CycleScrollview会在viewWillAppear时图片卡在中间位置，你可以调用此方法调整图片位置
+//    [你的CycleScrollview adjustWhenControllerWillAppera];
 }
 
 

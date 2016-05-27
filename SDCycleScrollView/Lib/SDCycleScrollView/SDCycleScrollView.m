@@ -336,6 +336,19 @@ NSString * const ID = @"cycleCell";
     self.imagePathsGroup = [localizationImageNamesGroup copy];
 }
 
+- (void)setTitlesGroup:(NSArray *)titlesGroup
+{
+    _titlesGroup = titlesGroup;
+    if (self.onlyDisplayText) {
+        NSMutableArray *temp = [NSMutableArray new];
+        for (int i = 0; i < _titlesGroup.count; i++) {
+            [temp addObject:@""];
+        }
+        self.backgroundColor = [UIColor clearColor];
+        self.imageURLStringsGroup = [temp copy];
+    }
+}
+
 #pragma mark - actions
 
 - (void)setupTimer
@@ -355,7 +368,7 @@ NSString * const ID = @"cycleCell";
 {
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
     
-    if (self.imagePathsGroup.count == 0) return;
+    if (self.imagePathsGroup.count == 0 || self.onlyDisplayText) return;
     
     if ((self.imagePathsGroup.count == 1) && self.hidesForSinglePage) return;
     
@@ -428,7 +441,7 @@ NSString * const ID = @"cycleCell";
     } else {
         index = (_mainView.contentOffset.y + _flowLayout.itemSize.height * 0.5) / _flowLayout.itemSize.height;
     }
-    return index;
+    return MAX(0, index);
 }
 
 - (void)clearCache
@@ -506,6 +519,14 @@ NSString * const ID = @"cycleCell";
 
 #pragma mark - public actions
 
+- (void)adjustWhenControllerWillAppera
+{
+    long targetIndex = [self currentIndex];
+    if (targetIndex < _totalItemsCount) {
+        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    }
+}
+
 
 #pragma mark - UICollectionViewDataSource
 
@@ -521,7 +542,7 @@ NSString * const ID = @"cycleCell";
     
     NSString *imagePath = self.imagePathsGroup[itemIndex];
     
-    if ([imagePath isKindOfClass:[NSString class]]) {
+    if (!self.onlyDisplayText && [imagePath isKindOfClass:[NSString class]]) {
         if ([imagePath hasPrefix:@"http"]) {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
         } else {
@@ -531,7 +552,7 @@ NSString * const ID = @"cycleCell";
             }
             cell.imageView.image = image;
         }
-    } else if ([imagePath isKindOfClass:[UIImage class]]) {
+    } else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIImage class]]) {
         cell.imageView.image = (UIImage *)imagePath;
     }
     
@@ -547,6 +568,7 @@ NSString * const ID = @"cycleCell";
         cell.hasConfigured = YES;
         cell.imageView.contentMode = self.bannerImageViewContentMode;
         cell.clipsToBounds = YES;
+        cell.onlyDisplayText = self.onlyDisplayText;
     }
     
     return cell;
