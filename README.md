@@ -1,5 +1,5 @@
 # SDCycleScrollView（新建QQ交流群：185534916）
-## ☆☆☆ “iOS第一图片轮播器” ☆☆☆
+## ☆☆☆ “iOS图片、文字轮播器” ☆☆☆
 
 ### 支持pod导入
 pod 'SDCycleScrollView','~> 1.64'
@@ -7,6 +7,8 @@ pod 'SDCycleScrollView','~> 1.64'
  如果发现pod search SDCycleScrollView 搜索出来的不是最新版本，需要在终端执行cd转换文件路径命令退回到desktop，然后执行pod setup命令更新本地spec缓存（可能需要几分钟），然后再搜索就可以了
 
 ### 更改记录：
+
+2016.05.27 -- 新增纯文字轮播、增加viewController在来回push时候出现的图片卡在中间的解决方案“解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用 adjustWhenControllerViewWillAppera”
 
 2016.04.21 -- 修复自定义图片的pagecontrol刷新图片数据时崩溃bug；设置单张图片时停止轮播
 
