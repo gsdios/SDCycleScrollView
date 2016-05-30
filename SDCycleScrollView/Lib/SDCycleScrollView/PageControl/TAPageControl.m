@@ -32,11 +32,6 @@ static BOOL const kDefaultHideForSinglePage = NO;
 static BOOL const kDefaultShouldResizeFromCenter = YES;
 
 /**
- *  Default spacing between dots
- */
-static NSInteger const kDefaultSpacingBetweenDots = 8;
-
-/**
  *  Default dot size
  */
 static CGSize const kDefaultDotSize = {8, 8};
@@ -97,7 +92,6 @@ static CGSize const kDefaultDotSize = {8, 8};
 - (void)initialization
 {
     self.dotViewClass           = [TAAnimatedDotView class];
-    self.spacingBetweenDots     = kDefaultSpacingBetweenDots;
     self.numberOfPages          = kDefaultNumberOfPages;
     self.currentPage            = kDefaultCurrentPage;
     self.hidesForSinglePage     = kDefaultHideForSinglePage;
