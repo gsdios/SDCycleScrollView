@@ -71,6 +71,7 @@ NSString * const ID = @"cycleCell";
 {
     [self initialization];
     [self setupMainView];
+    [self setupPageControl];
 }
 
 - (void)initialization
