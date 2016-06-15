@@ -2,8 +2,8 @@ Pod::Spec.new do |s|
 
 
 s.name         = "SDCycleScrollView"
-s.version      = "1.64"
-s.summary      = "简单易用的图片无限轮播器. 1.64版本修复内容：修复自定义图片的pagecontrol刷新图片数据时崩溃bug；设置单张图片时停止轮播；修复手动拖动图片时didScrollToIndex:代理方法返回index不准确问题"
+s.version      = "1.65"
+s.summary      = "简单易用的图片无限轮播器. 1.65版本修复内容：新增纯文字轮播、增加viewController在来回push时候出现的图片卡在中间的解决方案-在控制器viewWillAppear时调用adjustWhenControllerViewWillAppera"
 
 s.homepage     = "https://github.com/gsdios/SDCycleScrollView"
 
@@ -15,7 +15,7 @@ s.platform     = :ios
 s.platform     = :ios, "7.0"
 
 
-s.source       = { :git => "https://github.com/gsdios/SDCycleScrollView.git", :tag => "1.64"}
+s.source       = { :git => "https://github.com/gsdios/SDCycleScrollView.git", :tag => "1.65"}
 
 
 s.source_files  = "SDCycleScrollView/Lib/SDCycleScrollView/**/*.{h,m}"
