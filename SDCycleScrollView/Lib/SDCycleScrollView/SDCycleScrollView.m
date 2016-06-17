@@ -147,6 +147,15 @@ NSString * const ID = @"cycleCell";
 
 
 #pragma mark - properties
+- (void)setPageControlEdgeInsets:(UIEdgeInsets)pageControlEdgeInsets{
+    _pageControlEdgeInsets = pageControlEdgeInsets;
+    
+    [self setNeedsLayout];
+}
+- (void)setBannerImageViewContentMode:(UIViewContentMode)bannerImageViewContentMode{
+    _bannerImageViewContentMode = bannerImageViewContentMode;
+    self.backgroundImageView.contentMode = bannerImageViewContentMode;
+}
 
 - (void)setPlaceholderImage:(UIImage *)placeholderImage
 {
@@ -154,7 +163,8 @@ NSString * const ID = @"cycleCell";
     
     if (!self.backgroundImageView) {
         UIImageView *bgImageView = [UIImageView new];
-        bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+        bgImageView.contentMode = self.bannerImageViewContentMode;
+        bgImageView.clipsToBounds = YES;
         [self insertSubview:bgImageView belowSubview:self.mainView];
         self.backgroundImageView = bgImageView;
     }
@@ -492,13 +502,18 @@ NSString * const ID = @"cycleCell";
         [pageControl sizeToFit];
     }
     
-    self.pageControl.frame = CGRectMake(x, y, size.width, size.height);
+    
+    CGFloat pageControlX = _pageControlEdgeInsets.left-_pageControlEdgeInsets.right;
+    CGFloat pageControlY = _pageControlEdgeInsets.top-_pageControlEdgeInsets.bottom;
+    self.pageControl.frame = CGRectMake(x+pageControlX, y+pageControlY, size.width, size.height);
     self.pageControl.hidden = !_showPageControl;
     
     if (self.backgroundImageView) {
         self.backgroundImageView.frame = self.bounds;
     }
     
+    //    self.pageControl.transform = CGAffineTransformIdentity;
+    //    self.pageControl.transform = CGAffineTransformMakeTranslation(pageControlX, pageControlY);
 }
 
 //解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题
@@ -606,6 +621,8 @@ NSString * const ID = @"cycleCell";
         [self invalidateTimer];
     }
 }
+
+
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {

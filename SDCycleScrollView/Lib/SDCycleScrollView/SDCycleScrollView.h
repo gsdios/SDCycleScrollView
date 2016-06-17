@@ -137,6 +137,9 @@ typedef enum {
 /** pagecontrol 样式，默认为动画样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
 
+/** pageControl 的位置偏移量 */
+@property (nonatomic, assign) UIEdgeInsets pageControlEdgeInsets;
+
 /** 分页控件位置 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
 
