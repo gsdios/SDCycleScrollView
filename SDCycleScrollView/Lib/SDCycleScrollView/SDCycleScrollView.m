@@ -83,6 +83,8 @@ NSString * const ID = @"cycleCell";
     _infiniteLoop = YES;
     _showPageControl = YES;
     _pageControlDotSize = kCycleScrollViewInitialPageControlDotSize;
+    _pageControlBottomOffset = 0;
+    _pageControlRightOffset = 0;
     _pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     _hidesForSinglePage = YES;
     _currentPageDotColor = [UIColor whiteColor];
@@ -492,7 +494,10 @@ NSString * const ID = @"cycleCell";
         [pageControl sizeToFit];
     }
     
-    self.pageControl.frame = CGRectMake(x, y, size.width, size.height);
+    CGRect pageControlFrame = CGRectMake(x, y, size.width, size.height);
+    pageControlFrame.origin.y -= self.pageControlBottomOffset;
+    pageControlFrame.origin.x -= self.pageControlRightOffset;
+    self.pageControl.frame = pageControlFrame;
     self.pageControl.hidden = !_showPageControl;
     
     if (self.backgroundImageView) {

@@ -140,6 +140,12 @@ typedef enum {
 /** 分页控件位置 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
 
+/** 分页控件距离轮播图的底部间距（在默认间距基础上）的偏移量 */
+@property (nonatomic, assign) CGFloat pageControlBottomOffset;
+
+/** 分页控件距离轮播图的右边间距（在默认间距基础上）的偏移量 */
+@property (nonatomic, assign) CGFloat pageControlRightOffset;
+
 /** 分页控件小圆标大小 */
 @property (nonatomic, assign) CGSize pageControlDotSize;
 
