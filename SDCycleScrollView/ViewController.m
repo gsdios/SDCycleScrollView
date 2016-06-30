@@ -31,8 +31,8 @@
 #import "ViewController.h"
 #import "SDCycleScrollView.h"
 
-@interface ViewController () <SDCycleScrollViewDelegate,UIScrollViewDelegate>
-@property (nonatomic, weak)SDCycleScrollView *cycleScrollViewTop;
+@interface ViewController () <SDCycleScrollViewDelegate>
+
 @end
 
 @implementation ViewController
@@ -47,7 +47,6 @@
     
     UIScrollView *demoContainerView = [[UIScrollView alloc] initWithFrame:self.view.frame];
     demoContainerView.contentSize = CGSizeMake(self.view.frame.size.width, 1200);
-    demoContainerView.delegate = self;
     [self.view addSubview:demoContainerView];
     
     self.title = @"轮播Demo";
@@ -82,7 +81,7 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 本地加载 --- 创建不带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) shouldInfiniteLoop:YES imageNamesGroup:imageNames];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) shouldInfiniteLoop:YES imageNamesGroup:imageNames];
     cycleScrollView.delegate = self;
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
     [demoContainerView addSubview:cycleScrollView];
@@ -94,7 +93,7 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 网络加载 --- 创建带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView2.titlesGroup = titles;
@@ -141,7 +140,7 @@
     cycleScrollView4.titlesGroup = [titlesArray copy];
     
     [demoContainerView addSubview:cycleScrollView4];
-    self.cycleScrollViewTop = cycleScrollView2;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -152,20 +151,6 @@
 //    [你的CycleScrollview adjustWhenControllerViewWillAppera];
 }
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat x = 0.0f, y = 64.0f, w = self.view.bounds.size.width, h = 180.0f, scale = 1.0f;
-    
-    if (scrollView.contentOffset.y < 0){
-        y += scrollView.contentOffset.y;
-        scale = scrollView.contentOffset.y * (-1) / h + 1;
-        h -= scrollView.contentOffset.y;
-        w *= scale;
-    }
-    x = -(w - self.view.bounds.size.width) * 0.5;
-    
-    self.cycleScrollViewTop.frame = CGRectMake(x, y, w, h);
-    self.cycleScrollViewTop.autoScroll = (scrollView.contentOffset.y == 0);
-}
 
 #pragma mark - SDCycleScrollViewDelegate
 
