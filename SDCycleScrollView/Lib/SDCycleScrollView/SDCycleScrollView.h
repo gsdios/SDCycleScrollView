@@ -134,7 +134,7 @@ typedef enum {
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
-/** pagecontrol 样式，默认为动画样式 */
+/** pagecontrol 样式，默认为系统自带经典样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
 
 /** 分页控件位置 */
