@@ -48,6 +48,7 @@
 		99E727FC1BDBB91D00771161 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E727EA1BDBB91D00771161 /* UIImageView+HighlightedWebCache.m */; };
 		99E727FD1BDBB91D00771161 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E727EC1BDBB91D00771161 /* UIImageView+WebCache.m */; };
 		99E727FE1BDBB91D00771161 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E727EE1BDBB91D00771161 /* UIView+WebCacheOperation.m */; };
+		9BCDC8FD1D3CCDEE0033AD62 /* TATextPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCDC8FC1D3CCDEE0033AD62 /* TATextPageControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,8 @@
 		99E727EC1BDBB91D00771161 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		99E727ED1BDBB91D00771161 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		99E727EE1BDBB91D00771161 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		9BCDC8FB1D3CCDEE0033AD62 /* TATextPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TATextPageControl.h; sourceTree = "<group>"; };
+		9BCDC8FC1D3CCDEE0033AD62 /* TATextPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TATextPageControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +326,8 @@
 				990140FE1AC941FD00D0D74F /* TADotView.m */,
 				990140FF1AC941FD00D0D74F /* TAPageControl.h */,
 				990141001AC941FD00D0D74F /* TAPageControl.m */,
+				9BCDC8FB1D3CCDEE0033AD62 /* TATextPageControl.h */,
+				9BCDC8FC1D3CCDEE0033AD62 /* TATextPageControl.m */,
 			);
 			path = PageControl;
 			sourceTree = "<group>";
@@ -464,6 +469,7 @@
 				99E727F61BDBB91D00771161 /* SDWebImageManager.m in Sources */,
 				9901410B1AC9420E00D0D74F /* SDCollectionViewCell.m in Sources */,
 				9901410C1AC9420E00D0D74F /* SDCycleScrollView.m in Sources */,
+				9BCDC8FD1D3CCDEE0033AD62 /* TATextPageControl.m in Sources */,
 				99E727F11BDBB91D00771161 /* SDImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,6 +33,7 @@
 #import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
+#import "TATextPageControl.h"
 #import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
 
@@ -364,6 +365,17 @@ NSString * const ID = @"cycleCell";
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:[self currentIndex]];
     
     switch (self.pageControlStyle) {
+        case SDCycleScrollViewPageContolStyleText:
+        {
+            TATextPageControl *pageControl = [[TATextPageControl alloc] init];
+            pageControl.numberOfPages = self.imagePathsGroup.count;
+            pageControl.userInteractionEnabled = NO;
+            pageControl.currentPage = indexOnPageControl;
+            [self addSubview:pageControl];
+            _pageControl = pageControl;
+        }
+            break;
+            
         case SDCycleScrollViewPageContolStyleAnimated:
         {
             TAPageControl *pageControl = [[TAPageControl alloc] init];
@@ -480,6 +492,8 @@ NSString * const ID = @"cycleCell";
             pageControl.dotSize = self.pageControlDotSize;
         }
         size = [pageControl sizeForNumberOfPages:self.imagePathsGroup.count];
+    } else if ([self.pageControl isKindOfClass:[TATextPageControl class]]) {
+        size = CGSizeMake(52, 20);
     } else {
         size = CGSizeMake(self.imagePathsGroup.count * self.pageControlDotSize.width * 1.5, self.pageControlDotSize.height);
     }
@@ -598,6 +612,9 @@ NSString * const ID = @"cycleCell";
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
+        pageControl.currentPage = indexOnPageControl;
+    } else if ([self.pageControl isKindOfClass:[TATextPageControl class]]) {
+        TATextPageControl *pageControl = (TATextPageControl *)_pageControl;
         pageControl.currentPage = indexOnPageControl;
     } else {
         UIPageControl *pageControl = (UIPageControl *)_pageControl;
