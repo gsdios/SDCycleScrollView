@@ -52,8 +52,8 @@
 {
     self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.9];
     self.layer.masksToBounds = YES;
-    _textPage = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, 24, 20)];
-    _textPage.textAlignment = NSTextAlignmentRight;
+    _textPage = [[UILabel alloc] initWithFrame:CGRectMake(14.5, 0, 23, 20)];
+    _textPage.textAlignment = NSTextAlignmentLeft;
     _textPage.font = [UIFont systemFontOfSize:8];
     _textPage.textColor = [UIColor whiteColor];
     [self addSubview:_textPage];
@@ -63,7 +63,7 @@
 -(void)setCurrentPage:(NSInteger)currentPage
 {
     _currentPage = currentPage;
-    
+    _textPage.textAlignment = _numberOfPages > 9 ? NSTextAlignmentRight : NSTextAlignmentCenter;
     NSMutableAttributedString *info = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%-2ld",(long)_currentPage+1] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:10]}];
     [info appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"/%ld",(long)_numberOfPages]]];
     _textPage.attributedText = info;
