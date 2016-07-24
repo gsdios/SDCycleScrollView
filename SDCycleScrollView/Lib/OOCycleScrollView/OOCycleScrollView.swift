@@ -57,30 +57,30 @@ public enum OOCycleScrollViewPageContolStyle : Int {
 
     optional func cycleScrollView(cycleScrollView: OOCycleScrollView, didScrollToIndex index: Int)
 }
-public class OOCycleScrollView: UIView {
+public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDataSource {
     /** 初始轮播图（推荐使用） */
-    class func cycleScrollViewWithFrame(frame: CGRect, delegate: OOCycleScrollViewDelegate, placeholderImage: UIImage) -> OOCycleScrollView {
+    public class func cycleScrollViewWithFrame(frame: CGRect, delegate: OOCycleScrollViewDelegate, placeholderImage: UIImage) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
         cycleScrollView.delegate = delegate
         cycleScrollView.placeholderImage = placeholderImage
         return cycleScrollView
     }
 
-    class func cycleScrollViewWithFrame(frame: CGRect, imageURLStringsGroup imageURLsGroup: [AnyObject]) -> OOCycleScrollView {
+    public class func cycleScrollViewWithFrame(frame: CGRect, imageURLStringsGroup imageURLsGroup: [AnyObject]) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
         cycleScrollView.imageURLStringsGroup = [AnyObject](imageURLsGroup)
         return cycleScrollView
     }
     /** 本地图片轮播初始化方式 */
 
-    class func cycleScrollViewWithFrame(frame: CGRect, imageNamesGroup: [AnyObject]) -> OOCycleScrollView {
+    public class func cycleScrollViewWithFrame(frame: CGRect, imageNamesGroup: [AnyObject]) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
         cycleScrollView.localizationImageNamesGroup = [AnyObject](imageNamesGroup)
         return cycleScrollView
     }
     /** 本地图片轮播初始化方式2,infiniteLoop:是否无限循环 */
 
-    class func cycleScrollViewWithFrame(frame: CGRect, shouldInfiniteLoop infiniteLoop: Bool, imageNamesGroup: [AnyObject]) -> OOCycleScrollView {
+    public class func cycleScrollViewWithFrame(frame: CGRect, shouldInfiniteLoop infiniteLoop: Bool, imageNamesGroup: [AnyObject]) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
         cycleScrollView.infiniteLoop = infiniteLoop
         cycleScrollView.localizationImageNamesGroup = [AnyObject](imageNamesGroup)
@@ -207,7 +207,7 @@ public class OOCycleScrollView: UIView {
     /** 是否显示分页控件 */
     public var showPageControl: Bool = true {
         didSet {
-            self.pageControl!.hidden = !showPageControl
+            self.pageControl?.hidden = !showPageControl
         }
     }
 
@@ -244,8 +244,7 @@ public class OOCycleScrollView: UIView {
             if let pageControl = pageControl as? OOPageControl {
                 pageControl.dotColor = currentPageDotColor
             }
-            else {
-                let pageControl: UIPageControl = (self.pageControl as! UIPageControl)
+            else if let pageControl = pageControl as? UIPageControl {
                 pageControl.currentPageIndicatorTintColor = currentPageDotColor
             }
         }
@@ -350,8 +349,8 @@ public class OOCycleScrollView: UIView {
         mainView.showsHorizontalScrollIndicator = false
         mainView.showsVerticalScrollIndicator = false
         mainView.registerClass(OOCollectionViewCell.self, forCellWithReuseIdentifier: ID)
-//        mainView.dataSource = self
-//        mainView.delegate = self
+        mainView.dataSource = self
+        mainView.delegate = self
         mainView.scrollsToTop = false
         self.addSubview(mainView)
         self.mainView = mainView
@@ -529,8 +528,8 @@ public class OOCycleScrollView: UIView {
         var pageControlFrame: CGRect = CGRectMake(x, y, size.width, size.height)
         pageControlFrame.origin.y -= self.pageControlBottomOffset
         pageControlFrame.origin.x -= self.pageControlRightOffset
-        self.pageControl!.frame = pageControlFrame
-        self.pageControl!.hidden = !showPageControl
+        self.pageControl?.frame = pageControlFrame
+        self.pageControl?.hidden = !showPageControl
         if (self.backgroundImageView != nil) {
             self.backgroundImageView!.frame = self.bounds
         }
@@ -555,11 +554,11 @@ public class OOCycleScrollView: UIView {
 // MARK: - UICollectionViewDataSource
 
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return totalItemsCount
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ID, forIndexPath: indexPath) as! OOCollectionViewCell
         let itemIndex: Int = self.pageControlIndexWithCurrentCellIndex(indexPath.item)
         let imagePath = self.imagePathsGroup?[itemIndex]
@@ -595,7 +594,7 @@ public class OOCycleScrollView: UIView {
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let _ = self.delegate?.cycleScrollView?(self, didSelectItemAtIndex: self.pageControlIndexWithCurrentCellIndex(indexPath.item)) {
             
         } else if let block = self.clickItemOperationBlock {
@@ -606,7 +605,7 @@ public class OOCycleScrollView: UIView {
 // MARK: - UIScrollViewDelegate
 
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
         if let imagePathsGroup = imagePathsGroup where imagePathsGroup.count == 0 {
             return
         }
@@ -626,23 +625,23 @@ public class OOCycleScrollView: UIView {
 
     }
 
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         if self.autoScroll {
             self.invalidateTimer()
         }
     }
 
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if self.autoScroll {
             self.setupTimer()
         }
     }
 
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         self.scrollViewDidEndScrollingAnimation(self.mainView)
     }
 
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         if let imagePathsGroup = imagePathsGroup where imagePathsGroup.count == 0 {
             return
         }

@@ -164,8 +164,9 @@
     
     
     
-    SDCycleScrollView *cycleScrollView6 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1100, w, 180) imageURLStringsGroup:imagesURLStringsT];;
-    cycleScrollView6.pageControlStyle = SDCycleScrollViewPageContolStyleText;
+    OOCycleScrollView *cycleScrollView6 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1100, w, 180) imageURLStringsGroup:imagesURLStringsT];;
+//    cycleScrollView6.pageControlStyle = OOCycleScrollViewPageContolStyleText;
+//    cycleScrollView6.pageControlStyle = OOCycleScrollViewPageControlStyle.Text;
     cycleScrollView6.autoScroll = NO;
     [demoContainerView addSubview:cycleScrollView6];
     
