@@ -49,12 +49,8 @@ class OOPageControl : UIControl {
     /**
      *  The Class of your custom UIView, make sure to respect the TAAbstractDotView class.
      */
-    var dotViewClass: AnyClass? {
-        get {
-            return self.dotViewClass
-        }
-        set {
-            self.dotViewClass = newValue
+    var dotViewClass: AnyClass? = OOAbstractDotView.self {
+        didSet {
             self.dotSize = CGSizeZero
             self.resetDotViews()
         }
@@ -64,11 +60,7 @@ class OOPageControl : UIControl {
      *  UIImage to represent a dot.
      */
     var dotImage: UIImage? {
-        get {
-            return self.dotImage
-        }
-        set {
-            self.dotImage = newValue
+        didSet {
             self.resetDotViews()
             self.dotViewClass = nil
         }
@@ -78,11 +70,7 @@ class OOPageControl : UIControl {
      *  UIImage to represent current page dot.
      */
     var currentDotImage: UIImage? {
-        get {
-            return self.currentDotImage
-        }
-        set {
-            self.currentDotImage = newValue
+        didSet {
             self.resetDotViews()
             self.dotViewClass = nil
         }
@@ -91,21 +79,22 @@ class OOPageControl : UIControl {
     /**
      *  Dot size for dot views. Default is 8 by 8.
      */
+    var _dotSize = kDefaultDotSize
     var dotSize: CGSize {
         get {
             // Dot size logic depending on the source of the dot view
-            if self.dotImage != nil && CGSizeEqualToSize(self.dotSize, CGSizeZero) {
-                self.dotSize = self.dotImage!.size
+            if self.dotImage != nil && CGSizeEqualToSize(self._dotSize, CGSizeZero) {
+                self._dotSize = self.dotImage!.size
             }
-            else if self.dotViewClass != nil && CGSizeEqualToSize(self.dotSize, CGSizeZero) {
-                self.dotSize = kDefaultDotSize
-                return self.dotSize
+            else if self.dotViewClass != nil && CGSizeEqualToSize(self._dotSize, CGSizeZero) {
+                self._dotSize = kDefaultDotSize
+                return self._dotSize
             }
     
-            return self.dotSize
+            return self._dotSize
         }
         set {
-            self.dotSize = newValue
+            self._dotSize = newValue
         }
     }
 
@@ -113,12 +102,8 @@ class OOPageControl : UIControl {
     /**
      *  Spacing between two dot views. Default is 8.
      */
-    var spacingBetweenDots: Int {
-        get {
-            return self.spacingBetweenDots
-        }
-        set {
-            self.spacingBetweenDots = newValue
+    var spacingBetweenDots: Int = kDefaultSpacingBetweenDots{
+        didSet {
             self.resetDotViews()
         }
     }
@@ -133,12 +118,8 @@ class OOPageControl : UIControl {
     /**
      *  Number of pages for control. Default is 0.
      */
-    var numberOfPages: Int {
-        get {
-            return self.numberOfPages
-        }
-        set {
-            self.numberOfPages = newValue
+    var numberOfPages: Int = kDefaultNumberOfPages{
+        didSet {
             // Update dot position to fit new number of pages
             self.resetDotViews()
         }
@@ -147,20 +128,15 @@ class OOPageControl : UIControl {
     /**
      *  Current page on which control is active. Default is 0.
      */
-    var currentPage: Int {
-        get {
-            return self.currentPage
-        }
-        set {
+    var currentPage: Int = kDefaultCurrentPage {
+        willSet {
             // If no pages, no current page to treat.
             if self.numberOfPages == 0 || currentPage == newValue {
-                self.currentPage = newValue
                 return
             }
-            // Pre set
             self.changeActivity(false, atIndex: currentPage)
-            self.currentPage = newValue
-            // Post set
+        }
+        didSet {
             self.changeActivity(true, atIndex: currentPage)
         }
     }

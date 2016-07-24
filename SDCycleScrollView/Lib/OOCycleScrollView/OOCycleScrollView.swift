@@ -88,45 +88,20 @@ public class OOCycleScrollView: UIView {
     }
     //////////////////////  数据源接口  //////////////////////
     /** 网络图片 url string 数组 */
-    public var imageURLStringsGroup: [AnyObject] {
-        get {
-            return self.imageURLStringsGroup
-        }
-        set {
-            self.imageURLStringsGroup = newValue
-//            var temp: [AnyObject] = [AnyObject]()
-//            imageURLStringsGroup.enumerateObjectsUsingBlock({(obj: String, idx: Int, stop: Bool) -> Void in
-//                var urlString: String
-//                if (obj is NSString) {
-//                    urlString = obj
-//                }
-//                else if (obj is NSURL) {
-//                    var url: NSURL = (obj as! NSURL)
-//                    urlString = url.absoluteString()
-//                }
-//    
-//                if urlString != "" {
-//                    temp.append(urlString)
-//                }
-//            })
-            self.imagePathsGroup = imageURLStringsGroup.map {
-                $0 is String ? $0 as! String : ($0 as! NSURL).absoluteString
-            }.filter { !$0.isEmpty }
+    public var imageURLStringsGroup: [AnyObject]? {
+        didSet {
+            if let imageURLStringsGroup = imageURLStringsGroup {
+                self.imagePathsGroup = imageURLStringsGroup.map {
+                    $0 is String ? $0 as! String : ($0 as! NSURL).absoluteString
+                }.filter { !$0.isEmpty }
+            }
         }
     }
 
     /** 每张图片对应要显示的文字数组 */
-    public var titlesGroup: [AnyObject] {
-        get {
-            return self.titlesGroup
-        }
-        set {
-            self.titlesGroup = newValue
-            if self.onlyDisplayText {
-//                var temp: [AnyObject] = [AnyObject]()
-//                for i in 0..<titlesGroup.count {
-//                    temp.append("")
-//                }
+    public var titlesGroup: [AnyObject]? {
+        didSet {
+            if let titlesGroup = titlesGroup where self.onlyDisplayText {
                 self.backgroundColor = UIColor.clearColor()
                 self.imageURLStringsGroup = [AnyObject](count: titlesGroup.count,repeatedValue:"")
             }
@@ -134,35 +109,23 @@ public class OOCycleScrollView: UIView {
     }
 
     /** 本地图片数组 */
-    public var localizationImageNamesGroup: [AnyObject] {
-        get {
-            return self.localizationImageNamesGroup
-        }
-        set {
-            self.localizationImageNamesGroup = newValue
+    public var localizationImageNamesGroup: [AnyObject]? {
+        didSet {
             self.imagePathsGroup = localizationImageNamesGroup
         }
     }
 
     //////////////////////  滚动控制接口 //////////////////////
     /** 自动滚动间隔时间,默认2s */
-    public var autoScrollTimeInterval: NSTimeInterval {
-        get {
-            return self.autoScrollTimeInterval
-        }
-        set {
-            self.autoScrollTimeInterval = newValue
+    public var autoScrollTimeInterval: NSTimeInterval = 2 {
+        didSet {
             self.autoScroll = (self.autoScroll);
         }
     }
 
     /** 是否无限循环,默认Yes */
-    public var infiniteLoop: Bool {
-        get {
-            return self.infiniteLoop
-        }
-        set {
-            self.infiniteLoop = newValue
+    public var infiniteLoop: Bool = true {
+        didSet {
             if self.imagePathsGroup.count > 0 {
                 self.imagePathsGroup = (self.imagePathsGroup)
             }
@@ -170,12 +133,8 @@ public class OOCycleScrollView: UIView {
     }
 
     /** 是否自动滚动,默认Yes */
-    public var autoScroll: Bool {
-        get {
-            return self.autoScroll
-        }
-        set {
-            self.autoScroll = newValue
+    public var autoScroll: Bool = true {
+        didSet {
             self.invalidateTimer()
             if autoScroll {
                 self.setupTimer()
@@ -184,13 +143,9 @@ public class OOCycleScrollView: UIView {
     }
 
     /** 图片滚动方向，默认为水平滚动 */
-    public var scrollDirection: UICollectionViewScrollDirection {
-        get {
-            return self.scrollDirection
-        }
-        set {
-            self.scrollDirection = newValue
-            self.flowLayout.scrollDirection = newValue
+    public var scrollDirection: UICollectionViewScrollDirection = .Horizontal {
+        didSet {
+            self.flowLayout.scrollDirection = scrollDirection
         }
     }
 
@@ -204,13 +159,9 @@ public class OOCycleScrollView: UIView {
     public weak var mainView: UICollectionView!
     // 显示图片的collectionView
     public weak var flowLayout: UICollectionViewFlowLayout!
-    public var imagePathsGroup: [AnyObject] {
-        get {
-            return self.imagePathsGroup
-        }
-        set {
+    public var imagePathsGroup: [AnyObject]! {
+        didSet {
             self.invalidateTimer()
-            self.imagePathsGroup = newValue
             self.totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count
             if imagePathsGroup.count != 1 {
                 self.mainView.scrollEnabled = true
@@ -239,12 +190,8 @@ public class OOCycleScrollView: UIView {
     /** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
     public var bannerImageViewContentMode: UIViewContentMode = .ScaleToFill
     /** 占位图，用于网络未加载到图片时 */
-    public var placeholderImage: UIImage {
-        get {
-            return self.placeholderImage
-        }
-        set {
-            self.placeholderImage = newValue
+    public var placeholderImage: UIImage? {
+        didSet {
             if self.backgroundImageView == nil {
                 let bgImageView: UIImageView = UIImageView()
                 bgImageView.contentMode = .ScaleAspectFit
@@ -256,12 +203,8 @@ public class OOCycleScrollView: UIView {
     }
 
     /** 是否显示分页控件 */
-    public var showPageControl: Bool {
-        get {
-            return self.showPageControl
-        }
-        set {
-            self.showPageControl = newValue
+    public var showPageControl: Bool = true {
+        didSet {
             self.pageControl!.hidden = !showPageControl
         }
     }
@@ -271,12 +214,8 @@ public class OOCycleScrollView: UIView {
     /** 只展示文字轮播 */
     public var onlyDisplayText = false
     /** pagecontrol 样式，默认为动画样式 */
-    public var pageControlStyle: OOCycleScrollViewPageContolStyle {
-        get {
-            return self.pageControlStyle
-        }
-        set {
-            self.pageControlStyle = newValue
+    public var pageControlStyle: OOCycleScrollViewPageContolStyle = .Classic {
+        didSet {
             self.setupPageControl()
         }
     }
@@ -288,12 +227,8 @@ public class OOCycleScrollView: UIView {
     /** 分页控件距离轮播图的右边间距（在默认间距基础上）的偏移量 */
     public var pageControlRightOffset: CGFloat = 0
     /** 分页控件小圆标大小 */
-    public var pageControlDotSize: CGSize {
-        get {
-            return self.pageControlDotSize
-        }
-        set {
-            self.pageControlDotSize = newValue
+    public var pageControlDotSize: CGSize = CGSizeMake(8, 8) {
+        didSet {
             self.setupPageControl()
             if let pageControl = pageControl as? OOPageControl {
                 pageControl.dotSize = pageControlDotSize
@@ -302,12 +237,8 @@ public class OOCycleScrollView: UIView {
     }
 
     /** 当前分页控件小圆标颜色 */
-    public var currentPageDotColor: UIColor {
-        get {
-            return self.currentPageDotColor
-        }
-        set {
-            self.currentPageDotColor = newValue
+    public var currentPageDotColor = UIColor.whiteColor() {
+        didSet {
             if let pageControl = pageControl as? OOPageControl {
                 pageControl.dotColor = currentPageDotColor
             }
@@ -319,12 +250,8 @@ public class OOCycleScrollView: UIView {
     }
 
     /** 其他分页控件小圆标颜色 */
-    public var pageDotColor: UIColor {
-        get {
-            return self.pageDotColor
-        }
-        set {
-            self.pageDotColor = newValue
+    public var pageDotColor = UIColor.lightGrayColor() {
+        didSet {
             if let pageControl = pageControl as? UIPageControl {
                 pageControl.pageIndicatorTintColor = pageDotColor
             }
@@ -333,11 +260,7 @@ public class OOCycleScrollView: UIView {
 
     /** 当前分页控件小圆标图片 */
     public var currentPageDotImage: UIImage? {
-        get {
-            return self.currentPageDotImage
-        }
-        set {
-            self.currentPageDotImage = newValue
+        didSet {
             if self.pageControlStyle != .Animated {
                 self.pageControlStyle = .Animated
             }
@@ -347,11 +270,7 @@ public class OOCycleScrollView: UIView {
 
     /** 其他分页控件小圆标图片 */
     public var pageDotImage: UIImage? {
-        get {
-            return self.pageDotImage
-        }
-        set {
-            self.pageDotImage = newValue
+        didSet {
             if self.pageControlStyle != .Animated {
                 self.pageControlStyle = .Animated
             }
@@ -651,7 +570,7 @@ public class OOCycleScrollView: UIView {
             cell.imageView.image = (imagePath as! UIImage)
         }
 
-        if titlesGroup.count > 0 && itemIndex < titlesGroup.count {
+        if let titlesGroup = titlesGroup where titlesGroup.count > 0 && itemIndex < titlesGroup.count {
             cell.title = titlesGroup[itemIndex] as! String
         }
         if !cell.hasConfigured {

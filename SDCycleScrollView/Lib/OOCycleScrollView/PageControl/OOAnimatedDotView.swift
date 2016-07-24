@@ -11,12 +11,8 @@ import UIKit
 let kAnimateDuration: NSTimeInterval = 1
 
 class OOAnimatedDotView: OOAbstractDotView {
-    var dotColor: UIColor {
-        get {
-            return self.dotColor
-        }
-        set(dotColor) {
-            self.dotColor = dotColor
+    var dotColor: UIColor = UIColor.whiteColor() {
+        didSet {
             self.layer.borderColor = dotColor.CGColor
         }
     }
@@ -41,7 +37,6 @@ class OOAnimatedDotView: OOAbstractDotView {
     }
 
     func initialization() {
-        self.dotColor = UIColor.whiteColor()
         self.backgroundColor = UIColor.clearColor()
         self.layer.cornerRadius = CGRectGetWidth(self.frame) / 2
         self.layer.borderColor = UIColor.whiteColor().CGColor

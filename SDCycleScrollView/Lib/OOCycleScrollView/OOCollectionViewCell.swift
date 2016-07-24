@@ -29,12 +29,8 @@
 import UIKit
 class OOCollectionViewCell: UICollectionViewCell {
     weak var imageView: UIImageView!
-    var title: String {
-        get {
-            return self.title
-        }
-        set {
-            self.title = newValue
+    var title: String = "" {
+        didSet {
             self.titleLabel.text = "   \(title)"
             if titleLabel.hidden {
                 self.titleLabel.hidden = false
@@ -42,33 +38,21 @@ class OOCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    var titleLabelTextColor: UIColor {
-        get {
-            return self.titleLabelTextColor
-        }
-        set {
-            self.titleLabelTextColor = newValue
-            self.titleLabel.textColor = newValue
+    var titleLabelTextColor: UIColor = UIColor.whiteColor() {
+        didSet {
+            self.titleLabel.textColor = titleLabelTextColor
         }
     }
 
-    var titleLabelTextFont: UIFont {
-        get {
-            return self.titleLabelTextFont
-        }
-        set {
-            self.titleLabelTextFont = newValue
-            self.titleLabel.font = newValue
+    var titleLabelTextFont: UIFont = UIFont.boldSystemFontOfSize(14){
+        didSet {
+            self.titleLabel.font = titleLabelTextFont
         }
     }
 
-    var titleLabelBackgroundColor: UIColor {
-        get {
-            return self.titleLabelBackgroundColor
-        }
-        set {
-            self.titleLabelBackgroundColor = newValue
-            self.titleLabel.backgroundColor = newValue
+    var titleLabelBackgroundColor: UIColor = UIColor.clearColor() {
+        didSet {
+            self.titleLabel.backgroundColor = titleLabelBackgroundColor
         }
     }
 
