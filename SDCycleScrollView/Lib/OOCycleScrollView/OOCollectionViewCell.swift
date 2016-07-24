@@ -33,8 +33,8 @@ class OOCollectionViewCell: UICollectionViewCell {
         get {
             return self.title
         }
-        set(title) {
-            self.title = title
+        set {
+            self.title = newValue
             self.titleLabel.text = "   \(title)"
             if titleLabel.hidden {
                 self.titleLabel.hidden = false
@@ -46,9 +46,9 @@ class OOCollectionViewCell: UICollectionViewCell {
         get {
             return self.titleLabelTextColor
         }
-        set(titleLabelTextColor) {
-            self.titleLabelTextColor = titleLabelTextColor
-            self.titleLabel.textColor = titleLabelTextColor
+        set {
+            self.titleLabelTextColor = newValue
+            self.titleLabel.textColor = newValue
         }
     }
 
@@ -56,9 +56,9 @@ class OOCollectionViewCell: UICollectionViewCell {
         get {
             return self.titleLabelTextFont
         }
-        set(titleLabelTextFont) {
-            self.titleLabelTextFont = titleLabelTextFont
-            self.titleLabel.font = titleLabelTextFont
+        set {
+            self.titleLabelTextFont = newValue
+            self.titleLabel.font = newValue
         }
     }
 
@@ -66,9 +66,9 @@ class OOCollectionViewCell: UICollectionViewCell {
         get {
             return self.titleLabelBackgroundColor
         }
-        set(titleLabelBackgroundColor) {
-            self.titleLabelBackgroundColor = titleLabelBackgroundColor
-            self.titleLabel.backgroundColor = titleLabelBackgroundColor
+        set {
+            self.titleLabelBackgroundColor = newValue
+            self.titleLabel.backgroundColor = newValue
         }
     }
 

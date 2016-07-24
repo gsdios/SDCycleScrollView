@@ -53,8 +53,8 @@ class OOPageControl : UIControl {
         get {
             return self.dotViewClass
         }
-        set(dotViewClass) {
-            self.dotViewClass = dotViewClass
+        set {
+            self.dotViewClass = newValue
             self.dotSize = CGSizeZero
             self.resetDotViews()
         }
@@ -67,8 +67,8 @@ class OOPageControl : UIControl {
         get {
             return self.dotImage
         }
-        set(dotImage) {
-            self.dotImage = dotImage
+        set {
+            self.dotImage = newValue
             self.resetDotViews()
             self.dotViewClass = nil
         }
@@ -81,8 +81,8 @@ class OOPageControl : UIControl {
         get {
             return self.currentDotImage
         }
-        set(currentDotimage) {
-            self.currentDotImage = currentDotimage
+        set {
+            self.currentDotImage = newValue
             self.resetDotViews()
             self.dotViewClass = nil
         }
@@ -117,8 +117,8 @@ class OOPageControl : UIControl {
         get {
             return self.spacingBetweenDots
         }
-        set(spacingBetweenDots) {
-            self.spacingBetweenDots = spacingBetweenDots
+        set {
+            self.spacingBetweenDots = newValue
             self.resetDotViews()
         }
     }
@@ -137,8 +137,8 @@ class OOPageControl : UIControl {
         get {
             return self.numberOfPages
         }
-        set(numberOfPages) {
-            self.numberOfPages = numberOfPages
+        set {
+            self.numberOfPages = newValue
             // Update dot position to fit new number of pages
             self.resetDotViews()
         }
@@ -151,15 +151,15 @@ class OOPageControl : UIControl {
         get {
             return self.currentPage
         }
-        set(currentPage) {
+        set {
             // If no pages, no current page to treat.
-            if self.numberOfPages == 0 || currentPage == currentPage {
-                self.currentPage = currentPage
+            if self.numberOfPages == 0 || currentPage == newValue {
+                self.currentPage = newValue
                 return
             }
             // Pre set
             self.changeActivity(false, atIndex: currentPage)
-            self.currentPage = currentPage
+            self.currentPage = newValue
             // Post set
             self.changeActivity(true, atIndex: currentPage)
         }

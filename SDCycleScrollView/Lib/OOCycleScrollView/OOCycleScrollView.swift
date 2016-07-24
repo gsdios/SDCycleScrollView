@@ -92,8 +92,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.imageURLStringsGroup
         }
-        set(imageURLStringsGroup) {
-            self.imageURLStringsGroup = imageURLStringsGroup
+        set {
+            self.imageURLStringsGroup = newValue
 //            var temp: [AnyObject] = [AnyObject]()
 //            imageURLStringsGroup.enumerateObjectsUsingBlock({(obj: String, idx: Int, stop: Bool) -> Void in
 //                var urlString: String
@@ -120,8 +120,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.titlesGroup
         }
-        set(titlesGroup) {
-            self.titlesGroup = titlesGroup
+        set {
+            self.titlesGroup = newValue
             if self.onlyDisplayText {
 //                var temp: [AnyObject] = [AnyObject]()
 //                for i in 0..<titlesGroup.count {
@@ -138,8 +138,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.localizationImageNamesGroup
         }
-        set(localizationImageNamesGroup) {
-            self.localizationImageNamesGroup = localizationImageNamesGroup
+        set {
+            self.localizationImageNamesGroup = newValue
             self.imagePathsGroup = localizationImageNamesGroup
         }
     }
@@ -150,8 +150,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.autoScrollTimeInterval
         }
-        set(autoScrollTimeInterval) {
-            self.autoScrollTimeInterval = autoScrollTimeInterval
+        set {
+            self.autoScrollTimeInterval = newValue
             self.autoScroll = (self.autoScroll);
         }
     }
@@ -161,8 +161,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.infiniteLoop
         }
-        set(infiniteLoop) {
-            self.infiniteLoop = infiniteLoop
+        set {
+            self.infiniteLoop = newValue
             if self.imagePathsGroup.count > 0 {
                 self.imagePathsGroup = (self.imagePathsGroup)
             }
@@ -174,8 +174,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.autoScroll
         }
-        set(autoScroll) {
-            self.autoScroll = autoScroll
+        set {
+            self.autoScroll = newValue
             self.invalidateTimer()
             if autoScroll {
                 self.setupTimer()
@@ -188,9 +188,9 @@ public class OOCycleScrollView: UIView {
         get {
             return self.scrollDirection
         }
-        set(scrollDirection) {
-            self.scrollDirection = scrollDirection
-            self.flowLayout.scrollDirection = scrollDirection
+        set {
+            self.scrollDirection = newValue
+            self.flowLayout.scrollDirection = newValue
         }
     }
 
@@ -208,9 +208,9 @@ public class OOCycleScrollView: UIView {
         get {
             return self.imagePathsGroup
         }
-        set(imagePathsGroup) {
+        set {
             self.invalidateTimer()
-            self.imagePathsGroup = imagePathsGroup
+            self.imagePathsGroup = newValue
             self.totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count
             if imagePathsGroup.count != 1 {
                 self.mainView.scrollEnabled = true
@@ -243,8 +243,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.placeholderImage
         }
-        set(placeholderImage) {
-            self.placeholderImage = placeholderImage
+        set {
+            self.placeholderImage = newValue
             if self.backgroundImageView == nil {
                 let bgImageView: UIImageView = UIImageView()
                 bgImageView.contentMode = .ScaleAspectFit
@@ -260,8 +260,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.showPageControl
         }
-        set(showPageControl) {
-            self.showPageControl = showPageControl
+        set {
+            self.showPageControl = newValue
             self.pageControl!.hidden = !showPageControl
         }
     }
@@ -275,8 +275,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.pageControlStyle
         }
-        set(pageControlStyle) {
-            self.pageControlStyle = pageControlStyle
+        set {
+            self.pageControlStyle = newValue
             self.setupPageControl()
         }
     }
@@ -292,8 +292,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.pageControlDotSize
         }
-        set(pageControlDotSize) {
-            self.pageControlDotSize = pageControlDotSize
+        set {
+            self.pageControlDotSize = newValue
             self.setupPageControl()
             if let pageControl = pageControl as? OOPageControl {
                 pageControl.dotSize = pageControlDotSize
@@ -306,8 +306,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.currentPageDotColor
         }
-        set(currentPageDotColor) {
-            self.currentPageDotColor = currentPageDotColor
+        set {
+            self.currentPageDotColor = newValue
             if let pageControl = pageControl as? OOPageControl {
                 pageControl.dotColor = currentPageDotColor
             }
@@ -323,8 +323,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.pageDotColor
         }
-        set(pageDotColor) {
-            self.pageDotColor = pageDotColor
+        set {
+            self.pageDotColor = newValue
             if let pageControl = pageControl as? UIPageControl {
                 pageControl.pageIndicatorTintColor = pageDotColor
             }
@@ -336,8 +336,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.currentPageDotImage
         }
-        set(currentPageDotImage) {
-            self.currentPageDotImage = currentPageDotImage
+        set {
+            self.currentPageDotImage = newValue
             if self.pageControlStyle != .Animated {
                 self.pageControlStyle = .Animated
             }
@@ -350,8 +350,8 @@ public class OOCycleScrollView: UIView {
         get {
             return self.pageDotImage
         }
-        set(pageDotImage) {
-            self.pageDotImage = pageDotImage
+        set {
+            self.pageDotImage = newValue
             if self.pageControlStyle != .Animated {
                 self.pageControlStyle = .Animated
             }
