@@ -30,6 +30,7 @@
 
 #import "ViewController.h"
 #import "SDCycleScrollView.h"
+#import "SDCycleScrollView-Swift.h"
 
 @interface ViewController () <SDCycleScrollViewDelegate>
 
