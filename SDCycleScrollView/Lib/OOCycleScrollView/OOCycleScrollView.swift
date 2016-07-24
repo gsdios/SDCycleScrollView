@@ -126,7 +126,7 @@ public class OOCycleScrollView: UIView {
     /** 是否无限循环,默认Yes */
     public var infiniteLoop: Bool = true {
         didSet {
-            if self.imagePathsGroup.count > 0 {
+            if self.imagePathsGroup != nil {
                 self.imagePathsGroup = (self.imagePathsGroup)
             }
         }
@@ -159,16 +159,18 @@ public class OOCycleScrollView: UIView {
     public weak var mainView: UICollectionView!
     // 显示图片的collectionView
     public weak var flowLayout: UICollectionViewFlowLayout!
-    public var imagePathsGroup: [AnyObject]! {
+    public var imagePathsGroup: [AnyObject]? {
         didSet {
             self.invalidateTimer()
-            self.totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count
-            if imagePathsGroup.count != 1 {
-                self.mainView.scrollEnabled = true
-                self.autoScroll = (self.autoScroll)
-            }
-            else {
-                self.mainView.scrollEnabled = false
+            if let imagePathsGroup = imagePathsGroup {
+                self.totalItemsCount = self.infiniteLoop ? imagePathsGroup.count * 100 : imagePathsGroup.count
+                if imagePathsGroup.count != 1 {
+                    self.mainView.scrollEnabled = true
+                    self.autoScroll = (self.autoScroll)
+                }
+                else {
+                    self.mainView.scrollEnabled = false
+                }
             }
             self.setupPageControl()
             self.mainView.reloadData()
@@ -382,7 +384,7 @@ public class OOCycleScrollView: UIView {
     }
 
     func invalidateTimer() {
-        timer!.invalidate()
+        timer?.invalidate()
         self.timer = nil
     }
 
@@ -390,44 +392,47 @@ public class OOCycleScrollView: UIView {
         if pageControl != nil {
             pageControl!.removeFromSuperview()
         }
-        // 重新加载数据时调整
-        if self.imagePathsGroup.count == 0 || self.onlyDisplayText {
-            return
-        }
-        if (self.imagePathsGroup.count == 1) && self.hidesForSinglePage {
-            return
-        }
-        let indexOnPageControl: Int = self.pageControlIndexWithCurrentCellIndex(self.currentIndex())
-        switch self.pageControlStyle {
-            case .Text:
-                let pageControl: OOTextPageControl = OOTextPageControl()
-                pageControl.numberOfPages = self.imagePathsGroup.count
-                pageControl.userInteractionEnabled = false
-                pageControl.currentPage = indexOnPageControl
-                self.addSubview(pageControl)
-                self.pageControl = pageControl
+        
+        if let imagePathsGroup = imagePathsGroup {
+            // 重新加载数据时调整
+            if imagePathsGroup.count == 0 || self.onlyDisplayText {
+                return
+            }
+            if (imagePathsGroup.count == 1) && self.hidesForSinglePage {
+                return
+            }
+            let indexOnPageControl: Int = self.pageControlIndexWithCurrentCellIndex(self.currentIndex())
+            switch self.pageControlStyle {
+                case .Text:
+                    let pageControl: OOTextPageControl = OOTextPageControl()
+                    pageControl.numberOfPages = imagePathsGroup.count
+                    pageControl.userInteractionEnabled = false
+                    pageControl.currentPage = indexOnPageControl
+                    self.addSubview(pageControl)
+                    self.pageControl = pageControl
 
-            case .Animated:
-                let pageControl: OOPageControl = OOPageControl()
-                pageControl.numberOfPages = self.imagePathsGroup.count
-                pageControl.dotColor = self.currentPageDotColor
-                pageControl.userInteractionEnabled = false
-                pageControl.currentPage = indexOnPageControl
-                self.addSubview(pageControl)
-                self.pageControl = pageControl
+                case .Animated:
+                    let pageControl: OOPageControl = OOPageControl()
+                    pageControl.numberOfPages = imagePathsGroup.count
+                    pageControl.dotColor = self.currentPageDotColor
+                    pageControl.userInteractionEnabled = false
+                    pageControl.currentPage = indexOnPageControl
+                    self.addSubview(pageControl)
+                    self.pageControl = pageControl
 
-            case .Classic:
-                let pageControl: UIPageControl = UIPageControl()
-                pageControl.numberOfPages = self.imagePathsGroup.count
-                pageControl.currentPageIndicatorTintColor = self.currentPageDotColor
-                pageControl.pageIndicatorTintColor = self.pageDotColor
-                pageControl.userInteractionEnabled = false
-                pageControl.currentPage = indexOnPageControl
-                self.addSubview(pageControl)
-                self.pageControl = pageControl
+                case .Classic:
+                    let pageControl: UIPageControl = UIPageControl()
+                    pageControl.numberOfPages = imagePathsGroup.count
+                    pageControl.currentPageIndicatorTintColor = self.currentPageDotColor
+                    pageControl.pageIndicatorTintColor = self.pageDotColor
+                    pageControl.userInteractionEnabled = false
+                    pageControl.currentPage = indexOnPageControl
+                    self.addSubview(pageControl)
+                    self.pageControl = pageControl
 
-            default:
-                break
+                default:
+                    break
+            }
         }
 
         // 重设pagecontroldot图片
@@ -475,7 +480,10 @@ public class OOCycleScrollView: UIView {
     }
 
     func pageControlIndexWithCurrentCellIndex(index: Int) -> Int {
-        return Int(index) % self.imagePathsGroup.count
+        guard let imagePathsGroup = imagePathsGroup else {
+            return 0
+        }
+        return Int(index) % imagePathsGroup.count
     }
 
 // MARK: - life circles
@@ -496,17 +504,18 @@ public class OOCycleScrollView: UIView {
             mainView.scrollToItemAtIndexPath(NSIndexPath(forItem: targetIndex, inSection: 0), atScrollPosition: .None, animated: false)
         }
         var size: CGSize = CGSizeZero
+        let imagePathsGroupCount = imagePathsGroup?.count ?? 0
         if let pageControl = pageControl as? OOPageControl {
             if let _ = self.pageDotImage,_ = self.currentPageDotImage where CGSizeEqualToSize(kCycleScrollViewInitialPageControlDotSize, self.pageControlDotSize) {
                 pageControl.dotSize = self.pageControlDotSize
             }
-            size = pageControl.sizeForNumberOfPages(self.imagePathsGroup.count)
+            size = pageControl.sizeForNumberOfPages(imagePathsGroupCount)
         }
         else if (self.pageControl is OOTextPageControl) {
             size = CGSizeMake(52, 20)
         }
         else {
-            size = CGSizeMake(CGFloat(self.imagePathsGroup.count) * self.pageControlDotSize.width * 1.5, self.pageControlDotSize.height)
+            size = CGSizeMake(CGFloat(imagePathsGroupCount) * self.pageControlDotSize.width * 1.5, self.pageControlDotSize.height)
         }
 
         var x: CGFloat = (self.sd_width - size.width) * 0.5
@@ -553,7 +562,7 @@ public class OOCycleScrollView: UIView {
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ID, forIndexPath: indexPath) as! OOCollectionViewCell
         let itemIndex: Int = self.pageControlIndexWithCurrentCellIndex(indexPath.item)
-        let imagePath = self.imagePathsGroup[itemIndex]
+        let imagePath = self.imagePathsGroup?[itemIndex]
         if let imagePath = imagePath as? String where !self.onlyDisplayText {
             if imagePath.hasPrefix("http") {
                 cell.imageView!.kf_setImageWithURL(NSURL(string: imagePath)!, placeholderImage: self.placeholderImage)
@@ -598,7 +607,7 @@ public class OOCycleScrollView: UIView {
 
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if self.imagePathsGroup.count == 0 {
+        if let imagePathsGroup = imagePathsGroup where imagePathsGroup.count == 0 {
             return
         }
             // 解决清除timer时偶尔会出现的问题
@@ -634,7 +643,7 @@ public class OOCycleScrollView: UIView {
     }
 
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        if self.imagePathsGroup.count == 0 {
+        if let imagePathsGroup = imagePathsGroup where imagePathsGroup.count == 0 {
             return
         }
             // 解决清除timer时偶尔会出现的问题
