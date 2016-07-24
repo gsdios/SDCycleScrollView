@@ -35,12 +35,12 @@ import Kingfisher
 
 let kCycleScrollViewInitialPageControlDotSize = CGSizeMake(10, 10)
 let ID: String = "cycleCell"
-enum OOCycleScrollViewPageContolAliment : Int {
+public enum OOCycleScrollViewPageContolAliment : Int {
     case Right
     case Center
 }
 
-enum OOCycleScrollViewPageContolStyle : Int {
+public enum OOCycleScrollViewPageContolStyle : Int {
     case Classic
     // 系统自带经典样式
     case Animated
@@ -50,14 +50,14 @@ enum OOCycleScrollViewPageContolStyle : Int {
     case None
 }
 
-@objc protocol OOCycleScrollViewDelegate : NSObjectProtocol {
+@objc public protocol OOCycleScrollViewDelegate : NSObjectProtocol {
     /** 点击图片回调 */
     optional func cycleScrollView(cycleScrollView: OOCycleScrollView, didSelectItemAtIndex index: Int)
     /** 图片滚动回调 */
 
     optional func cycleScrollView(cycleScrollView: OOCycleScrollView, didScrollToIndex index: Int)
 }
-class OOCycleScrollView: UIView {
+public class OOCycleScrollView: UIView {
     /** 初始轮播图（推荐使用） */
     class func cycleScrollViewWithFrame(frame: CGRect, delegate: OOCycleScrollViewDelegate, placeholderImage: UIImage) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
@@ -88,7 +88,7 @@ class OOCycleScrollView: UIView {
     }
     //////////////////////  数据源接口  //////////////////////
     /** 网络图片 url string 数组 */
-    var imageURLStringsGroup: [AnyObject] {
+    public var imageURLStringsGroup: [AnyObject] {
         get {
             return self.imageURLStringsGroup
         }
@@ -116,7 +116,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 每张图片对应要显示的文字数组 */
-    var titlesGroup: [AnyObject] {
+    public var titlesGroup: [AnyObject] {
         get {
             return self.titlesGroup
         }
@@ -134,7 +134,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 本地图片数组 */
-    var localizationImageNamesGroup: [AnyObject] {
+    public var localizationImageNamesGroup: [AnyObject] {
         get {
             return self.localizationImageNamesGroup
         }
@@ -146,7 +146,7 @@ class OOCycleScrollView: UIView {
 
     //////////////////////  滚动控制接口 //////////////////////
     /** 自动滚动间隔时间,默认2s */
-    var autoScrollTimeInterval: NSTimeInterval {
+    public var autoScrollTimeInterval: NSTimeInterval {
         get {
             return self.autoScrollTimeInterval
         }
@@ -157,7 +157,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 是否无限循环,默认Yes */
-    var infiniteLoop: Bool {
+    public var infiniteLoop: Bool {
         get {
             return self.infiniteLoop
         }
@@ -170,7 +170,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 是否自动滚动,默认Yes */
-    var autoScroll: Bool {
+    public var autoScroll: Bool {
         get {
             return self.autoScroll
         }
@@ -184,7 +184,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 图片滚动方向，默认为水平滚动 */
-    var scrollDirection: UICollectionViewScrollDirection {
+    public var scrollDirection: UICollectionViewScrollDirection {
         get {
             return self.scrollDirection
         }
@@ -194,17 +194,17 @@ class OOCycleScrollView: UIView {
         }
     }
 
-    weak var delegate: OOCycleScrollViewDelegate?
+    public weak var delegate: OOCycleScrollViewDelegate?
     /** block方式监听点击 */
     var clickItemOperationBlock: ((Int)->Void)?
     /** block方式监听滚动 */
-    var itemDidScrollOperationBlock: ((Int)->Void)?
+    public var itemDidScrollOperationBlock: ((Int)->Void)?
     /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
     
-    weak var mainView: UICollectionView!
+    public weak var mainView: UICollectionView!
     // 显示图片的collectionView
-    weak var flowLayout: UICollectionViewFlowLayout!
-    var imagePathsGroup: [AnyObject] {
+    public weak var flowLayout: UICollectionViewFlowLayout!
+    public var imagePathsGroup: [AnyObject] {
         get {
             return self.imagePathsGroup
         }
@@ -237,9 +237,9 @@ class OOCycleScrollView: UIView {
     }
     //////////////////////  自定义样式接口  //////////////////////
     /** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
-    var bannerImageViewContentMode: UIViewContentMode = .ScaleToFill
+    public var bannerImageViewContentMode: UIViewContentMode = .ScaleToFill
     /** 占位图，用于网络未加载到图片时 */
-    var placeholderImage: UIImage {
+    public var placeholderImage: UIImage {
         get {
             return self.placeholderImage
         }
@@ -256,7 +256,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 是否显示分页控件 */
-    var showPageControl: Bool {
+    public var showPageControl: Bool {
         get {
             return self.showPageControl
         }
@@ -267,11 +267,11 @@ class OOCycleScrollView: UIView {
     }
 
     /** 是否在只有一张图时隐藏pagecontrol，默认为YES */
-    var hidesForSinglePage = true
+    public var hidesForSinglePage = true
     /** 只展示文字轮播 */
-    var onlyDisplayText = false
+    public var onlyDisplayText = false
     /** pagecontrol 样式，默认为动画样式 */
-    var pageControlStyle: OOCycleScrollViewPageContolStyle {
+    public var pageControlStyle: OOCycleScrollViewPageContolStyle {
         get {
             return self.pageControlStyle
         }
@@ -282,13 +282,13 @@ class OOCycleScrollView: UIView {
     }
 
     /** 分页控件位置 */
-    var pageControlAliment: OOCycleScrollViewPageContolAliment = .Center
+    public var pageControlAliment: OOCycleScrollViewPageContolAliment = .Center
     /** 分页控件距离轮播图的底部间距（在默认间距基础上）的偏移量 */
-    var pageControlBottomOffset: CGFloat = 0
+    public var pageControlBottomOffset: CGFloat = 0
     /** 分页控件距离轮播图的右边间距（在默认间距基础上）的偏移量 */
-    var pageControlRightOffset: CGFloat = 0
+    public var pageControlRightOffset: CGFloat = 0
     /** 分页控件小圆标大小 */
-    var pageControlDotSize: CGSize {
+    public var pageControlDotSize: CGSize {
         get {
             return self.pageControlDotSize
         }
@@ -302,7 +302,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 当前分页控件小圆标颜色 */
-    var currentPageDotColor: UIColor {
+    public var currentPageDotColor: UIColor {
         get {
             return self.currentPageDotColor
         }
@@ -319,7 +319,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 其他分页控件小圆标颜色 */
-    var pageDotColor: UIColor {
+    public var pageDotColor: UIColor {
         get {
             return self.pageDotColor
         }
@@ -332,7 +332,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 当前分页控件小圆标图片 */
-    var currentPageDotImage: UIImage? {
+    public var currentPageDotImage: UIImage? {
         get {
             return self.currentPageDotImage
         }
@@ -346,7 +346,7 @@ class OOCycleScrollView: UIView {
     }
 
     /** 其他分页控件小圆标图片 */
-    var pageDotImage: UIImage? {
+    public var pageDotImage: UIImage? {
         get {
             return self.pageDotImage
         }
@@ -360,38 +360,38 @@ class OOCycleScrollView: UIView {
     }
 
     /** 轮播文字label字体颜色 */
-    var titleLabelTextColor: UIColor = UIColor.whiteColor()
+    public var titleLabelTextColor: UIColor = UIColor.whiteColor()
     /** 轮播文字label字体大小 */
-    var titleLabelTextFont: UIFont = UIFont.systemFontOfSize(14)
+    public var titleLabelTextFont: UIFont = UIFont.systemFontOfSize(14)
     /** 轮播文字label背景颜色 */
-    var titleLabelBackgroundColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+    public var titleLabelBackgroundColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     /** 轮播文字label高度 */
-    var titleLabelHeight: CGFloat = 30
+    public var titleLabelHeight: CGFloat = 30
     //////////////////////  清除缓存接口  //////////////////////
     /** 清除图片缓存（此次升级后统一使用OOWebImage管理图片加载和缓存）  */
 
-    class func clearImagesCache() {
+    public class func clearImagesCache() {
         ImageCache.defaultCache.clearDiskCache()
     }
     /** 清除图片缓存（兼容旧版本方法） */
 
-    func clearCache() {
+    public func clearCache() {
         OOCycleScrollView.clearImagesCache()
     }
 
 
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
 
         self.initialization()
         self.setupMainView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         self.initialization()
         self.setupMainView()
     }
@@ -562,7 +562,7 @@ class OOCycleScrollView: UIView {
 // MARK: - life circles
 
 
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         self.flowLayout.itemSize = self.frame.size
         self.mainView.frame = self.bounds
@@ -609,7 +609,7 @@ class OOCycleScrollView: UIView {
     }
     //解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题
 
-    override func willMoveToSuperview(newSuperview: UIView?) {
+    override public func willMoveToSuperview(newSuperview: UIView?) {
         if newSuperview == nil {
             self.invalidateTimer()
         }
