@@ -606,9 +606,9 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
 
 
     public func scrollViewDidScroll(scrollView: UIScrollView) {
-        if let imagePathsGroup = imagePathsGroup where imagePathsGroup.count == 0 {
-            return
-        }
+        guard let imagePathsGroup = imagePathsGroup,pageControl = pageControl else { return }
+        if imagePathsGroup.isEmpty { return }
+        
             // 解决清除timer时偶尔会出现的问题
         let itemIndex: Int = self.currentIndex()
         let indexOnPageControl: Int = self.pageControlIndexWithCurrentCellIndex(itemIndex)
