@@ -618,8 +618,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
         else if let pageControl = pageControl as? OOTextPageControl {
             pageControl.currentPage = indexOnPageControl
         }
-        else {
-            let pageControl: UIPageControl = self.pageControl as! UIPageControl
+        else if let pageControl = pageControl as? UIPageControl{
             pageControl.currentPage = indexOnPageControl
         }
 
