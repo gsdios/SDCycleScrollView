@@ -32,25 +32,25 @@ class OOCollectionViewCell: UICollectionViewCell {
     var title: String = "" {
         didSet {
             self.titleLabel.text = "   \(title)"
-            if titleLabel.hidden {
-                self.titleLabel.hidden = false
+            if titleLabel.isHidden {
+                self.titleLabel.isHidden = false
             }
         }
     }
 
-    var titleLabelTextColor: UIColor = UIColor.whiteColor() {
+    var titleLabelTextColor: UIColor = UIColor.white {
         didSet {
             self.titleLabel.textColor = titleLabelTextColor
         }
     }
 
-    var titleLabelTextFont: UIFont = UIFont.boldSystemFontOfSize(14){
+    var titleLabelTextFont: UIFont = UIFont.boldSystemFont(ofSize: 14){
         didSet {
             self.titleLabel.font = titleLabelTextFont
         }
     }
 
-    var titleLabelBackgroundColor: UIColor = UIColor.clearColor() {
+    var titleLabelBackgroundColor: UIColor = UIColor.clear {
         didSet {
             self.titleLabel.backgroundColor = titleLabelBackgroundColor
         }
@@ -84,7 +84,7 @@ class OOCollectionViewCell: UICollectionViewCell {
     func setupTitleLabel() {
         let titleLabel = UILabel()
         self.titleLabel = titleLabel
-        self.titleLabel.hidden = true
+        self.titleLabel.isHidden = true
         self.contentView.addSubview(titleLabel)
     }
 
@@ -99,7 +99,7 @@ class OOCollectionViewCell: UICollectionViewCell {
             let titleLabelH: CGFloat = titleLabelHeight
             let titleLabelX: CGFloat = 0
             let titleLabelY: CGFloat = self.sd_height - titleLabelH
-            self.titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH)
+            self.titleLabel.frame = CGRect(x: titleLabelX, y: titleLabelY, width: titleLabelW, height: titleLabelH)
         }
     }
 }

@@ -29,10 +29,10 @@
  */
 
 #import "ViewController.h"
-#import "SDCycleScrollView.h"
+//#import "SDCycleScrollView.h"
 #import "SDCycleScrollView-Swift.h"
 
-@interface ViewController () <SDCycleScrollViewDelegate>
+@interface ViewController () <OOCycleScrollViewDelegate>
 
 @end
 
@@ -98,9 +98,9 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 本地加载 --- 创建不带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) shouldInfiniteLoop:YES imageNamesGroup:imageNames];
+    OOCycleScrollView *cycleScrollView = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) shouldInfiniteLoop:YES imageNamesGroup:imageNames];
     cycleScrollView.delegate = self;
-    cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+    cycleScrollView.pageControlStyle = OOCycleScrollViewPageContolStyleAnimated;
     [demoContainerView addSubview:cycleScrollView];
     cycleScrollView.scrollDirection = UICollectionViewScrollDirectionVertical;
     //         --- 轮播时间间隔，默认1.0秒，可自定义
@@ -110,9 +110,9 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 网络加载 --- 创建带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    OOCycleScrollView *cycleScrollView2 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView2.pageControlAliment = OOCycleScrollViewPageContolStyleClassic;
     cycleScrollView2.titlesGroup = titles;
     cycleScrollView2.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     [demoContainerView addSubview:cycleScrollView2];
@@ -131,7 +131,7 @@
      
      */
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    OOCycleScrollView *cycleScrollView3 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     cycleScrollView3.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
     cycleScrollView3.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
     cycleScrollView3.imageURLStringsGroup = imagesURLStrings;
@@ -142,7 +142,7 @@
     
     // 网络加载 --- 创建只上下滚动展示文字的轮播器
     // 由于模拟器的渲染问题，如果发现轮播时有一条线不必处理，模拟器放大到100%或者真机调试是不会出现那条线的
-    SDCycleScrollView *cycleScrollView4 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 750, w, 40) delegate:self placeholderImage:nil];
+    OOCycleScrollView *cycleScrollView4 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 750, w, 40) delegate:self placeholderImage:nil];
     cycleScrollView4.scrollDirection = UICollectionViewScrollDirectionVertical;
     cycleScrollView4.onlyDisplayText = YES;
     
@@ -157,16 +157,15 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图5 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    SDCycleScrollView *cycleScrollView5 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 900, w, 180) imageURLStringsGroup:imagesURLStrings];;
-    cycleScrollView5.pageControlStyle = SDCycleScrollViewPageContolStyleText;
+    OOCycleScrollView *cycleScrollView5 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 900, w, 180) imageURLStringsGroup:imagesURLStrings];;
+    cycleScrollView5.pageControlStyle = OOCycleScrollViewPageContolStyleText;
     cycleScrollView5.autoScroll = NO;
     [demoContainerView addSubview:cycleScrollView5];
     
     
     
     OOCycleScrollView *cycleScrollView6 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1100, w, 180) imageURLStringsGroup:imagesURLStringsT];;
-//    cycleScrollView6.pageControlStyle = OOCycleScrollViewPageContolStyleText;
-//    cycleScrollView6.pageControlStyle = OOCycleScrollViewPageControlStyle.Text;
+    cycleScrollView6.pageControlStyle = OOCycleScrollViewPageContolStyleText;
     cycleScrollView6.autoScroll = NO;
     [demoContainerView addSubview:cycleScrollView6];
     
@@ -182,14 +181,21 @@
 
 
 #pragma mark - SDCycleScrollViewDelegate
-
+/*
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"---点击了第%ld张图片", (long)index);
     
     [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
 }
+*/
 
+-(void)cycleScrollView:(OOCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    NSLog(@"---点击了第%ld张图片", (long)index);
+    
+    [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
+}
 
 /*
  

@@ -8,12 +8,12 @@
 
 import UIKit
 
-let kAnimateDuration: NSTimeInterval = 1
+let kAnimateDuration: TimeInterval = 1
 
 class OOAnimatedDotView: OOAbstractDotView {
-    var dotColor: UIColor = UIColor.whiteColor() {
+    var dotColor: UIColor = UIColor.white {
         didSet {
-            self.layer.borderColor = dotColor.CGColor
+            self.layer.borderColor = dotColor.cgColor
         }
     }
 
@@ -37,13 +37,13 @@ class OOAnimatedDotView: OOAbstractDotView {
     }
 
     func initialization() {
-        self.backgroundColor = UIColor.clearColor()
-        self.layer.cornerRadius = CGRectGetWidth(self.frame) / 2
-        self.layer.borderColor = UIColor.whiteColor().CGColor
+        self.backgroundColor = UIColor.clear
+        self.layer.cornerRadius = self.frame.width / 2
+        self.layer.borderColor = UIColor.white.cgColor
         self.layer.borderWidth = 2
     }
 
-    override func changeActivityState(active: Bool) {
+    override func changeActivityState(_ active: Bool) {
         if active {
             self.animateToActiveState()
         }
@@ -53,16 +53,16 @@ class OOAnimatedDotView: OOAbstractDotView {
     }
 
     func animateToActiveState() {
-        UIView.animateWithDuration(kAnimateDuration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: -20, options: .CurveLinear, animations: {() -> Void in
+        UIView.animate(withDuration: kAnimateDuration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: -20, options: .curveLinear, animations: {() -> Void in
             self.backgroundColor = self.dotColor
-            self.transform = CGAffineTransformMakeScale(1.4, 1.4)
+            self.transform = CGAffineTransform(scaleX: 1.4, y: 1.4)
         }, completion: { _ in })
     }
 
     func animateToDeactiveState() {
-        UIView.animateWithDuration(kAnimateDuration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .CurveLinear, animations: {() -> Void in
-            self.backgroundColor = UIColor.clearColor()
-            self.transform = CGAffineTransformIdentity
+        UIView.animate(withDuration: kAnimateDuration, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveLinear, animations: {() -> Void in
+            self.backgroundColor = UIColor.clear
+            self.transform = CGAffineTransform.identity
         }, completion: { _ in })
     }
 }

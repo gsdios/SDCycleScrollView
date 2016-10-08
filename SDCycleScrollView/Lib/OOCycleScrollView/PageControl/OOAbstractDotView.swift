@@ -12,12 +12,12 @@ class OOAbstractDotView: UIView {
      *
      *  @param active BOOL to tell if view is active or not
      */
-    func changeActivityState(active: Bool) {
+    func changeActivityState(_ active: Bool) {
 //        NSException.exceptionWithName(NSInternalInconsistencyException, reason: "You must override \(NSStringFromSelector(cmd)) in \(self.self)", userInfo: nil)
     }
     
     init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
     }
     

@@ -16,10 +16,10 @@ class OOTextPageControl: UIControl {
      */
     var currentPage: Int = 0 {
         didSet {
-            self.textPage.textAlignment = numberOfPages > 9 ? .Right : .Center
+            self.textPage.textAlignment = numberOfPages > 9 ? .right : .center
             let info: NSMutableAttributedString = NSMutableAttributedString(string: String(format: "%-2ld", Int(currentPage) + 1), attributes: [NSFontAttributeName: UIFont(name: "Helvetica-Bold", size: 10)!])
 //            info.appendAttributedString(String("/\(Int(numberOfPages))"))
-            info.appendAttributedString(NSAttributedString(string: "/\(numberOfPages)"))
+            info.append(NSAttributedString(string: "/\(numberOfPages)"))
             self.textPage.attributedText = info
         }
     }
@@ -28,7 +28,7 @@ class OOTextPageControl: UIControl {
 
 
     init() {
-        super.init(frame:CGRectZero)
+        super.init(frame:CGRect.zero)
         
         self.initialization()
     }
@@ -48,10 +48,10 @@ class OOTextPageControl: UIControl {
     func initialization() {
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.9)
         self.layer.masksToBounds = true
-        self.textPage = UILabel(frame: CGRectMake(14.5, 0, 23, 20))
-        self.textPage.textAlignment = .Left
-        self.textPage.font = UIFont.systemFontOfSize(8)
-        self.textPage.textColor = UIColor.whiteColor()
+        self.textPage = UILabel(frame: CGRect(x: 14.5, y: 0, width: 23, height: 20))
+        self.textPage.textAlignment = .left
+        self.textPage.font = UIFont.systemFont(ofSize: 8)
+        self.textPage.textColor = UIColor.white
         self.addSubview(textPage)
     }
 

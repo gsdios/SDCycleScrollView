@@ -36,10 +36,10 @@ let kDefaultSpacingBetweenDots: Int = 8
 /**
  *  Default dot size
  */
-let kDefaultDotSize: CGSize = CGSizeMake(8, 8)
+let kDefaultDotSize: CGSize = CGSize(width: 8, height: 8)
 
 @objc protocol OOPageControlDelegate : NSObjectProtocol {
-    optional func pageControl(pageControl: OOPageControl , didSelectPageAtIndex index: Int)
+    @objc optional func pageControl(_ pageControl: OOPageControl , didSelectPageAtIndex index: Int)
 }
 class OOPageControl : UIControl {
     
@@ -51,7 +51,7 @@ class OOPageControl : UIControl {
      */
     var dotViewClass: AnyClass? = OOAbstractDotView.self {
         didSet {
-            self.dotSize = CGSizeZero
+            self.dotSize = CGSize.zero
             self.resetDotViews()
         }
     }
@@ -83,10 +83,10 @@ class OOPageControl : UIControl {
     var dotSize: CGSize {
         get {
             // Dot size logic depending on the source of the dot view
-            if self.dotImage != nil && CGSizeEqualToSize(self._dotSize, CGSizeZero) {
+            if self.dotImage != nil && self._dotSize.equalTo(CGSize.zero) {
                 self._dotSize = self.dotImage!.size
             }
-            else if self.dotViewClass != nil && CGSizeEqualToSize(self._dotSize, CGSizeZero) {
+            else if self.dotViewClass != nil && self._dotSize.equalTo(CGSize.zero) {
                 self._dotSize = kDefaultDotSize
                 return self._dotSize
             }
@@ -98,7 +98,7 @@ class OOPageControl : UIControl {
         }
     }
 
-    var dotColor = UIColor.whiteColor()
+    var dotColor = UIColor.white
     /**
      *  Spacing between two dot views. Default is 8.
      */
@@ -163,8 +163,8 @@ class OOPageControl : UIControl {
      *  @return The CGSize being the minimum size required.
      */
 
-    func sizeForNumberOfPages(pageCount: Int) -> CGSize {
-        return CGSizeMake((self.dotSize.width + CGFloat(self.spacingBetweenDots)) * CGFloat(pageCount) - CGFloat(self.spacingBetweenDots), self.dotSize.height)
+    func sizeForNumberOfPages(_ pageCount: Int) -> CGSize {
+        return CGSize(width: (self.dotSize.width + CGFloat(self.spacingBetweenDots)) * CGFloat(pageCount) - CGFloat(self.spacingBetweenDots), height: self.dotSize.height)
     }
 
 
@@ -172,7 +172,7 @@ class OOPageControl : UIControl {
 
 
     init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         self.initialization()
     }
@@ -202,10 +202,10 @@ class OOPageControl : UIControl {
 // MARK: - Touch event
 
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch: UITouch = touches.first!
         if touch.view != self {
-            let index: Int = self.dots.indexOf(touch.view!)!
+            let index: Int = self.dots.index(of: touch.view!)!
             self.delegate?.pageControl?(self, didSelectPageAtIndex: index)
         }
     }
@@ -246,12 +246,12 @@ class OOPageControl : UIControl {
      *  @param overrideExistingFrame BOOL to allow frame to be overriden. Meaning the required size will be apply no mattter what.
      */
 
-    func updateFrame(overrideExistingFrame: Bool) {
+    func updateFrame(_ overrideExistingFrame: Bool) {
         let center: CGPoint = self.center
         let requiredSize: CGSize = self.sizeForNumberOfPages(self.numberOfPages)
         // We apply requiredSize only if authorize to and necessary
-        if overrideExistingFrame || ((CGRectGetWidth(self.frame) < requiredSize.width || CGRectGetHeight(self.frame) < requiredSize.height) && !overrideExistingFrame) {
-            self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), requiredSize.width, requiredSize.height)
+        if overrideExistingFrame || ((self.frame.width < requiredSize.width || self.frame.height < requiredSize.height) && !overrideExistingFrame) {
+            self.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: requiredSize.width, height: requiredSize.height)
             if self.shouldResizeFromCenter {
                 self.center = center
             }
@@ -265,11 +265,11 @@ class OOPageControl : UIControl {
      *  @param index Page index of dot
      */
 
-    func updateDotFrame(dot: UIView, atIndex index: Int) {
+    func updateDotFrame(_ dot: UIView, atIndex index: Int) {
             // Dots are always centered within view
-        let x: CGFloat = (self.dotSize.width + CGFloat(self.spacingBetweenDots)) * CGFloat(index) + ((CGRectGetWidth(self.frame) - self.sizeForNumberOfPages(self.numberOfPages).width) / 2)
-        let y: CGFloat = (CGRectGetHeight(self.frame) - self.dotSize.height) / 2
-        dot.frame = CGRectMake(x, y, self.dotSize.width, self.dotSize.height)
+        let x: CGFloat = (self.dotSize.width + CGFloat(self.spacingBetweenDots)) * CGFloat(index) + ((self.frame.width - self.sizeForNumberOfPages(self.numberOfPages).width) / 2)
+        let y: CGFloat = (self.frame.height - self.dotSize.height) / 2
+        dot.frame = CGRect(x: x, y: y, width: self.dotSize.width, height: self.dotSize.height)
     }
 
 // MARK: - Utils
@@ -283,20 +283,20 @@ class OOPageControl : UIControl {
     func generateDotView() -> UIView {
         var dotView: UIView
         if let dotViewClass = dotViewClass {
-            dotView = (dotViewClass as! UIView.Type).init(frame: CGRectMake(0, 0, dotSize.width, dotSize.height))
+            dotView = (dotViewClass as! UIView.Type).init(frame: CGRect(x: 0, y: 0, width: dotSize.width, height: dotSize.height))
             if dotView is OOAnimatedDotView {
                 (dotView as! OOAnimatedDotView).dotColor = dotColor
             }
         }
         else {
             dotView = UIImageView(image: self.dotImage)
-            dotView.frame = CGRectMake(0, 0, self.dotSize.width, self.dotSize.height)
+            dotView.frame = CGRect(x: 0, y: 0, width: self.dotSize.width, height: self.dotSize.height)
         }
 //        if dotView != nil {
         self.addSubview(dotView)
         self.dots.append(dotView)
 //        }
-        dotView.userInteractionEnabled = true
+        dotView.isUserInteractionEnabled = true
         return dotView
     }
     /**
@@ -306,16 +306,16 @@ class OOPageControl : UIControl {
      *  @param index  Index of dot for state update
      */
 
-    func changeActivity(active: Bool, atIndex index: Int) {
-        if let abstractDotView = self.dots[index] as? OOAbstractDotView {
-            if abstractDotView.respondsToSelector(#selector(OOAbstractDotView.changeActivityState)) {
+    func changeActivity(_ active: Bool, atIndex index: Int) {
+        if self.dots.count > index, let abstractDotView = self.dots[index] as? OOAbstractDotView {
+            if abstractDotView.responds(to: #selector(OOAbstractDotView.changeActivityState)) {
                 abstractDotView.changeActivityState(active)
             }
             else {
                 print("Custom view : \(self.dotViewClass) must implement an 'changeActivityState' method or you can subclass \(OOAbstractDotView.self) to help you.")
             }
         }
-        else if let dotImage = self.dotImage , currentDotImage = self.currentDotImage {
+        else if let dotImage = self.dotImage , let currentDotImage = self.currentDotImage {
             let dotView: UIImageView = (self.dots[index] as! UIImageView)
             dotView.image = (active) ? currentDotImage : dotImage
         }
@@ -332,10 +332,10 @@ class OOPageControl : UIControl {
 
     func hideForSinglePage() {
         if self.dots.count == 1 && self.hidesForSinglePage {
-            self.hidden = true
+            self.isHidden = true
         }
         else {
-            self.hidden = false
+            self.isHidden = false
         }
     }
 

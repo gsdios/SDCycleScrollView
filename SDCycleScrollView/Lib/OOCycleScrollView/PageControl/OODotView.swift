@@ -28,18 +28,18 @@ class OODotView: OOAbstractDotView {
     }
 
     func initialization() {
-        self.backgroundColor = UIColor.clearColor()
-        self.layer.cornerRadius = CGRectGetWidth(self.frame) / 2
-        self.layer.borderColor = UIColor.whiteColor().CGColor
+        self.backgroundColor = UIColor.clear
+        self.layer.cornerRadius = self.frame.width / 2
+        self.layer.borderColor = UIColor.white.cgColor
         self.layer.borderWidth = 2
     }
 
-    override func changeActivityState(active: Bool) {
+    override func changeActivityState(_ active: Bool) {
         if active {
-            self.backgroundColor = UIColor.whiteColor()
+            self.backgroundColor = UIColor.white
         }
         else {
-            self.backgroundColor = UIColor.clearColor()
+            self.backgroundColor = UIColor.clear
         }
     }
 }

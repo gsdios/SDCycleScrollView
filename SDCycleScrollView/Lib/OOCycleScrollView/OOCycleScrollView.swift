@@ -32,55 +32,66 @@
  */
 import UIKit
 import Kingfisher
-
-let kCycleScrollViewInitialPageControlDotSize = CGSizeMake(10, 10)
-let ID: String = "cycleCell"
-public enum OOCycleScrollViewPageContolAliment : Int {
-    case Right
-    case Center
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
 }
 
-public enum OOCycleScrollViewPageContolStyle : Int {
-    case Classic
+
+let kCycleScrollViewInitialPageControlDotSize = CGSize(width: 10, height: 10)
+let ID: String = "cycleCell"
+@objc public enum OOCycleScrollViewPageContolAliment : Int {
+    case right
+    case center
+}
+
+@objc public enum OOCycleScrollViewPageContolStyle : Int {
+    case classic
     // 系统自带经典样式
-    case Animated
+    case animated
     // 动画效果pagecontrol
-    case Text
+    case text
     // 文字
-    case None
+    case none
 }
 
 @objc public protocol OOCycleScrollViewDelegate : NSObjectProtocol {
     /** 点击图片回调 */
-    optional func cycleScrollView(cycleScrollView: OOCycleScrollView, didSelectItemAtIndex index: Int)
+    @objc optional func cycleScrollView(_ cycleScrollView: OOCycleScrollView, didSelectItemAtIndex index: Int)
     /** 图片滚动回调 */
 
-    optional func cycleScrollView(cycleScrollView: OOCycleScrollView, didScrollToIndex index: Int)
+    @objc optional func cycleScrollView(_ cycleScrollView: OOCycleScrollView, didScrollToIndex index: Int)
 }
-public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDataSource {
+open class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDataSource {
     /** 初始轮播图（推荐使用） */
-    public class func cycleScrollViewWithFrame(frame: CGRect, delegate: OOCycleScrollViewDelegate, placeholderImage: UIImage) -> OOCycleScrollView {
+    open class func cycleScrollViewWithFrame(_ frame: CGRect, delegate: OOCycleScrollViewDelegate, placeholderImage: UIImage) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
         cycleScrollView.delegate = delegate
         cycleScrollView.placeholderImage = placeholderImage
         return cycleScrollView
     }
 
-    public class func cycleScrollViewWithFrame(frame: CGRect, imageURLStringsGroup imageURLsGroup: [AnyObject]) -> OOCycleScrollView {
+    open class func cycleScrollViewWithFrame(_ frame: CGRect, imageURLStringsGroup imageURLsGroup: [AnyObject]) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
         cycleScrollView.imageURLStringsGroup = [AnyObject](imageURLsGroup)
         return cycleScrollView
     }
     /** 本地图片轮播初始化方式 */
 
-    public class func cycleScrollViewWithFrame(frame: CGRect, imageNamesGroup: [AnyObject]) -> OOCycleScrollView {
+    open class func cycleScrollViewWithFrame(_ frame: CGRect, imageNamesGroup: [AnyObject]) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
         cycleScrollView.localizationImageNamesGroup = [AnyObject](imageNamesGroup)
         return cycleScrollView
     }
     /** 本地图片轮播初始化方式2,infiniteLoop:是否无限循环 */
 
-    public class func cycleScrollViewWithFrame(frame: CGRect, shouldInfiniteLoop infiniteLoop: Bool, imageNamesGroup: [AnyObject]) -> OOCycleScrollView {
+    open class func cycleScrollViewWithFrame(_ frame: CGRect, shouldInfiniteLoop infiniteLoop: Bool, imageNamesGroup: [AnyObject]) -> OOCycleScrollView {
         let cycleScrollView = OOCycleScrollView(frame: frame)
         cycleScrollView.infiniteLoop = infiniteLoop
         cycleScrollView.localizationImageNamesGroup = [AnyObject](imageNamesGroup)
@@ -88,28 +99,29 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
     }
     //////////////////////  数据源接口  //////////////////////
     /** 网络图片 url string 数组 */
-    public var imageURLStringsGroup: [AnyObject]? {
+    open var imageURLStringsGroup: [AnyObject]? {
         didSet {
             if let imageURLStringsGroup = imageURLStringsGroup {
                 self.imagePathsGroup = imageURLStringsGroup.map {
-                    $0 is String ? $0 as! String : ($0 as! NSURL).absoluteString
-                }.filter { !$0.isEmpty }
+                    $0 is String ? $0 as! String : ($0 as! URL).absoluteString
+                }.filter { !$0.isEmpty }.map{ $0 as AnyObject }
             }
         }
     }
 
     /** 每张图片对应要显示的文字数组 */
-    public var titlesGroup: [AnyObject]? {
+    open var titlesGroup: [AnyObject]? {
         didSet {
-            if let titlesGroup = titlesGroup where self.onlyDisplayText {
-                self.backgroundColor = UIColor.clearColor()
-                self.imageURLStringsGroup = [AnyObject](count: titlesGroup.count,repeatedValue:"")
+            
+            if let titlesGroup = titlesGroup , self.onlyDisplayText {
+                self.backgroundColor = UIColor.clear
+                self.imageURLStringsGroup = [String](repeating: "",count: titlesGroup.count) as [AnyObject]
             }
         }
     }
 
     /** 本地图片数组 */
-    public var localizationImageNamesGroup: [AnyObject]? {
+    open var localizationImageNamesGroup: [AnyObject]? {
         didSet {
             self.imagePathsGroup = localizationImageNamesGroup
         }
@@ -117,14 +129,14 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
 
     //////////////////////  滚动控制接口 //////////////////////
     /** 自动滚动间隔时间,默认2s */
-    public var autoScrollTimeInterval: NSTimeInterval = 2 {
+    open var autoScrollTimeInterval: TimeInterval = 2 {
         didSet {
             self.autoScroll = (self.autoScroll);
         }
     }
 
     /** 是否无限循环,默认Yes */
-    public var infiniteLoop: Bool = true {
+    open var infiniteLoop: Bool = true {
         didSet {
             if self.imagePathsGroup != nil {
                 self.imagePathsGroup = (self.imagePathsGroup)
@@ -133,7 +145,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
     }
 
     /** 是否自动滚动,默认Yes */
-    public var autoScroll: Bool = true {
+    open var autoScroll: Bool = true {
         didSet {
             self.invalidateTimer()
             if autoScroll {
@@ -143,33 +155,33 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
     }
 
     /** 图片滚动方向，默认为水平滚动 */
-    public var scrollDirection: UICollectionViewScrollDirection = .Horizontal {
+    open var scrollDirection: UICollectionViewScrollDirection = .horizontal {
         didSet {
             self.flowLayout.scrollDirection = scrollDirection
         }
     }
 
-    public weak var delegate: OOCycleScrollViewDelegate?
+    open weak var delegate: OOCycleScrollViewDelegate?
     /** block方式监听点击 */
     var clickItemOperationBlock: ((Int)->Void)?
     /** block方式监听滚动 */
-    public var itemDidScrollOperationBlock: ((Int)->Void)?
+    open var itemDidScrollOperationBlock: ((Int)->Void)?
     /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
     
-    public weak var mainView: UICollectionView!
+    open weak var mainView: UICollectionView!
     // 显示图片的collectionView
-    public weak var flowLayout: UICollectionViewFlowLayout!
-    public var imagePathsGroup: [AnyObject]? {
+    open weak var flowLayout: UICollectionViewFlowLayout!
+    open var imagePathsGroup: [AnyObject]? {
         didSet {
             self.invalidateTimer()
             if let imagePathsGroup = imagePathsGroup {
                 self.totalItemsCount = self.infiniteLoop ? imagePathsGroup.count * 100 : imagePathsGroup.count
                 if imagePathsGroup.count != 1 {
-                    self.mainView.scrollEnabled = true
+                    self.mainView.isScrollEnabled = true
                     self.autoScroll = (self.autoScroll)
                 }
                 else {
-                    self.mainView.scrollEnabled = false
+                    self.mainView.isScrollEnabled = false
                 }
             }
             self.setupPageControl()
@@ -177,7 +189,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
         }
     }
     
-    weak var timer: NSTimer?
+    weak var timer: Timer?
     var totalItemsCount: Int = 0
     weak var pageControl: UIControl?
     var backgroundImageView: UIImageView?
@@ -185,18 +197,18 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
     func adjustWhenControllerViewWillAppera() {
         let targetIndex: Int = self.currentIndex()
         if targetIndex < totalItemsCount {
-            mainView.scrollToItemAtIndexPath(NSIndexPath(forItem: targetIndex, inSection: 0), atScrollPosition: .None, animated: false)
+            mainView.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionViewScrollPosition(), animated: false)
         }
     }
     //////////////////////  自定义样式接口  //////////////////////
     /** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
-    public var bannerImageViewContentMode: UIViewContentMode = .ScaleToFill
+    open var bannerImageViewContentMode: UIViewContentMode = .scaleToFill
     /** 占位图，用于网络未加载到图片时 */
-    public var placeholderImage: UIImage? {
+    open var placeholderImage: UIImage? {
         didSet {
             if self.backgroundImageView == nil {
                 let bgImageView: UIImageView = UIImageView()
-                bgImageView.contentMode = .ScaleAspectFit
+                bgImageView.contentMode = .scaleAspectFit
                 self.insertSubview(bgImageView, belowSubview: self.mainView)
                 self.backgroundImageView = bgImageView
             }
@@ -205,31 +217,31 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
     }
 
     /** 是否显示分页控件 */
-    public var showPageControl: Bool = true {
+    open var showPageControl: Bool = true {
         didSet {
-            self.pageControl?.hidden = !showPageControl
+            self.pageControl?.isHidden = !showPageControl
         }
     }
 
     /** 是否在只有一张图时隐藏pagecontrol，默认为YES */
-    public var hidesForSinglePage = true
+    open var hidesForSinglePage = true
     /** 只展示文字轮播 */
-    public var onlyDisplayText = false
+    open var onlyDisplayText = false
     /** pagecontrol 样式，默认为动画样式 */
-    public var pageControlStyle: OOCycleScrollViewPageContolStyle = .Classic {
+    open var pageControlStyle: OOCycleScrollViewPageContolStyle = .classic {
         didSet {
             self.setupPageControl()
         }
     }
 
     /** 分页控件位置 */
-    public var pageControlAliment: OOCycleScrollViewPageContolAliment = .Center
+    open var pageControlAliment: OOCycleScrollViewPageContolAliment = .center
     /** 分页控件距离轮播图的底部间距（在默认间距基础上）的偏移量 */
-    public var pageControlBottomOffset: CGFloat = 0
+    open var pageControlBottomOffset: CGFloat = 0
     /** 分页控件距离轮播图的右边间距（在默认间距基础上）的偏移量 */
-    public var pageControlRightOffset: CGFloat = 0
+    open var pageControlRightOffset: CGFloat = 0
     /** 分页控件小圆标大小 */
-    public var pageControlDotSize: CGSize = CGSizeMake(8, 8) {
+    open var pageControlDotSize: CGSize = CGSize(width: 8, height: 8) {
         didSet {
             self.setupPageControl()
             if let pageControl = pageControl as? OOPageControl {
@@ -239,7 +251,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
     }
 
     /** 当前分页控件小圆标颜色 */
-    public var currentPageDotColor = UIColor.whiteColor() {
+    open var currentPageDotColor = UIColor.white {
         didSet {
             if let pageControl = pageControl as? OOPageControl {
                 pageControl.dotColor = currentPageDotColor
@@ -251,7 +263,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
     }
 
     /** 其他分页控件小圆标颜色 */
-    public var pageDotColor = UIColor.lightGrayColor() {
+    open var pageDotColor = UIColor.lightGray {
         didSet {
             if let pageControl = pageControl as? UIPageControl {
                 pageControl.pageIndicatorTintColor = pageDotColor
@@ -260,42 +272,43 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
     }
 
     /** 当前分页控件小圆标图片 */
-    public var currentPageDotImage: UIImage? {
+    open var currentPageDotImage: UIImage? {
         didSet {
-            if self.pageControlStyle != .Animated {
-                self.pageControlStyle = .Animated
+            if self.pageControlStyle != .animated {
+                self.pageControlStyle = .animated
             }
             self.setCustomPageControlDotImage(currentPageDotImage!, isCurrentPageDot: true)
         }
     }
 
     /** 其他分页控件小圆标图片 */
-    public var pageDotImage: UIImage? {
+    open var pageDotImage: UIImage? {
         didSet {
-            if self.pageControlStyle != .Animated {
-                self.pageControlStyle = .Animated
+            if self.pageControlStyle != .animated {
+                self.pageControlStyle = .animated
             }
             self.setCustomPageControlDotImage(pageDotImage!, isCurrentPageDot: false)
         }
     }
 
     /** 轮播文字label字体颜色 */
-    public var titleLabelTextColor: UIColor = UIColor.whiteColor()
+    open var titleLabelTextColor: UIColor = UIColor.white
     /** 轮播文字label字体大小 */
-    public var titleLabelTextFont: UIFont = UIFont.systemFontOfSize(14)
+    open var titleLabelTextFont: UIFont = UIFont.systemFont(ofSize: 14)
     /** 轮播文字label背景颜色 */
-    public var titleLabelBackgroundColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+    open var titleLabelBackgroundColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     /** 轮播文字label高度 */
-    public var titleLabelHeight: CGFloat = 30
+    open var titleLabelHeight: CGFloat = 30
     //////////////////////  清除缓存接口  //////////////////////
     /** 清除图片缓存（此次升级后统一使用OOWebImage管理图片加载和缓存）  */
 
-    public class func clearImagesCache() {
-        ImageCache.defaultCache.clearDiskCache()
+    open class func clearImagesCache() {
+        //ImageCache.defaultCache.clearDiskCache()
+        ImageCache.default.clearDiskCache()
     }
     /** 清除图片缓存（兼容旧版本方法） */
 
-    public func clearCache() {
+    open func clearCache() {
         OOCycleScrollView.clearImagesCache()
     }
 
@@ -311,16 +324,16 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
         super.init(coder: aDecoder)
     }
 
-    override public func awakeFromNib() {
+    override open func awakeFromNib() {
         self.initialization()
         self.setupMainView()
     }
 
     func initialization() {
-        self.pageControlAliment = .Center
+        self.pageControlAliment = .center
         self.autoScrollTimeInterval = 2.0
-        self.titleLabelTextColor = UIColor.whiteColor()
-        self.titleLabelTextFont = UIFont.systemFontOfSize(14)
+        self.titleLabelTextColor = UIColor.white
+        self.titleLabelTextFont = UIFont.systemFont(ofSize: 14)
         self.titleLabelBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         self.titleLabelHeight = 30
         self.autoScroll = true
@@ -329,26 +342,26 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
         self.pageControlDotSize = kCycleScrollViewInitialPageControlDotSize
         self.pageControlBottomOffset = 0
         self.pageControlRightOffset = 0
-        self.pageControlStyle = .Classic
+        self.pageControlStyle = .classic
         self.hidesForSinglePage = true
-        self.currentPageDotColor = UIColor.whiteColor()
-        self.pageDotColor = UIColor.lightGrayColor()
-        self.bannerImageViewContentMode = .ScaleToFill
-        self.backgroundColor = UIColor.lightGrayColor()
+        self.currentPageDotColor = UIColor.white
+        self.pageDotColor = UIColor.lightGray
+        self.bannerImageViewContentMode = .scaleToFill
+        self.backgroundColor = UIColor.lightGray
     }
     // 设置显示图片的collectionView
 
     func setupMainView() {
         let flowLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumLineSpacing = 0
-        flowLayout.scrollDirection = .Horizontal
+        flowLayout.scrollDirection = .horizontal
         self.flowLayout = flowLayout
         let mainView: UICollectionView = UICollectionView(frame: self.bounds, collectionViewLayout: flowLayout)
-        mainView.backgroundColor = UIColor.clearColor()
-        mainView.pagingEnabled = true
+        mainView.backgroundColor = UIColor.clear
+        mainView.isPagingEnabled = true
         mainView.showsHorizontalScrollIndicator = false
         mainView.showsVerticalScrollIndicator = false
-        mainView.registerClass(OOCollectionViewCell.self, forCellWithReuseIdentifier: ID)
+        mainView.register(OOCollectionViewCell.self, forCellWithReuseIdentifier: ID)
         mainView.dataSource = self
         mainView.delegate = self
         mainView.scrollsToTop = false
@@ -359,7 +372,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
 // MARK: - properties
 
 
-    func setCustomPageControlDotImage(image: UIImage, isCurrentPageDot: Bool) {
+    func setCustomPageControlDotImage(_ image: UIImage, isCurrentPageDot: Bool) {
         if self.pageControl == nil {
             return
         }
@@ -377,9 +390,9 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
 
 
     func setupTimer() {
-        let timer: NSTimer = NSTimer.scheduledTimerWithTimeInterval(self.autoScrollTimeInterval, target: self, selector: #selector(self.automaticScroll), userInfo: nil, repeats: true)
+        let timer: Timer = Timer.scheduledTimer(timeInterval: self.autoScrollTimeInterval, target: self, selector: #selector(self.automaticScroll), userInfo: nil, repeats: true)
         self.timer = timer
-        NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+        RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
     }
 
     func invalidateTimer() {
@@ -402,29 +415,29 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
             }
             let indexOnPageControl: Int = self.pageControlIndexWithCurrentCellIndex(self.currentIndex())
             switch self.pageControlStyle {
-                case .Text:
+                case .text:
                     let pageControl: OOTextPageControl = OOTextPageControl()
                     pageControl.numberOfPages = imagePathsGroup.count
-                    pageControl.userInteractionEnabled = false
+                    pageControl.isUserInteractionEnabled = false
                     pageControl.currentPage = indexOnPageControl
                     self.addSubview(pageControl)
                     self.pageControl = pageControl
 
-                case .Animated:
+                case .animated:
                     let pageControl: OOPageControl = OOPageControl()
                     pageControl.numberOfPages = imagePathsGroup.count
                     pageControl.dotColor = self.currentPageDotColor
-                    pageControl.userInteractionEnabled = false
+                    pageControl.isUserInteractionEnabled = false
                     pageControl.currentPage = indexOnPageControl
                     self.addSubview(pageControl)
                     self.pageControl = pageControl
 
-                case .Classic:
+                case .classic:
                     let pageControl: UIPageControl = UIPageControl()
                     pageControl.numberOfPages = imagePathsGroup.count
                     pageControl.currentPageIndicatorTintColor = self.currentPageDotColor
                     pageControl.pageIndicatorTintColor = self.pageDotColor
-                    pageControl.userInteractionEnabled = false
+                    pageControl.isUserInteractionEnabled = false
                     pageControl.currentPage = indexOnPageControl
                     self.addSubview(pageControl)
                     self.pageControl = pageControl
@@ -452,16 +465,16 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
         self.scrollToIndex(targetIndex)
     }
 
-    func scrollToIndex(targetIndex: Int) {
+    func scrollToIndex(_ targetIndex: Int) {
         var targetIndex = targetIndex
         if targetIndex >= totalItemsCount {
             if self.infiniteLoop {
                 targetIndex = Int(Double(totalItemsCount) * 0.5)
-                mainView.scrollToItemAtIndexPath(NSIndexPath(forItem: targetIndex, inSection: 0), atScrollPosition: .None, animated: false)
+                mainView.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionViewScrollPosition(), animated: false)
             }
             return
         }
-        mainView.scrollToItemAtIndexPath(NSIndexPath(forItem: targetIndex, inSection: 0), atScrollPosition: .None, animated: true)
+        mainView.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionViewScrollPosition(), animated: true)
     }
 
     func currentIndex() -> Int {
@@ -469,7 +482,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
             return 0
         }
         var index: Int = 0
-        if flowLayout.scrollDirection == .Horizontal {
+        if flowLayout.scrollDirection == .horizontal {
             index = Int((mainView.contentOffset.x + flowLayout.itemSize.width * 0.5) / flowLayout.itemSize.width)
         }
         else {
@@ -478,7 +491,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
         return max(0, index)
     }
 
-    func pageControlIndexWithCurrentCellIndex(index: Int) -> Int {
+    func pageControlIndexWithCurrentCellIndex(_ index: Int) -> Int {
         guard let imagePathsGroup = imagePathsGroup else {
             return 0
         }
@@ -488,7 +501,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
 // MARK: - life circles
 
 
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         self.flowLayout.itemSize = self.frame.size
         self.mainView.frame = self.bounds
@@ -500,43 +513,43 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
             else {
                 targetIndex = 0
             }
-            mainView.scrollToItemAtIndexPath(NSIndexPath(forItem: targetIndex, inSection: 0), atScrollPosition: .None, animated: false)
+            mainView.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionViewScrollPosition(), animated: false)
         }
-        var size: CGSize = CGSizeZero
+        var size: CGSize = CGSize.zero
         let imagePathsGroupCount = imagePathsGroup?.count ?? 0
         if let pageControl = pageControl as? OOPageControl {
-            if let _ = self.pageDotImage,_ = self.currentPageDotImage where CGSizeEqualToSize(kCycleScrollViewInitialPageControlDotSize, self.pageControlDotSize) {
+            if let _ = self.pageDotImage,let _ = self.currentPageDotImage , kCycleScrollViewInitialPageControlDotSize.equalTo(self.pageControlDotSize) {
                 pageControl.dotSize = self.pageControlDotSize
             }
             size = pageControl.sizeForNumberOfPages(imagePathsGroupCount)
         }
         else if (self.pageControl is OOTextPageControl) {
-            size = CGSizeMake(52, 20)
+            size = CGSize(width: 52, height: 20)
         }
         else {
-            size = CGSizeMake(CGFloat(imagePathsGroupCount) * self.pageControlDotSize.width * 1.5, self.pageControlDotSize.height)
+            size = CGSize(width: CGFloat(imagePathsGroupCount) * self.pageControlDotSize.width * 1.5, height: self.pageControlDotSize.height)
         }
 
         var x: CGFloat = (self.sd_width - size.width) * 0.5
-        if self.pageControlAliment == .Right {
+        if self.pageControlAliment == .right {
             x = self.mainView.sd_width - size.width - 10
         }
         let y: CGFloat = self.mainView.sd_height - size.height - 10
         if let pageControl = pageControl as? OOPageControl {
             pageControl.sizeToFit()
         }
-        var pageControlFrame: CGRect = CGRectMake(x, y, size.width, size.height)
+        var pageControlFrame: CGRect = CGRect(x: x, y: y, width: size.width, height: size.height)
         pageControlFrame.origin.y -= self.pageControlBottomOffset
         pageControlFrame.origin.x -= self.pageControlRightOffset
         self.pageControl?.frame = pageControlFrame
-        self.pageControl?.hidden = !showPageControl
+        self.pageControl?.isHidden = !showPageControl
         if (self.backgroundImageView != nil) {
             self.backgroundImageView!.frame = self.bounds
         }
     }
     //解决当父View释放时，当前视图因为被Timer强引用而不能释放的问题
 
-    override public func willMoveToSuperview(newSuperview: UIView?) {
+    override open func willMove(toSuperview newSuperview: UIView?) {
         if newSuperview == nil {
             self.invalidateTimer()
         }
@@ -554,17 +567,18 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
 // MARK: - UICollectionViewDataSource
 
 
-    public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return totalItemsCount
     }
 
-    public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ID, forIndexPath: indexPath) as! OOCollectionViewCell
-        let itemIndex: Int = self.pageControlIndexWithCurrentCellIndex(indexPath.item)
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ID, for: indexPath) as! OOCollectionViewCell
+        let itemIndex: Int = self.pageControlIndexWithCurrentCellIndex((indexPath as NSIndexPath).item)
         let imagePath = self.imagePathsGroup?[itemIndex]
-        if let imagePath = imagePath as? String where !self.onlyDisplayText {
+        if let imagePath = imagePath as? String , !self.onlyDisplayText {
             if imagePath.hasPrefix("http") {
-                cell.imageView!.kf_setImageWithURL(NSURL(string: imagePath)!, placeholderImage: self.placeholderImage)
+                //cell.imageView!.kf_setImageWithURL(URL(string: imagePath)!, placeholderImage: self.placeholderImage)
+                cell.imageView.kf.setImage(with: URL(string: imagePath),placeholder: self.placeholderImage)
             }
             else {
                 var image = UIImage(named: imagePath)
@@ -578,7 +592,7 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
             cell.imageView.image = (imagePath as! UIImage)
         }
 
-        if let titlesGroup = titlesGroup where titlesGroup.count > 0 && itemIndex < titlesGroup.count {
+        if let titlesGroup = titlesGroup , titlesGroup.count > 0 && itemIndex < titlesGroup.count {
             cell.title = titlesGroup[itemIndex] as! String
         }
         if !cell.hasConfigured {
@@ -594,19 +608,19 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
         return cell
     }
 
-    public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let _ = self.delegate?.cycleScrollView?(self, didSelectItemAtIndex: self.pageControlIndexWithCurrentCellIndex(indexPath.item)) {
+    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let _ = self.delegate?.cycleScrollView?(self, didSelectItemAtIndex: self.pageControlIndexWithCurrentCellIndex((indexPath as NSIndexPath).item)) {
             
         } else if let block = self.clickItemOperationBlock {
-            block(self.pageControlIndexWithCurrentCellIndex(indexPath.item))
+            block(self.pageControlIndexWithCurrentCellIndex((indexPath as NSIndexPath).item))
         }
     }
 
 // MARK: - UIScrollViewDelegate
 
 
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
-        guard let imagePathsGroup = imagePathsGroup,pageControl = pageControl else { return }
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let imagePathsGroup = imagePathsGroup,let pageControl = pageControl else { return }
         if imagePathsGroup.isEmpty { return }
         
             // 解决清除timer时偶尔会出现的问题
@@ -624,24 +638,24 @@ public class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionView
 
     }
 
-    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if self.autoScroll {
             self.invalidateTimer()
         }
     }
 
-    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if self.autoScroll {
             self.setupTimer()
         }
     }
 
-    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.scrollViewDidEndScrollingAnimation(self.mainView)
     }
 
-    public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        if let imagePathsGroup = imagePathsGroup where imagePathsGroup.count == 0 {
+    open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        if let imagePathsGroup = imagePathsGroup , imagePathsGroup.count == 0 {
             return
         }
             // 解决清除timer时偶尔会出现的问题
