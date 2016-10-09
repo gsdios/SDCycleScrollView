@@ -69,19 +69,19 @@
                                   ];
     
     NSArray *imagesURLStringsT = @[
-                                   @"http://news.youth.cn/jy/201601/W020160121280834632115.jpg",
-                                   @"http://img1.imgtn.bdimg.com/it/u=1487441928,673671931&fm=21&gp=0.jpg",
-                                   @"http://img2.imgtn.bdimg.com/it/u=1149890909,2679978765&fm=21&gp=0.jpg",
-                                   @"http://img.mingxing.com/upload/attach/2012/12/30418-8UnwF7F.jpg",
-                                   @"http://www.people.com.cn/h/pic/20130510/66/10038425291787524182.jpg",
-                                   @"http://gb.cri.cn/mmsource/images/2013/06/13/85/1684209417998117637.jpg",
-                                   @"http://attachment.van698.com/forum/201110/06/053843u35m0sus7use9p9l.jpg",
-                                   @"http://news.sosol.com.cn/news/html/shtml/NewsImage/20100528/20100528104846973.jpg",
-                                   @"http://static.ettoday.net/images/159/d159493.jpg",
-                                   @"http://entdata-pic.stor.sinaapp.com/2014121216/548aad52417e211111111111111111111111111111111.jpg",
-                                   @"http://www.gz2010.cn/uploads/pic/201604/30_1461720773_4989.png",
-                                   @"http://image.cnwest.com/attachement/jpg/site1/20080728/001372d8a0ba09f7c32b12.jpg",
-                                   @"https://s.yimg.com/ny/api/res/1.2/AQJYxbv99Qe.VYePh1HUFg--/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9NjAwO2g9ODAwO2lsPXBsYW5l/http://media.zenfs.com/zh-Hant_TW/News/yahoobeauty/20150707185437_bingo_522_641731.jpg"
+                                   @"http://www.jvnan.com/uploads/160516/2_160715_8.jpg",
+                                   @"http://www.qqpifu.org/wp-content/uploads/fzlmm/8638.jpg",
+                                   @"http://www.51mtw.com/UploadFiles/2013-10/admin/2013101208472246086.jpg",
+                                   @"http://www.showself.com/yule/uploadfile/2016/0127/20160127055117316.jpg",
+                                   @"http://www.jvnan.com/uploads/160516/2_160715_8.jpg",
+                                   @"http://img2.suv.cn/2013/0419/20130419082325963.jpg",
+                                   @"http://mm.voimm.com/vimg/2015-09-06/20159603857306.jpg",
+                                   @"http://pic.ik6.cc:85/d/meinv2/neirong/18/31/qqiy5r1hz3l.jpg",
+                                   @"http://photo.880sy.com/4/2883/110302.jpg",
+                                   @"http://img.faxingw.cn/201305/nn4.jpg",
+                                   @"http://mm.voimm.com/vimg/2015-09-06/20159604035560.jpg",
+                                   @"http://mm.voimm.com/vimg/2015-07-14/20157149539525.jpg",
+                                   @"https://pbs.twimg.com/profile_images/448033128108417024/UHPZFwLk.jpeg"
                                   ];
     
     
@@ -166,8 +166,9 @@
     
     
     
-    OOCycleScrollView *cycleScrollView6 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1100, w, 180) imageURLStringsGroup:imagesURLStringsT];;
+    OOCycleScrollView *cycleScrollView6 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1100, w, w*1.4) imageURLStringsGroup:imagesURLStringsT];;
     cycleScrollView6.pageControlStyle = OOCycleScrollViewPageContolStyleText;
+    cycleScrollView6.placeholderImage = [UIImage imageNamed:@"kb"];
     cycleScrollView6.autoScroll = NO;
     [demoContainerView addSubview:cycleScrollView6];
     

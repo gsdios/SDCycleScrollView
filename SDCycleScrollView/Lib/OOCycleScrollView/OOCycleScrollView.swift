@@ -578,7 +578,8 @@ open class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDa
         if let imagePath = imagePath as? String , !self.onlyDisplayText {
             if imagePath.hasPrefix("http") {
                 //cell.imageView!.kf_setImageWithURL(URL(string: imagePath)!, placeholderImage: self.placeholderImage)
-                cell.imageView.kf.setImage(with: URL(string: imagePath),placeholder: self.placeholderImage)
+//                cell.imageView.kf.setImage(with: URL(string: imagePath),placeholder: self.placeholderImage)
+                cell.loadImage(url: URL(string: imagePath)!, placeholderImage: placeholderImage)
             }
             else {
                 var image = UIImage(named: imagePath)

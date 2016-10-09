@@ -1,13 +1,15 @@
 PODS:
+  - DACircularProgress (2.3.1)
   - Kingfisher (3.1.3)
 
 DEPENDENCIES:
   - DACircularProgress
-  - Kingfisher
+  - Kingfisher (~> 3.0)
 
 SPEC CHECKSUMS:
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   Kingfisher: 007f5851c18c81e7cc106c9cbac1bafea1cce5dc
 
-PODFILE CHECKSUM: a699e1f2837297dfa35bc9bf44a4fc0c7f94b405
+PODFILE CHECKSUM: 85f90fe12ff17024a635eeb070c5b3f4dfeeed93
 
 COCOAPODS: 1.0.1

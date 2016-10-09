@@ -33,7 +33,7 @@ class OOCollectionViewCell: UICollectionViewCell {
     weak var imageView: UIImageView!
     lazy var loadingIndicator:DACircularProgressView = {
         let loadingIndicator = DACircularProgressView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        loadingIndicator.userInteractionEnabled = false
+        loadingIndicator.isUserInteractionEnabled = false
         loadingIndicator.thicknessRatio = 0.1
         loadingIndicator.roundedCorners = 0
         self.addSubview(loadingIndicator)
@@ -98,16 +98,16 @@ class OOCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(titleLabel)
     }
     
-    func loadImage(url:NSURL,placeholderImage:UIImage?=nil) {
+    func loadImage(url:URL,placeholderImage:UIImage?=nil) {
 //        imageView!.kf_setImageWithURL(url, placeholderImage: placeholderImage)
         self.loadingIndicator.progress = 0
-        self.loadingIndicator.hidden = placeholderImage != nil
-        imageView.kf_setImageWithURL(url, placeholderImage: placeholderImage, optionsInfo: nil, progressBlock: {[weak self] (receivedSize, totalSize) in
+        self.loadingIndicator.isHidden = placeholderImage != nil
+        imageView.kf.setImage(with: url, placeholder: placeholderImage, options: nil, progressBlock: {[weak self] (receivedSize, totalSize) in
             if totalSize > 0 {
                 self?.loadingIndicator.progress = CGFloat(receivedSize) / CGFloat(totalSize)
             }
             }) {[weak self] (image, error, cacheType, imageURL) in
-                self?.loadingIndicator.hidden = true
+                self?.loadingIndicator.isHidden = true
         }
     }
 
