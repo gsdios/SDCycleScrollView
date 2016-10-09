@@ -70,8 +70,8 @@
     
     NSArray *imagesURLStringsT = @[
                                    @"http://news.youth.cn/jy/201601/W020160121280834632115.jpg",
-                                   @"http://www.yikaow.com/upload/2012/4/1815592435.jpg",
-                                   @"http://www.laonanren.com/upload/2011_06/11060213334170.jpg",
+                                   @"http://img1.imgtn.bdimg.com/it/u=1487441928,673671931&fm=21&gp=0.jpg",
+                                   @"http://img2.imgtn.bdimg.com/it/u=1149890909,2679978765&fm=21&gp=0.jpg",
                                    @"http://img.mingxing.com/upload/attach/2012/12/30418-8UnwF7F.jpg",
                                    @"http://www.people.com.cn/h/pic/20130510/66/10038425291787524182.jpg",
                                    @"http://gb.cri.cn/mmsource/images/2013/06/13/85/1684209417998117637.jpg",
@@ -169,7 +169,7 @@
     OOCycleScrollView *cycleScrollView6 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1100, w, w*1.4) imageURLStringsGroup:imagesURLStringsT];;
 //    cycleScrollView6.pageControlStyle = OOCycleScrollViewPageContolStyleText;
 //    cycleScrollView6.pageControlStyle = OOCycleScrollViewPageControlStyle.Text;
-    cycleScrollView6.placeholderImage = [UIImage imageNamed:@"kb"];
+//    cycleScrollView6.placeholderImage = [UIImage imageNamed:@"kb"];
     cycleScrollView6.autoScroll = NO;
     [demoContainerView addSubview:cycleScrollView6];
     
