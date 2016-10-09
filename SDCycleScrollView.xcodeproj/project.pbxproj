@@ -79,6 +79,7 @@
 		9B5528521D422F5900EFDD66 /* OOCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOCollectionViewCell.swift; sourceTree = "<group>"; };
 		9B5528531D422F5900EFDD66 /* OOCycleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OOCycleScrollView.swift; sourceTree = "<group>"; };
 		9B5528541D422F5900EFDD66 /* UIView+OOExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+OOExtension.swift"; sourceTree = "<group>"; };
+		DA83895DB1D0E4D841E4DC00 /* Pods_SDCycleScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDCycleScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +117,15 @@
 				8EC955EC41EFD589C92E78EE /* Pods_SDCycleScrollView.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		950FBB4342D7725029256F6A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				490EE16EA6AF5A9FA97BDC2C /* Pods-SDCycleScrollView.debug.xcconfig */,
+				887F5FDFAD6D47AB5E7BF9DF /* Pods-SDCycleScrollView.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		9900D1651ABEB2490077A6CB = {
