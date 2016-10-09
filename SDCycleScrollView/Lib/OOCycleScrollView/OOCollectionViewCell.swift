@@ -27,8 +27,18 @@
  
  */
 import UIKit
+import DACircularProgress
+
 class OOCollectionViewCell: UICollectionViewCell {
     weak var imageView: UIImageView!
+    lazy var loadingIndicator:DACircularProgressView = {
+        let loadingIndicator = DACircularProgressView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        loadingIndicator.userInteractionEnabled = false
+        loadingIndicator.thicknessRatio = 0.1
+        loadingIndicator.roundedCorners = 0
+        self.addSubview(loadingIndicator)
+        return loadingIndicator
+    }()
     var title: String = "" {
         didSet {
             self.titleLabel.text = "   \(title)"
@@ -55,7 +65,7 @@ class OOCollectionViewCell: UICollectionViewCell {
             self.titleLabel.backgroundColor = titleLabelBackgroundColor
         }
     }
-
+    
     var titleLabelHeight: CGFloat!
     var hasConfigured: Bool = false
     /** 只展示文字轮播 */
@@ -87,6 +97,19 @@ class OOCollectionViewCell: UICollectionViewCell {
         self.titleLabel.hidden = true
         self.contentView.addSubview(titleLabel)
     }
+    
+    func loadImage(url:NSURL,placeholderImage:UIImage?=nil) {
+//        imageView!.kf_setImageWithURL(url, placeholderImage: placeholderImage)
+        self.loadingIndicator.progress = 0
+        self.loadingIndicator.hidden = placeholderImage != nil
+        imageView.kf_setImageWithURL(url, placeholderImage: placeholderImage, optionsInfo: nil, progressBlock: {[weak self] (receivedSize, totalSize) in
+            if totalSize > 0 {
+                self?.loadingIndicator.progress = CGFloat(receivedSize) / CGFloat(totalSize)
+            }
+            }) {[weak self] (image, error, cacheType, imageURL) in
+                self?.loadingIndicator.hidden = true
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -95,6 +118,7 @@ class OOCollectionViewCell: UICollectionViewCell {
         }
         else {
             self.imageView.frame = self.bounds
+            self.loadingIndicator.frame.origin = CGPoint(x: floor((self.bounds.size.width - loadingIndicator.frame.size.width) / 2), y: floor((self.bounds.size.height - loadingIndicator.frame.size.height) / 2))
             let titleLabelW: CGFloat = self.sd_width
             let titleLabelH: CGFloat = titleLabelHeight
             let titleLabelX: CGFloat = 0
