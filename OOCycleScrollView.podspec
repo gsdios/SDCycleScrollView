@@ -27,4 +27,5 @@ s.requires_arc = true
 s.dependency 'Kingfisher', '~> 3.0'
 s.dependency 'DACircularProgress'
 
+s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 end
