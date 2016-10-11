@@ -25,5 +25,6 @@ s.source_files  = "SDCycleScrollView/Lib/OOCycleScrollView/**/*.swift"
 s.requires_arc = true
 
 s.dependency 'Kingfisher', '~> 3.0'
+s.dependency 'DACircularProgress'
 
 end
