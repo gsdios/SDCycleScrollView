@@ -47,4 +47,7 @@
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
+/** 需要展示的是view */
+@property (nonatomic, assign) BOOL isDisplayView;
+
 @end

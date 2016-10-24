@@ -31,7 +31,6 @@
 
 
 #import "SDCollectionViewCell.h"
-#import "UIView+SDExtension.h"
 
 @implementation SDCollectionViewCell
 {
@@ -47,6 +46,17 @@
     }
     
     return self;
+}
+
+//这个方法不写图片就乱了  在原来的方法上添加的
+- (void)prepareForReuse
+{
+    if (self.isDisplayView) {
+        for (UIView *subview in self.imageView.subviews)
+        {
+            [subview removeFromSuperview];
+        }
+    }
 }
 
 - (void)setTitleLabelBackgroundColor:(UIColor *)titleLabelBackgroundColor
@@ -70,6 +80,8 @@
 - (void)setupImageView
 {
     UIImageView *imageView = [[UIImageView alloc] init];
+    //这里需要把交互打开 传入的view上如果有button  不打开点击没反应
+    imageView.userInteractionEnabled = YES;
     _imageView = imageView;
     [self.contentView addSubview:imageView];
 }
@@ -100,10 +112,10 @@
         _titleLabel.frame = self.bounds;
     } else {
         _imageView.frame = self.bounds;
-        CGFloat titleLabelW = self.sd_width;
+        CGFloat titleLabelW = CGRectGetWidth(self.frame);
         CGFloat titleLabelH = _titleLabelHeight;
         CGFloat titleLabelX = 0;
-        CGFloat titleLabelY = self.sd_height - titleLabelH;
+        CGFloat titleLabelY = CGRectGetHeight(self.frame) - titleLabelH;
         _titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
     }
 }

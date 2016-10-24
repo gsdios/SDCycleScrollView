@@ -66,6 +66,7 @@ typedef enum {
 /** 初始轮播图（推荐使用） */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<SDCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
 
+
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLStringsGroup;
 
 
@@ -74,6 +75,9 @@ typedef enum {
 
 /** 本地图片轮播初始化方式2,infiniteLoop:是否无限循环 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
+
+/** 传入view轮播图 不再只局限于图片名字数组和图片url数组 */
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop viewGroup:(NSArray *)viewGroup;
 
 
 //////////////////////  数据源接口  //////////////////////
@@ -84,7 +88,7 @@ typedef enum {
 /** 每张图片对应要显示的文字数组 */
 @property (nonatomic, strong) NSArray *titlesGroup;
 
-/** 本地图片数组 */
+/** 本地图片数组 */ //localizationImageNamesGroup 这东西没啥卵用  会赋给另一个数组
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
 
@@ -133,6 +137,9 @@ typedef enum {
 
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
+
+/** 需要展示的是view */
+@property (nonatomic, assign) BOOL isDisplayView;
 
 /** pagecontrol 样式，默认为动画样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;

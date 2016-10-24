@@ -31,7 +31,6 @@
 
 #import "SDCycleScrollView.h"
 #import "SDCollectionViewCell.h"
-#import "UIView+SDExtension.h"
 #import "TAPageControl.h"
 #import "UIImageView+WebCache.h"
 #import "SDImageCache.h"
@@ -110,6 +109,15 @@ NSString * const ID = @"cycleCell";
     return cycleScrollView;
 }
 
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop viewGroup:(NSArray *)viewGroup
+{
+    SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
+    cycleScrollView.infiniteLoop = infiniteLoop;
+    cycleScrollView.isDisplayView = YES;
+    cycleScrollView.localizationImageNamesGroup = [NSMutableArray arrayWithArray:viewGroup];
+    return cycleScrollView;
+}
+
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLsGroup
 {
     SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
@@ -156,7 +164,8 @@ NSString * const ID = @"cycleCell";
     
     if (!self.backgroundImageView) {
         UIImageView *bgImageView = [UIImageView new];
-        bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+        //这里有做改动 原来是这个 -> UIViewContentModeScaleAspectFit 如果是这样周围会有空白 下面换成拉伸的 填充满view
+        bgImageView.contentMode = UIViewContentModeScaleToFill;
         [self insertSubview:bgImageView belowSubview:self.mainView];
         self.backgroundImageView = bgImageView;
     }
@@ -321,6 +330,7 @@ NSString * const ID = @"cycleCell";
 
 - (void)setLocalizationImageNamesGroup:(NSArray *)localizationImageNamesGroup
 {
+    //localizationImageNamesGroup 这东西没啥卵用
     _localizationImageNamesGroup = localizationImageNamesGroup;
     self.imagePathsGroup = [localizationImageNamesGroup copy];
 }
@@ -425,7 +435,7 @@ NSString * const ID = @"cycleCell";
 
 - (int)currentIndex
 {
-    if (_mainView.sd_width == 0 || _mainView.sd_height == 0) {
+    if (CGRectGetWidth(_mainView.frame) == 0 || CGRectGetHeight(_mainView.frame) == 0) {
         return 0;
     }
     
@@ -483,11 +493,11 @@ NSString * const ID = @"cycleCell";
     } else {
         size = CGSizeMake(self.imagePathsGroup.count * self.pageControlDotSize.width * 1.5, self.pageControlDotSize.height);
     }
-    CGFloat x = (self.sd_width - size.width) * 0.5;
+    CGFloat x = (CGRectGetWidth(self.frame) - size.width) * 0.5;
     if (self.pageControlAliment == SDCycleScrollViewPageContolAlimentRight) {
-        x = self.mainView.sd_width - size.width - 10;
+        x = CGRectGetWidth(self.mainView.frame) - size.width - 10;
     }
-    CGFloat y = self.mainView.sd_height - size.height - 10;
+    CGFloat y = CGRectGetHeight(self.mainView.frame) - size.height - 10;
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
@@ -543,7 +553,8 @@ NSString * const ID = @"cycleCell";
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
-    NSString *imagePath = self.imagePathsGroup[itemIndex];
+    //这里要替换成id然后再做判断 因为原方法传入的肯定是字符串 图片的名字或者图片的url 现在不确定了所以用id
+    id imagePath = self.imagePathsGroup[itemIndex];
     
     if (!self.onlyDisplayText && [imagePath isKindOfClass:[NSString class]]) {
         if ([imagePath hasPrefix:@"http"]) {
@@ -551,12 +562,22 @@ NSString * const ID = @"cycleCell";
         } else {
             UIImage *image = [UIImage imageNamed:imagePath];
             if (!image) {
-                [UIImage imageWithContentsOfFile:imagePath];
+                image = [UIImage imageWithContentsOfFile:imagePath];
+            }
+            //这里加了个判断 如果为空直接用占位图 如果不这样 效果很难看 到这里就没图了 然后显示背景图
+            if (!image) {
+                image = self.placeholderImage;
             }
             cell.imageView.image = image;
         }
     } else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIImage class]]) {
         cell.imageView.image = (UIImage *)imagePath;
+    }else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIView class]] && self.isDisplayView){
+        //这里加一个判断 如果传入的为view
+        UIView *view = [self duplicateView:(UIView *)imagePath];
+        view.frame = cell.bounds;
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [cell.imageView addSubview:view];
     }
     
     if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
@@ -572,6 +593,7 @@ NSString * const ID = @"cycleCell";
         cell.imageView.contentMode = self.bannerImageViewContentMode;
         cell.clipsToBounds = YES;
         cell.onlyDisplayText = self.onlyDisplayText;
+        cell.isDisplayView = self.isDisplayView;
     }
     
     return cell;
@@ -587,6 +609,21 @@ NSString * const ID = @"cycleCell";
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
+    id imagePath = self.imagePathsGroup[itemIndex];
+    if(self.isDisplayView && [imagePath isKindOfClass:[UIView class]] && !self.onlyDisplayText){
+        SDCollectionViewCell *sdcCell = (SDCollectionViewCell *)cell;
+        UIView *view = (UIView *)imagePath;
+        for (UIView *view in sdcCell.imageView.subviews) {
+            [view removeFromSuperview];
+        }
+        view.frame = cell.bounds;
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [sdcCell.imageView addSubview:view];
+    }
+}
 
 #pragma mark - UIScrollViewDelegate
 
@@ -637,5 +674,14 @@ NSString * const ID = @"cycleCell";
     }
 }
 
+#pragma mark - custom method
+
+//对象序列化方法复制view
+- (UIView *)duplicateView:(UIView *)oldView
+{
+    NSData *oldViewData = [NSKeyedArchiver archivedDataWithRootObject:oldView];
+    UIView *newView = [NSKeyedUnarchiver unarchiveObjectWithData:oldViewData];
+    return newView;
+}
 
 @end
