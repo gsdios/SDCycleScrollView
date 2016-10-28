@@ -53,7 +53,7 @@
     [self.view addSubview:backgroundView];
     
     self.title = @"轮播Demo";
-    [self secondScrollView];
+    [self thirdScrollView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -80,14 +80,13 @@
 // 网络加载 --- 创建带标题的图片轮播器
 - (void)secondScrollView{
     SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, kScrollViewWidth, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    
     cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     cycleScrollView2.titlesGroup = self.titles;
     cycleScrollView2.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     [self.demoContainerView addSubview:cycleScrollView2];
     
     //         --- 模拟加载延迟
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         cycleScrollView2.imageURLStringsGroup = self.imagesURLStrings;
     });
     
@@ -104,34 +103,38 @@
 
 // UIView轮播
 - (void)thirdScrollView{
-    
+    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, kScrollViewWidth, 180) shouldInfiniteLoop:YES viewGroup:self.viewArr];
+    cycleScrollView3.delegate = self;
+    cycleScrollView3.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView3.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+    [self.demoContainerView addSubview:cycleScrollView3];
 }
 
 // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
 - (void)fourthScrollView{
-    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 750, kScrollViewWidth, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    cycleScrollView3.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
-    cycleScrollView3.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
-    cycleScrollView3.imageURLStringsGroup = self.imagesURLStrings;
+    SDCycleScrollView *cycleScrollView4 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 750, kScrollViewWidth, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    cycleScrollView4.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
+    cycleScrollView4.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
+    cycleScrollView4.imageURLStringsGroup = self.imagesURLStrings;
     
-    [self.demoContainerView addSubview:cycleScrollView3];
+    [self.demoContainerView addSubview:cycleScrollView4];
 }
 
 //纯文字轮播
 - (void)fifthScrollView{
     // 网络加载 --- 创建只上下滚动展示文字的轮播器
     // 由于模拟器的渲染问题，如果发现轮播时有一条线不必处理，模拟器放大到100%或者真机调试是不会出现那条线的
-    SDCycleScrollView *cycleScrollView4 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1000, kScrollViewWidth, 40) delegate:self placeholderImage:nil];
-    cycleScrollView4.scrollDirection = UICollectionViewScrollDirectionVertical;
-    cycleScrollView4.onlyDisplayText = YES;
+    SDCycleScrollView *cycleScrollView5 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1000, kScrollViewWidth, 40) delegate:self placeholderImage:nil];
+    cycleScrollView5.scrollDirection = UICollectionViewScrollDirectionVertical;
+    cycleScrollView5.onlyDisplayText = YES;
     
     NSMutableArray *titlesArray = [NSMutableArray new];
     [titlesArray addObject:@"纯文字上下滚动轮播"];
     [titlesArray addObject:@"纯文字上下滚动轮播 -- demo轮播图4"];
     [titlesArray addObjectsFromArray:self.titles];
-    cycleScrollView4.titlesGroup = [titlesArray copy];
+    cycleScrollView5.titlesGroup = [titlesArray copy];
     
-    [self.demoContainerView addSubview:cycleScrollView4];
+    [self.demoContainerView addSubview:cycleScrollView5];
 }
 
 - (UIView *)createTipView:(NSDictionary *)dict{
