@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ParkingDetailViewController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="停车场详情" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q96-PT-SGv">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="JOn-7b-aa1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中关村的大厦停车场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAT-MA-WfG">
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="京A1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osC-b9-LAb">
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3小时" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCn-2X-bxC">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="43" id="7Ol-Lv-zR0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9X-i8-dfI">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="43" id="1na-5Z-qz6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="q96-PT-SGv" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8sa-xA-enn"/>
+                <constraint firstItem="UCn-2X-bxC" firstAttribute="leading" secondItem="A9X-i8-dfI" secondAttribute="leading" id="BT0-k4-gOP"/>
+                <constraint firstItem="osC-b9-LAb" firstAttribute="top" secondItem="GAT-MA-WfG" secondAttribute="bottom" constant="39" id="F9e-b0-GtJ"/>
+                <constraint firstItem="UCn-2X-bxC" firstAttribute="trailing" secondItem="A9X-i8-dfI" secondAttribute="trailing" id="LH3-1p-oPD"/>
+                <constraint firstItem="q96-PT-SGv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="66" id="Lac-h5-BkK"/>
+                <constraint firstItem="q96-PT-SGv" firstAttribute="leading" secondItem="GAT-MA-WfG" secondAttribute="leading" id="Tjb-12-nTz"/>
+                <constraint firstItem="GAT-MA-WfG" firstAttribute="leading" secondItem="osC-b9-LAb" secondAttribute="leading" id="Tpd-Dk-hI9"/>
+                <constraint firstItem="A9X-i8-dfI" firstAttribute="top" secondItem="UCn-2X-bxC" secondAttribute="bottom" constant="14" id="aTe-fa-o3m"/>
+                <constraint firstItem="osC-b9-LAb" firstAttribute="leading" secondItem="UCn-2X-bxC" secondAttribute="leading" id="cmq-GN-iRO"/>
+                <constraint firstItem="q96-PT-SGv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="63" id="cyG-aQ-xbk"/>
+                <constraint firstItem="GAT-MA-WfG" firstAttribute="top" secondItem="q96-PT-SGv" secondAttribute="bottom" constant="67" id="eqa-Bc-Yen"/>
+                <constraint firstItem="UCn-2X-bxC" firstAttribute="top" secondItem="osC-b9-LAb" secondAttribute="bottom" constant="22" id="i8y-9f-g57"/>
+            </constraints>
+            <point key="canvasLocation" x="188" y="-28"/>
+        </view>
+    </objects>
+</document>

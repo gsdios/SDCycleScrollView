@@ -53,7 +53,12 @@
     [self.view addSubview:backgroundView];
     
     self.title = @"轮播Demo";
+    
+    [self firstScrollView];
+    [self secondScrollView];
     [self thirdScrollView];
+    [self fourthScrollView];
+    [self fifthScrollView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,8 +109,10 @@
 // UIView轮播
 - (void)thirdScrollView{
     SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, kScrollViewWidth, 180) shouldInfiniteLoop:YES viewGroup:self.viewArr];
+    cycleScrollView3.tag = 998;
     cycleScrollView3.delegate = self;
     cycleScrollView3.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView3.autoScrollTimeInterval = 3;
     cycleScrollView3.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     [self.demoContainerView addSubview:cycleScrollView3];
 }
@@ -141,18 +148,22 @@
     UIView *view = [[UIView alloc] initWithFrame:(CGRect){0,0,kScrollViewWidth,180}];
     view.backgroundColor = dict[@"backgroundColor"];
     
-    UILabel *parkingName = [[UILabel alloc] initWithFrame:(CGRect){20,20,80,20}];
+    UILabel *parkingName = [[UILabel alloc] initWithFrame:(CGRect){40,40,200,20}];
     parkingName.text = dict[@"parkingName"];
+    parkingName.font = [UIFont systemFontOfSize:17];
     [view addSubview:parkingName];
     
-    UILabel *carNum = [[UILabel alloc] initWithFrame:(CGRect){20,50,80,20}];
+    UILabel *carNum = [[UILabel alloc] initWithFrame:(CGRect){40,90,150,20}];
     carNum.text = dict[@"carNum"];
+    carNum.font = [UIFont systemFontOfSize:17];
     [view addSubview:carNum];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(100, 50, 50, 20);
+    btn.frame = CGRectMake(260, 85, 100, 40);
     btn.tag = [dict[@"btnTag"] integerValue];
+    [btn setBackgroundColor:[UIColor grayColor]];
     [btn setTitle:@"立即缴费" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(tipViewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btn];
     
@@ -164,8 +175,8 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"---点击了第%ld张图片", (long)index);
-    
-    [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
+    NSString *vcXibStr = cycleScrollView.tag == 998 ? @"ParkingDetailViewController" : @"DemoVCWithXib";
+    [self.navigationController pushViewController:[NSClassFromString(vcXibStr) new] animated:YES];
 }
 
 /*
@@ -180,7 +191,7 @@
 
 #pragma mark - event response
 - (void)tipViewBtnClick:(UIButton *)btn{
-    
+    NSLog(@"立即缴费");
 }
 
 #pragma mark - setters and getters
