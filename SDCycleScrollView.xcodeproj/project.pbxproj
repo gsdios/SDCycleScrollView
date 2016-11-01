@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E229D051DC87658008CB4FC /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E229D031DC87658008CB4FC /* PayViewController.m */; };
+		0E229D061DC87658008CB4FC /* PayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E229D041DC87658008CB4FC /* PayViewController.xib */; };
 		0E4524121DC849510026A430 /* ParkingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4524101DC849510026A430 /* ParkingDetailViewController.m */; };
 		0E4524131DC849510026A430 /* ParkingDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4524111DC849510026A430 /* ParkingDetailViewController.xib */; };
 		48377B901C1027F5007B8C21 /* DemoVCWithXib.m in Sources */ = {isa = PBXBuildFile; fileRef = 48377B8E1C1027F5007B8C21 /* DemoVCWithXib.m */; };
@@ -62,6 +64,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E229D021DC87658008CB4FC /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
+		0E229D031DC87658008CB4FC /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
+		0E229D041DC87658008CB4FC /* PayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayViewController.xib; sourceTree = "<group>"; };
 		0E45240F1DC849510026A430 /* ParkingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParkingDetailViewController.h; sourceTree = "<group>"; };
 		0E4524101DC849510026A430 /* ParkingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParkingDetailViewController.m; sourceTree = "<group>"; };
 		0E4524111DC849510026A430 /* ParkingDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParkingDetailViewController.xib; sourceTree = "<group>"; };
@@ -180,6 +185,9 @@
 				0E45240F1DC849510026A430 /* ParkingDetailViewController.h */,
 				0E4524101DC849510026A430 /* ParkingDetailViewController.m */,
 				0E4524111DC849510026A430 /* ParkingDetailViewController.xib */,
+				0E229D021DC87658008CB4FC /* PayViewController.h */,
+				0E229D031DC87658008CB4FC /* PayViewController.m */,
+				0E229D041DC87658008CB4FC /* PayViewController.xib */,
 			);
 			path = "xib的demo";
 			sourceTree = "<group>";
@@ -420,6 +428,7 @@
 				485B54781C3A196C001944FA /* pageControlDot@3x.png in Resources */,
 				4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */,
 				485B547A1C3A196C001944FA /* pageControlCurrentDot@2x.png in Resources */,
+				0E229D061DC87658008CB4FC /* PayViewController.xib in Resources */,
 				48377B911C1027F5007B8C21 /* DemoVCWithXib.xib in Resources */,
 				9900D17F1ABEB2490077A6CB /* Images.xcassets in Resources */,
 				485B54791C3A196C001944FA /* pageControlCurrentDot@3x.png in Resources */,
@@ -457,6 +466,7 @@
 				99E727FA1BDBB91D00771161 /* UIImage+MultiFormat.m in Sources */,
 				99E727FD1BDBB91D00771161 /* UIImageView+WebCache.m in Sources */,
 				0E4524121DC849510026A430 /* ParkingDetailViewController.m in Sources */,
+				0E229D051DC87658008CB4FC /* PayViewController.m in Sources */,
 				990141041AC941FD00D0D74F /* TAPageControl.m in Sources */,
 				48377B901C1027F5007B8C21 /* DemoVCWithXib.m in Sources */,
 				99E727FE1BDBB91D00771161 /* UIView+WebCacheOperation.m in Sources */,

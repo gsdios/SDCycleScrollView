@@ -192,6 +192,7 @@
 #pragma mark - event response
 - (void)tipViewBtnClick:(UIButton *)btn{
     NSLog(@"立即缴费");
+    [self.navigationController pushViewController:[NSClassFromString(@"PayViewController") new] animated:YES];
 }
 
 #pragma mark - setters and getters
