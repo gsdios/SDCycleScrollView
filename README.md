@@ -1,5 +1,30 @@
-# SDCycleScrollView（新建QQ交流群：185534916）
-## ☆☆☆ “iOS图片、文字轮播器” ☆☆☆
+# SDCycleScrollView修改版
+### 根据SDCycleScrollView修改的，修改了一些原来[SDCycleScrollView](https://github.com/gsdios/SDCycleScrollView)中存在的bug，并添加了个新功能，数据源可以是个UIView的数组。
+#### 由于项目中的需求，需要轮播一个UIView，之前一直使用的SDCycleScrollView无法满足这个功能，就自己修改了一下。
+
+### UIView轮播相关代码：
+``` 
+   SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, kScrollViewWidth, 180) shouldInfiniteLoop:YES viewGroup:self.viewArr];
+    cycleScrollView3.tag = 998;
+    cycleScrollView3.delegate = self;
+    cycleScrollView3.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView3.autoScrollTimeInterval = 3;
+    cycleScrollView3.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
+    [self.demoContainerView addSubview:cycleScrollView3];
+```
+#### self.viewArr是装有UIView的数组
+
+![](https://github.com/lianxingbo/SDCycleScrollView/blob/master/DemoShow.gif?raw=true)
+
+
+
+***
+***
+***
+
+## SDCycleScrollView（新建QQ交流群：185534916）
+
+### ☆☆☆ “iOS图片、文字轮播器” ☆☆☆
 
 ### 支持pod导入
 pod 'SDCycleScrollView','~> 1.64'
