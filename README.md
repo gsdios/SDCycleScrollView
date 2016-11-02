@@ -14,7 +14,7 @@
 ```
 #### self.viewArr是装有UIView的数组
 
-![](https://github.com/lianxingbo/SDCycleScrollView/blob/master/DemoShow.gif?raw=true)
+![](https://github.com/lianxingbo/SDCycleScrollView/blob/master/Images/DemoShow.gif?raw=true)
 
 
 
