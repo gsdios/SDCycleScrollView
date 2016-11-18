@@ -65,10 +65,14 @@ NSString * const ID = @"cycleCell";
     return self;
 }
 
-- (void)awakeFromNib
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
-    [self initialization];
-    [self setupMainView];
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self initialization];
+        [self setupMainView];
+    }
+    return self;
 }
 
 - (void)initialization
