@@ -29,8 +29,8 @@
  */
 
 /*
- * 当前版本为1.61
- * 更新日期：2016.03.31
+ * 当前版本为1.62
+ * 更新日期：2016.04.21
  */
 
 #import <UIKit/UIKit.h>
@@ -76,7 +76,6 @@ typedef enum {
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
 
-
 //////////////////////  数据源接口  //////////////////////
 
 /** 网络图片 url string 数组 */
@@ -108,12 +107,17 @@ typedef enum {
 
 @property (nonatomic, weak) id<SDCycleScrollViewDelegate> delegate;
 
-/** block监听点击方式 */
+/** block方式监听点击 */
 @property (nonatomic, copy) void (^clickItemOperationBlock)(NSInteger currentIndex);
 
+/** block方式监听滚动 */
+@property (nonatomic, copy) void (^itemDidScrollOperationBlock)(NSInteger currentIndex);
 
+/** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
+- (void)adjustWhenControllerViewWillAppera;
 
 //////////////////////  自定义样式接口  //////////////////////
+
 
 /** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
 @property (nonatomic, assign) UIViewContentMode bannerImageViewContentMode;
@@ -127,11 +131,20 @@ typedef enum {
 /** 是否在只有一张图时隐藏pagecontrol，默认为YES */
 @property(nonatomic) BOOL hidesForSinglePage;
 
+/** 只展示文字轮播 */
+@property (nonatomic, assign) BOOL onlyDisplayText;
+
 /** pagecontrol 样式，默认为动画样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
 
 /** 分页控件位置 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
+
+/** 分页控件距离轮播图的底部间距（在默认间距基础上）的偏移量 */
+@property (nonatomic, assign) CGFloat pageControlBottomOffset;
+
+/** 分页控件距离轮播图的右边间距（在默认间距基础上）的偏移量 */
+@property (nonatomic, assign) CGFloat pageControlRightOffset;
 
 /** 分页控件小圆标大小 */
 @property (nonatomic, assign) CGSize pageControlDotSize;
