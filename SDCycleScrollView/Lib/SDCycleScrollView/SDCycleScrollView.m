@@ -350,8 +350,10 @@ NSString * const ID = @"cycleCell";
 
 - (void)invalidateTimer
 {
-    [_timer invalidate];
-    _timer = nil;
+    if (_timer) {
+        [_timer invalidate];
+        _timer = nil;
+    }
 }
 
 - (void)setupPageControl
@@ -443,14 +445,6 @@ NSString * const ID = @"cycleCell";
 - (int)pageControlIndexWithCurrentCellIndex:(NSInteger)index
 {
     return (int)index % self.imagePathsGroup.count;
-}
-
-- (void)invalidateTimer
-{
-    if (_timer) {
-        [_timer invalidate];
-        _timer = nil;
-    }
 }
 
 - (void)clearCache
