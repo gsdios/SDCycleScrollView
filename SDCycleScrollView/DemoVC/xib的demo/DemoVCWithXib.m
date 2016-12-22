@@ -29,7 +29,7 @@
  */
 
 #import "DemoVCWithXib.h"
-#import "SDCycleScrollView.h"
+//#import "SDCycleScrollView.h"
 
 @interface DemoVCWithXib () <SDCycleScrollViewDelegate>
 

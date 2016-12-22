@@ -29,9 +29,10 @@
  */
 
 #import "ViewController.h"
-#import "SDCycleScrollView.h"
+//#import "SDCycleScrollView.h"
+#import "SDCycleScrollView-Swift.h"
 
-@interface ViewController () <SDCycleScrollViewDelegate>
+@interface ViewController () <OOCycleScrollViewDelegate>
 
 @end
 
@@ -46,7 +47,7 @@
     [self.view addSubview:backgroundView];
     
     UIScrollView *demoContainerView = [[UIScrollView alloc] initWithFrame:self.view.frame];
-    demoContainerView.contentSize = CGSizeMake(self.view.frame.size.width, 1200);
+    demoContainerView.contentSize = CGSizeMake(self.view.frame.size.width, 3000);
     [self.view addSubview:demoContainerView];
     
     self.title = @"轮播Demo";
@@ -62,10 +63,28 @@
     
     // 情景二：采用网络图片实现
     NSArray *imagesURLStrings = @[
-                           @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
-                           @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
-                           @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
-                           ];
+                                  @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
+                                  @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
+                                  @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
+                                  ];
+    
+    NSArray *imagesURLStringsT = @[
+                                   @"http://www.jvnan.com/uploads/160516/2_160715_8.jpg",
+                                   @"http://www.qqpifu.org/wp-content/uploads/fzlmm/8638.jpg",
+                                   @"http://www.51mtw.com/UploadFiles/2013-10/admin/2013101208472246086.jpg",
+                                   @"http://www.showself.com/yule/uploadfile/2016/0127/20160127055117316.jpg",
+                                   @"http://www.jvnan.com/uploads/160516/2_160715_8.jpg",
+                                   @"http://img2.suv.cn/2013/0419/20130419082325963.jpg",
+                                   @"http://mm.voimm.com/vimg/2015-09-06/20159603857306.jpg",
+                                   @"http://pic.ik6.cc:85/d/meinv2/neirong/18/31/qqiy5r1hz3l.jpg",
+                                   @"http://photo.880sy.com/4/2883/110302.jpg",
+                                   @"http://img.faxingw.cn/201305/nn4.jpg",
+                                   @"http://mm.voimm.com/vimg/2015-09-06/20159604035560.jpg",
+                                   @"http://mm.voimm.com/vimg/2015-07-14/20157149539525.jpg",
+                                   @"https://pbs.twimg.com/profile_images/448033128108417024/UHPZFwLk.jpeg"
+                                  ];
+    
+    
     
     // 情景三：图片配文字
     NSArray *titles = @[@"新建交流QQ群：185534916 ",
@@ -81,9 +100,9 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图1 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 本地加载 --- 创建不带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) shouldInfiniteLoop:YES imageNamesGroup:imageNames];
+    OOCycleScrollView *cycleScrollView = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) shouldInfiniteLoop:YES imageNamesGroup:imageNames];
     cycleScrollView.delegate = self;
-    cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+    cycleScrollView.pageControlStyle = OOCycleScrollViewPageContolStyleAnimated;
     [demoContainerView addSubview:cycleScrollView];
     cycleScrollView.scrollDirection = UICollectionViewScrollDirectionVertical;
     //         --- 轮播时间间隔，默认1.0秒，可自定义
@@ -93,9 +112,9 @@
 // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 网络加载 --- 创建带标题的图片轮播器
-    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    OOCycleScrollView *cycleScrollView2 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 280, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
-    cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    cycleScrollView2.pageControlAliment = OOCycleScrollViewPageContolStyleClassic;
     cycleScrollView2.titlesGroup = titles;
     cycleScrollView2.currentPageDotColor = [UIColor whiteColor]; // 自定义分页控件小圆标颜色
     [demoContainerView addSubview:cycleScrollView2];
@@ -113,23 +132,19 @@
      };
      
      */
-    
-    
-// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图3 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
-    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    OOCycleScrollView *cycleScrollView3 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, w, 180) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     cycleScrollView3.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
     cycleScrollView3.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
     cycleScrollView3.imageURLStringsGroup = imagesURLStrings;
     
     [demoContainerView addSubview:cycleScrollView3];
     
-// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图4 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图4 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     
     // 网络加载 --- 创建只上下滚动展示文字的轮播器
     // 由于模拟器的渲染问题，如果发现轮播时有一条线不必处理，模拟器放大到100%或者真机调试是不会出现那条线的
-    SDCycleScrollView *cycleScrollView4 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 750, w, 40) delegate:self placeholderImage:nil];
+    OOCycleScrollView *cycleScrollView4 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 750, w, 40) delegate:self placeholderImage:nil];
     cycleScrollView4.scrollDirection = UICollectionViewScrollDirectionVertical;
     cycleScrollView4.onlyDisplayText = YES;
     
@@ -140,6 +155,22 @@
     cycleScrollView4.titlesGroup = [titlesArray copy];
     
     [demoContainerView addSubview:cycleScrollView4];
+    
+// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图5 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    
+    // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
+    OOCycleScrollView *cycleScrollView5 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 900, w, 180) imageURLStringsGroup:imagesURLStrings];;
+    cycleScrollView5.pageControlStyle = OOCycleScrollViewPageContolStyleText;
+    cycleScrollView5.autoScroll = NO;
+    [demoContainerView addSubview:cycleScrollView5];
+    
+    
+    
+    OOCycleScrollView *cycleScrollView6 = [OOCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1100, w, w*1.4) imageURLStringsGroup:imagesURLStringsT];;
+    cycleScrollView6.pageControlStyle = OOCycleScrollViewPageContolStyleText;
+    cycleScrollView6.placeholderImage = [UIImage imageNamed:@"kb"];
+    cycleScrollView6.autoScroll = NO;
+    [demoContainerView addSubview:cycleScrollView6];
     
 }
 
@@ -153,14 +184,21 @@
 
 
 #pragma mark - SDCycleScrollViewDelegate
-
+/*
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     NSLog(@"---点击了第%ld张图片", (long)index);
     
     [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
 }
+*/
 
+-(void)cycleScrollView:(OOCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    NSLog(@"---点击了第%ld张图片", (long)index);
+    
+    [self.navigationController pushViewController:[NSClassFromString(@"DemoVCWithXib") new] animated:YES];
+}
 
 /*
  
