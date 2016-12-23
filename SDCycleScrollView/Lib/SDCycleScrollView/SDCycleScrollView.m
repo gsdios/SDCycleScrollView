@@ -67,6 +67,10 @@ NSString * const ID = @"cycleCell";
 
 - (void)awakeFromNib
 {
+    if([[UIDevice currentDevice].systemVersion floatValue] >=8) {
+        //去除Xcode8下awakeFromNib方法警告
+        [super awakeFromNib];
+    }
     [self initialization];
     [self setupMainView];
 }
