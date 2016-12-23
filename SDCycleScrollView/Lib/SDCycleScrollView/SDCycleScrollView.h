@@ -51,6 +51,8 @@ typedef enum {
 @protocol SDCycleScrollViewDelegate <NSObject>
 
 @optional
+/** 自定义cell样式(和数据模型绑定) */
+- (UICollectionViewCell *)cycleCollection:(UICollectionView *)cycleCollectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath sourceRow:(NSInteger)sRow;
 
 /** 点击图片回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index;
@@ -87,11 +89,15 @@ typedef enum {
 /** 本地图片数组 */
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
-
-
+/** 数组里面是数据模型(必须用下面的2个方法) 并 DIYCell=YES */
+@property (nonatomic, strong) NSArray * modelArrayGroup;
+///UICollectionViewCell
+- (void)registerSDCycleClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier;
 
 
 //////////////////////  滚动控制接口 //////////////////////
+/** 自定义cell设置，默认为NO */
+@property (nonatomic, assign) BOOL DIYCell;
 
 /** 自动滚动间隔时间,默认2s */
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
