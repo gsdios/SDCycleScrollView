@@ -67,6 +67,10 @@ NSString * const ID = @"cycleCell";
 
 - (void)awakeFromNib
 {
+    if([[UIDevice currentDevice].systemVersion floatValue] >=8) {
+        //去除Xcode8下awakeFromNib方法警告
+        [super awakeFromNib];
+    }
     [self initialization];
     [self setupMainView];
 }
@@ -146,6 +150,7 @@ NSString * const ID = @"cycleCell";
     mainView.scrollsToTop = NO;
     [self addSubview:mainView];
     _mainView = mainView;
+    _DIYCell = NO;
 }
 
 
@@ -156,7 +161,7 @@ NSString * const ID = @"cycleCell";
     _placeholderImage = placeholderImage;
     
     if (!self.backgroundImageView) {
-        UIImageView *bgImageView = [UIImageView new];
+        UIImageView *bgImageView = [[UIImageView alloc] init];
         bgImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self insertSubview:bgImageView belowSubview:self.mainView];
         self.backgroundImageView = bgImageView;
@@ -304,7 +309,7 @@ NSString * const ID = @"cycleCell";
 {
     _imageURLStringsGroup = imageURLStringsGroup;
     
-    NSMutableArray *temp = [NSMutableArray new];
+    NSMutableArray *temp = [[NSMutableArray alloc] init];
     [_imageURLStringsGroup enumerateObjectsUsingBlock:^(NSString * obj, NSUInteger idx, BOOL * stop) {
         NSString *urlString;
         if ([obj isKindOfClass:[NSString class]]) {
@@ -317,25 +322,37 @@ NSString * const ID = @"cycleCell";
             [temp addObject:urlString];
         }
     }];
-    self.imagePathsGroup = [temp copy];
+    self.imagePathsGroup = temp;
 }
 
 - (void)setLocalizationImageNamesGroup:(NSArray *)localizationImageNamesGroup
 {
     _localizationImageNamesGroup = localizationImageNamesGroup;
-    self.imagePathsGroup = [localizationImageNamesGroup copy];
+    self.imagePathsGroup = localizationImageNamesGroup;
+}
+
+- (void)setModelArrayGroup:(NSArray *)modelArrayGroup {
+    _modelArrayGroup = modelArrayGroup;
+    _DIYCell = YES;
+    self.imagePathsGroup = modelArrayGroup;
+}
+- (void)registerSDCycleClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
+    //断言 条件为假 执行
+    NSAssert(cellClass != nil || (![identifier isKindOfClass:[NSString class]] && identifier.length > 0), @"信息有误");
+    
+    [_mainView registerClass:cellClass forCellWithReuseIdentifier:identifier];
 }
 
 - (void)setTitlesGroup:(NSArray *)titlesGroup
 {
     _titlesGroup = titlesGroup;
     if (self.onlyDisplayText) {
-        NSMutableArray *temp = [NSMutableArray new];
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
         for (int i = 0; i < _titlesGroup.count; i++) {
             [temp addObject:@""];
         }
         self.backgroundColor = [UIColor clearColor];
-        self.imageURLStringsGroup = [temp copy];
+        self.imageURLStringsGroup = temp;
     }
 }
 
@@ -452,7 +469,7 @@ NSString * const ID = @"cycleCell";
 
 + (void)clearImagesCache
 {
-    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
+    [[[SDWebImageManager sharedManager] imageCache] clearMemory];
 }
 
 #pragma mark - life circles
@@ -541,6 +558,16 @@ NSString * const ID = @"cycleCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(_DIYCell) {
+        if([self.delegate respondsToSelector:@selector(cycleCollection:cellForItemAtIndexPath: sourceRow:)]) {
+            return [self.delegate cycleCollection:collectionView cellForItemAtIndexPath:indexPath sourceRow:[self pageControlIndexWithCurrentCellIndex:indexPath.row]];
+        }
+        else {
+            NSAssert(NO, @"没有实现 cell的复用");
+        }
+    }
+    
+    
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
