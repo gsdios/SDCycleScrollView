@@ -67,6 +67,7 @@ NSString * const ID = @"cycleCell";
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];//Xcode8下需显式调用否则警告
     [self initialization];
     [self setupMainView];
 }
