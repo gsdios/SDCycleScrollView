@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E229D051DC87658008CB4FC /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E229D031DC87658008CB4FC /* PayViewController.m */; };
+		0E229D061DC87658008CB4FC /* PayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E229D041DC87658008CB4FC /* PayViewController.xib */; };
+		0E4524121DC849510026A430 /* ParkingDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4524101DC849510026A430 /* ParkingDetailViewController.m */; };
+		0E4524131DC849510026A430 /* ParkingDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4524111DC849510026A430 /* ParkingDetailViewController.xib */; };
 		48377B901C1027F5007B8C21 /* DemoVCWithXib.m in Sources */ = {isa = PBXBuildFile; fileRef = 48377B8E1C1027F5007B8C21 /* DemoVCWithXib.m */; };
 		48377B911C1027F5007B8C21 /* DemoVCWithXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48377B8F1C1027F5007B8C21 /* DemoVCWithXib.xib */; };
 		4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4855B1931B09CBA500AA0788 /* placeholder@2x.png */; };
@@ -28,7 +32,6 @@
 		990141041AC941FD00D0D74F /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 990141001AC941FD00D0D74F /* TAPageControl.m */; };
 		9901410B1AC9420E00D0D74F /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 990141061AC9420E00D0D74F /* SDCollectionViewCell.m */; };
 		9901410C1AC9420E00D0D74F /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 990141081AC9420E00D0D74F /* SDCycleScrollView.m */; };
-		9901410D1AC9420E00D0D74F /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9901410A1AC9420E00D0D74F /* UIView+SDExtension.m */; };
 		999C10981AC14F3B00C11CDB /* h3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10961AC14F3B00C11CDB /* h3.jpg */; };
 		999C109A1AC14F7200C11CDB /* h1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10991AC14F7200C11CDB /* h1.jpg */; };
 		99A732631B24AB660033E878 /* 005.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99A732621B24AB660033E878 /* 005.jpg */; };
@@ -61,6 +64,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E229D021DC87658008CB4FC /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
+		0E229D031DC87658008CB4FC /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
+		0E229D041DC87658008CB4FC /* PayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayViewController.xib; sourceTree = "<group>"; };
+		0E45240F1DC849510026A430 /* ParkingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParkingDetailViewController.h; sourceTree = "<group>"; };
+		0E4524101DC849510026A430 /* ParkingDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParkingDetailViewController.m; sourceTree = "<group>"; };
+		0E4524111DC849510026A430 /* ParkingDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParkingDetailViewController.xib; sourceTree = "<group>"; };
 		48377B8D1C1027F5007B8C21 /* DemoVCWithXib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoVCWithXib.h; sourceTree = "<group>"; };
 		48377B8E1C1027F5007B8C21 /* DemoVCWithXib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoVCWithXib.m; sourceTree = "<group>"; };
 		48377B8F1C1027F5007B8C21 /* DemoVCWithXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoVCWithXib.xib; sourceTree = "<group>"; };
@@ -95,8 +104,6 @@
 		990141061AC9420E00D0D74F /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
 		990141071AC9420E00D0D74F /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
 		990141081AC9420E00D0D74F /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
-		990141091AC9420E00D0D74F /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
-		9901410A1AC9420E00D0D74F /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		999C10961AC14F3B00C11CDB /* h3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h3.jpg; sourceTree = "<group>"; };
 		999C10991AC14F7200C11CDB /* h1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h1.jpg; sourceTree = "<group>"; };
 		99A732621B24AB660033E878 /* 005.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 005.jpg; sourceTree = "<group>"; };
@@ -175,6 +182,12 @@
 				48377B8D1C1027F5007B8C21 /* DemoVCWithXib.h */,
 				48377B8E1C1027F5007B8C21 /* DemoVCWithXib.m */,
 				48377B8F1C1027F5007B8C21 /* DemoVCWithXib.xib */,
+				0E45240F1DC849510026A430 /* ParkingDetailViewController.h */,
+				0E4524101DC849510026A430 /* ParkingDetailViewController.m */,
+				0E4524111DC849510026A430 /* ParkingDetailViewController.xib */,
+				0E229D021DC87658008CB4FC /* PayViewController.h */,
+				0E229D031DC87658008CB4FC /* PayViewController.m */,
+				0E229D041DC87658008CB4FC /* PayViewController.xib */,
 			);
 			path = "xib的demo";
 			sourceTree = "<group>";
@@ -305,8 +318,6 @@
 				990141061AC9420E00D0D74F /* SDCollectionViewCell.m */,
 				990141071AC9420E00D0D74F /* SDCycleScrollView.h */,
 				990141081AC9420E00D0D74F /* SDCycleScrollView.m */,
-				990141091AC9420E00D0D74F /* UIView+SDExtension.h */,
-				9901410A1AC9420E00D0D74F /* UIView+SDExtension.m */,
 				99E7B30B1AC11F1C009F9A2E /* PageControl */,
 			);
 			path = SDCycleScrollView;
@@ -376,7 +387,7 @@
 				TargetAttributes = {
 					9900D16D1ABEB2490077A6CB = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = V4Q779DR3D;
+						DevelopmentTeam = 686TP5D9Q7;
 					};
 					9900D1861ABEB2490077A6CB = {
 						CreatedOnToolsVersion = 6.1;
@@ -417,9 +428,11 @@
 				485B54781C3A196C001944FA /* pageControlDot@3x.png in Resources */,
 				4855B1941B09CBA500AA0788 /* placeholder@2x.png in Resources */,
 				485B547A1C3A196C001944FA /* pageControlCurrentDot@2x.png in Resources */,
+				0E229D061DC87658008CB4FC /* PayViewController.xib in Resources */,
 				48377B911C1027F5007B8C21 /* DemoVCWithXib.xib in Resources */,
 				9900D17F1ABEB2490077A6CB /* Images.xcassets in Resources */,
 				485B54791C3A196C001944FA /* pageControlCurrentDot@3x.png in Resources */,
+				0E4524131DC849510026A430 /* ParkingDetailViewController.xib in Resources */,
 				9900D1A01ABEB41B0077A6CB /* h2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,7 +458,6 @@
 				990141011AC941FD00D0D74F /* TAAbstractDotView.m in Sources */,
 				99E727F01BDBB91D00771161 /* NSData+ImageContentType.m in Sources */,
 				990141021AC941FD00D0D74F /* TAAnimatedDotView.m in Sources */,
-				9901410D1AC9420E00D0D74F /* UIView+SDExtension.m in Sources */,
 				99E727F81BDBB91D00771161 /* UIButton+WebCache.m in Sources */,
 				99E727F51BDBB91D00771161 /* SDWebImageDownloaderOperation.m in Sources */,
 				99E727EF1BDBB91D00771161 /* MKAnnotationView+WebCache.m in Sources */,
@@ -453,6 +465,8 @@
 				9900D1771ABEB2490077A6CB /* AppDelegate.m in Sources */,
 				99E727FA1BDBB91D00771161 /* UIImage+MultiFormat.m in Sources */,
 				99E727FD1BDBB91D00771161 /* UIImageView+WebCache.m in Sources */,
+				0E4524121DC849510026A430 /* ParkingDetailViewController.m in Sources */,
+				0E229D051DC87658008CB4FC /* PayViewController.m in Sources */,
 				990141041AC941FD00D0D74F /* TAPageControl.m in Sources */,
 				48377B901C1027F5007B8C21 /* DemoVCWithXib.m in Sources */,
 				99E727FE1BDBB91D00771161 /* UIView+WebCacheOperation.m in Sources */,
@@ -580,6 +594,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 686TP5D9Q7;
 				INFOPLIST_FILE = SDCycleScrollView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -593,6 +608,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 686TP5D9Q7;
 				INFOPLIST_FILE = SDCycleScrollView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
