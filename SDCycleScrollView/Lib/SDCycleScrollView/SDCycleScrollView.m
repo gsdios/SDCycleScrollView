@@ -80,6 +80,7 @@ NSString * const ID = @"cycleCell";
     _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     _titleLabelHeight = 30;
     _titleLabelTextAlignment = NSTextAlignmentLeft;
+    _titleLabelNumberOfLines = 1;
     _autoScroll = YES;
     _infiniteLoop = YES;
     _showPageControl = YES;
