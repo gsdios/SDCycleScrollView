@@ -446,7 +446,7 @@ open class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDa
     }
 
     func automaticScroll() {
-        if 0 == totalItemsCount || self.imagePathsGroup?.count < 2 {
+        if 0 == totalItemsCount || self.imagePathsGroup?.count ?? 0 < 2 {
             return
         }
         let currentIndex: Int = self.currentIndex()
