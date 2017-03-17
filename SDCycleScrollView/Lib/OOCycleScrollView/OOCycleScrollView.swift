@@ -152,7 +152,7 @@ open class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDa
 
     open weak var delegate: OOCycleScrollViewDelegate?
     /** block方式监听点击 */
-    var clickItemOperationBlock: ((Int)->Void)?
+    open var clickItemOperationBlock: ((Int)->Void)?
     /** block方式监听滚动 */
     open var itemDidScrollOperationBlock: ((Int)->Void)?
     /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
