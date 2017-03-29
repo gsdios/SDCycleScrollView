@@ -88,7 +88,14 @@ typedef enum {
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
 
+//////////////////////  滑动控制接口 //////////////////////
 
+/** 定时器 **/
+@property (nonatomic, weak) NSTimer *timer;
+
+/** 解决作为 TableView headerView ,滑动后定时器不启动的问题 **/
+
+- (void)setupTimer;
 
 
 //////////////////////  滚动控制接口 //////////////////////
