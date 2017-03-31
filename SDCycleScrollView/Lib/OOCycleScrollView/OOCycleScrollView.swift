@@ -120,7 +120,8 @@ open class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDa
     /** 自动滚动间隔时间,默认2s */
     open var autoScrollTimeInterval: TimeInterval = 2 {
         didSet {
-            self.autoScroll = (self.autoScroll);
+            self.autoScroll = {self.autoScroll}()
+            
         }
     }
 
@@ -128,7 +129,7 @@ open class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDa
     open var infiniteLoop: Bool = true {
         didSet {
             if self.imagePathsGroup != nil {
-                self.imagePathsGroup = (self.imagePathsGroup)
+                self.imagePathsGroup = {self.imagePathsGroup}()
             }
         }
     }
@@ -167,7 +168,7 @@ open class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDa
                 self.totalItemsCount = self.infiniteLoop ? imagePathsGroup.count * 100 : imagePathsGroup.count
                 if imagePathsGroup.count != 1 {
                     self.mainView.isScrollEnabled = true
-                    self.autoScroll = (self.autoScroll)
+                    self.autoScroll = {self.autoScroll}()
                 }
                 else {
                     self.mainView.isScrollEnabled = false
@@ -438,10 +439,10 @@ open class OOCycleScrollView: UIView,UICollectionViewDelegate,UICollectionViewDa
 
         // 重设pagecontroldot图片
         if currentPageDotImage != nil {
-            self.currentPageDotImage = (self.currentPageDotImage)
+            self.currentPageDotImage = {self.currentPageDotImage}()
         }
         if (self.pageDotImage != nil) {
-            self.pageDotImage = (self.pageDotImage)
+            self.pageDotImage = {self.pageDotImage}()
         }
     }
 
