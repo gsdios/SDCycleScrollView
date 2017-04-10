@@ -39,6 +39,7 @@
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
 NSString * const ID = @"cycleCell";
+static int const kMultiple = 100;
 
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -287,7 +288,7 @@ NSString * const ID = @"cycleCell";
     
     _imagePathsGroup = imagePathsGroup;
     
-    _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count;
+    _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * kMultiple : self.imagePathsGroup.count;
     
     if (imagePathsGroup.count != 1) {
         self.mainView.scrollEnabled = YES;
@@ -408,6 +409,10 @@ NSString * const ID = @"cycleCell";
 {
     if (0 == _totalItemsCount) return;
     int currentIndex = [self currentIndex];
+    if (_infiniteLoop && (currentIndex != [self pageControlIndexWithCurrentCellIndex:currentIndex] + (kMultiple / 2) * (int)self.imagePathsGroup.count)) {
+        currentIndex = [self pageControlIndexWithCurrentCellIndex:currentIndex] + (kMultiple / 2) * (int)self.imagePathsGroup.count;
+        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    }
     int targetIndex = currentIndex + 1;
     [self scrollToIndex:targetIndex];
 }
