@@ -68,6 +68,7 @@ static int const kMultiple = 100;
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self initialization];
     [self setupMainView];
 }
