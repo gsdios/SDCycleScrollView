@@ -83,6 +83,7 @@ NSString * const ID = @"cycleCell";
     _autoScroll = YES;
     _infiniteLoop = YES;
     _showPageControl = YES;
+    _useMemoryImage = YES;
     _pageControlDotSize = kCycleScrollViewInitialPageControlDotSize;
     _pageControlBottomOffset = 0;
     _pageControlRightOffset = 0;
@@ -550,10 +551,15 @@ NSString * const ID = @"cycleCell";
         if ([imagePath hasPrefix:@"http"]) {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
         } else {
-            UIImage *image = [UIImage imageNamed:imagePath];
-            if (!image) {
-                [UIImage imageWithContentsOfFile:imagePath];
+            UIImage *image = nil;
+            if (_useMemoryImage) {
+                image = [UIImage imageNamed:imagePath];
             }
+            
+            if (!image) {
+                image = [UIImage imageWithContentsOfFile:imagePath];
+            }
+
             cell.imageView.image = image;
         }
     } else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIImage class]]) {
