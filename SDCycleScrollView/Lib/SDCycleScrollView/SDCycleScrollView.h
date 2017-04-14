@@ -87,6 +87,8 @@ typedef enum {
 /** 本地图片数组 */
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
+/** 默认YES 如果使用的本地图片是自己动态生成的图片 是不能使用缓存的数据 需要每次从disk中读取*/
+@property (nonatomic, assign) BOOL useMemoryImage;
 
 
 
