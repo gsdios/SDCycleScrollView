@@ -37,7 +37,7 @@ pod 'SDCycleScrollView','~> 1.64'
 以下是本库的使用者给出的一些解决方法放在这里供大家参考：
 在iOS 7以后，controller 会对其中唯一的scrollView或其子类调整内边距，从而导致位置不准确。设置self.automaticallyAdjustsScrollViewInsets = NO;或者controller中放置不止一个scrollView或其子类时，就不会出现这种问题。以上原因是我的猜测，只要我设置了 self.automaticallyAdjustsScrollViewInsets = NO就没有那个问题了。
  
-#PS:
+# PS:
  
  如需更详细的设置，参考如下：
  
