@@ -294,6 +294,7 @@ NSString * const ID = @"cycleCell";
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
     } else {
+        [self invalidateTimer];
         self.mainView.scrollEnabled = NO;
     }
     
@@ -351,8 +352,10 @@ NSString * const ID = @"cycleCell";
 
 - (void)invalidateTimer
 {
-    [_timer invalidate];
-    _timer = nil;
+    if (_timer) {
+        [_timer invalidate];
+        _timer = nil;
+    }
 }
 
 - (void)setupPageControl
