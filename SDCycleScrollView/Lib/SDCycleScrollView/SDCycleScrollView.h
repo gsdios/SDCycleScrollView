@@ -46,6 +46,11 @@ typedef enum {
     SDCycleScrollViewPageContolStyleNone            // 不显示pagecontrol
 } SDCycleScrollViewPageContolStyle;
 
+typedef enum : NSUInteger {
+    SDDisplayTypeNormalText,  // 显示正常文字
+    SDDisplayTypeAttributeText,   // 显示attribute文字
+} SDDisplayType;
+
 @class SDCycleScrollView;
 
 @protocol SDCycleScrollViewDelegate <NSObject>
@@ -139,6 +144,9 @@ typedef enum {
 
 /** 分页控件位置 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
+
+/** 文字显示样式 */
+@property (nonatomic, assign) SDDisplayType displayType;
 
 /** 分页控件距离轮播图的底部间距（在默认间距基础上）的偏移量 */
 @property (nonatomic, assign) CGFloat pageControlBottomOffset;

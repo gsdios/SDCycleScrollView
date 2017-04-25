@@ -79,13 +79,24 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     _titleLabel = titleLabel;
     _titleLabel.hidden = YES;
+    _titleLabel.numberOfLines = 0;
     [self.contentView addSubview:titleLabel];
 }
 
 - (void)setTitle:(NSString *)title
 {
     _title = [title copy];
-    _titleLabel.text = [NSString stringWithFormat:@"   %@", title];
+    _titleLabel.text = [NSString stringWithFormat:@"%@", title];
+    if (_titleLabel.hidden) {
+        _titleLabel.hidden = NO;
+    }
+}
+
+- (void)setAttributeTitle:(NSAttributedString *)attributeTitle {
+    _attributeTitle = [attributeTitle copy];
+    if ([attributeTitle isKindOfClass:[NSAttributedString class]]) {
+        _titleLabel.attributedText = attributeTitle;
+    }
     if (_titleLabel.hidden) {
         _titleLabel.hidden = NO;
     }

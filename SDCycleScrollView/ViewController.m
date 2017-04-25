@@ -141,6 +141,22 @@
     
     [demoContainerView addSubview:cycleScrollView4];
     
+// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图5 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    // 网络加载 --- 创建只上下滚动展示文字的轮播器(文字支持attribute属性)
+    // 由于模拟器的渲染问题，如果发现轮播时有一条线不必处理，模拟器放大到100%或者真机调试是不会出现那条线的
+    SDCycleScrollView *cycleScrollView5 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 820, w, 55) delegate:self placeholderImage:nil];
+    cycleScrollView5.scrollDirection = UICollectionViewScrollDirectionVertical;
+    cycleScrollView5.onlyDisplayText = YES;
+    cycleScrollView5.displayType = SDDisplayTypeAttributeText;
+
+    NSMutableArray *attributeTitleArray = [NSMutableArray new];
+    [attributeTitleArray addObject:[self attributeStringWithContent:@"纯文字上下滚动轮播\n新增支持attribute属性。"]];
+    [attributeTitleArray addObject:[self attributeStringWithContent:@"纯文字上下滚动轮播\n新增支持attribute属性。"]];
+    [attributeTitleArray addObject:[self attributeStringWithContent:@"纯文字上下滚动轮播\n新增支持attribute属性。"]];
+    cycleScrollView5.titlesGroup = [attributeTitleArray copy];
+
+    [demoContainerView addSubview:cycleScrollView5];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -171,5 +187,21 @@
 }
  
  */
+
+#pragma mark - SDCycleScrollViewDelegate
+// 生成attribute字符串，测试使用
+- (NSAttributedString *)attributeStringWithContent:(NSString *)content {
+    //创建NSMutableAttributedString
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:content];
+    
+    //设置字体和设置字体的范围
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:16.0f] range:NSMakeRange(0, 9)];
+    [attrStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0f] range:NSMakeRange(9, 16)];
+    //添加文字颜色
+    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, 9)];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(9, 16)];
+    
+    return attrStr;
+}
 
 @end

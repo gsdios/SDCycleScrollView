@@ -33,8 +33,8 @@
 #import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
-#import <SDWebImageManager.h>
-#import <UIImageView+WebCache.h>
+#import "UIImageView+WebCache.h"
+#import "SDImageCache.h"
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
@@ -67,7 +67,6 @@ NSString * const ID = @"cycleCell";
 
 - (void)awakeFromNib
 {
-    [super awakeFromNib];
     [self initialization];
     [self setupMainView];
 }
@@ -92,6 +91,7 @@ NSString * const ID = @"cycleCell";
     _currentPageDotColor = [UIColor whiteColor];
     _pageDotColor = [UIColor lightGrayColor];
     _bannerImageViewContentMode = UIViewContentModeScaleToFill;
+    _displayType = SDDisplayTypeNormalText;
     
     self.backgroundColor = [UIColor lightGrayColor];
     
@@ -453,7 +453,7 @@ NSString * const ID = @"cycleCell";
 
 + (void)clearImagesCache
 {
-    [[[SDWebImageManager sharedManager] imageCache] clearDiskOnCompletion:nil];
+//    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
 }
 
 #pragma mark - life circles
@@ -543,6 +543,17 @@ NSString * const ID = @"cycleCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    if (!cell.hasConfigured) {
+        cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
+        cell.titleLabelHeight = self.titleLabelHeight;
+        cell.titleLabelTextAlignment = self.titleLabelTextAlignment;
+        cell.titleLabelTextColor = self.titleLabelTextColor;
+        cell.titleLabelTextFont = self.titleLabelTextFont;
+        cell.hasConfigured = YES;
+        cell.imageView.contentMode = self.bannerImageViewContentMode;
+        cell.clipsToBounds = YES;
+        cell.onlyDisplayText = self.onlyDisplayText;
+    }
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
     NSString *imagePath = self.imagePathsGroup[itemIndex];
@@ -562,19 +573,11 @@ NSString * const ID = @"cycleCell";
     }
     
     if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
-        cell.title = _titlesGroup[itemIndex];
-    }
-    
-    if (!cell.hasConfigured) {
-        cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
-        cell.titleLabelHeight = self.titleLabelHeight;
-        cell.titleLabelTextAlignment = self.titleLabelTextAlignment;
-        cell.titleLabelTextColor = self.titleLabelTextColor;
-        cell.titleLabelTextFont = self.titleLabelTextFont;
-        cell.hasConfigured = YES;
-        cell.imageView.contentMode = self.bannerImageViewContentMode;
-        cell.clipsToBounds = YES;
-        cell.onlyDisplayText = self.onlyDisplayText;
+        if (self.displayType == SDDisplayTypeAttributeText) {
+            cell.attributeTitle = _titlesGroup[itemIndex];
+        }else {
+            cell.title = _titlesGroup[itemIndex];
+        }
     }
     
     return cell;
