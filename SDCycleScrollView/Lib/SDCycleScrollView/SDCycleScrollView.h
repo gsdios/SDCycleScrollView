@@ -149,6 +149,11 @@ typedef enum {
 /** 分页控件小圆标大小 */
 @property (nonatomic, assign) CGSize pageControlDotSize;
 
+/**
+ *  Spacing between two dot views. Default is 8.
+ */
+@property (nonatomic) NSInteger spacingBetweenDots;
+
 /** 当前分页控件小圆标颜色 */
 @property (nonatomic, strong) UIColor *currentPageDotColor;
 

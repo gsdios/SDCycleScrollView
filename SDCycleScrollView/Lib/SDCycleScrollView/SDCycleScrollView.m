@@ -37,6 +37,10 @@
 #import <UIImageView+WebCache.h>
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
+/**
+ *  Default spacing between dots
+ */
+#define kDefaultSpacingBetweenDots (8)
 
 NSString * const ID = @"cycleCell";
 
@@ -85,6 +89,7 @@ NSString * const ID = @"cycleCell";
     _infiniteLoop = YES;
     _showPageControl = YES;
     _pageControlDotSize = kCycleScrollViewInitialPageControlDotSize;
+    _spacingBetweenDots = kDefaultSpacingBetweenDots;
     _pageControlBottomOffset = 0;
     _pageControlRightOffset = 0;
     _pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
@@ -175,6 +180,12 @@ NSString * const ID = @"cycleCell";
         pageContol.dotSize = pageControlDotSize;
     }
 }
+
+- (void)setSpacingBetweenDots:(NSInteger)spacingBetweenDots
+{
+    _spacingBetweenDots = spacingBetweenDots;
+}
+
 
 - (void)setShowPageControl:(BOOL)showPageControl
 {
@@ -373,6 +384,7 @@ NSString * const ID = @"cycleCell";
             pageControl.dotColor = self.currentPageDotColor;
             pageControl.userInteractionEnabled = NO;
             pageControl.currentPage = indexOnPageControl;
+            pageControl.spacingBetweenDots = self.spacingBetweenDots;
             [self addSubview:pageControl];
             _pageControl = pageControl;
         }
