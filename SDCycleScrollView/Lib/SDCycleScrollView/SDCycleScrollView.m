@@ -462,6 +462,21 @@ NSString * const ID = @"cycleCell";
 {
     [super layoutSubviews];
     
+    if ((_flowLayout.itemSize.width != self.frame.size.width || _flowLayout.itemSize.height != self.frame.size.height) && _flowLayout.itemSize.width > 0) {
+        CGFloat newContentX = 0;
+        CGFloat newContentY = 0;
+        
+        if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+            newContentX = _mainView.contentOffset.x * (self.frame.size.width/_flowLayout.itemSize.width);
+        } else {
+            newContentY = _mainView.contentOffset.y * (self.frame.size.height/_flowLayout.itemSize.height);
+        }
+        
+        _flowLayout.itemSize = self.frame.size;
+        _mainView.contentOffset = CGPointMake(newContentX, newContentY);
+    }
+
+    
     _flowLayout.itemSize = self.frame.size;
     
     _mainView.frame = self.bounds;
@@ -493,7 +508,9 @@ NSString * const ID = @"cycleCell";
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
-        [pageControl sizeToFit];
+        if (pageControl.numberOfPages != self.imagePathsGroup.count) {
+            [pageControl sizeToFit];
+        }
     }
     
     CGRect pageControlFrame = CGRectMake(x, y, size.width, size.height);
