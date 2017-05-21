@@ -33,8 +33,8 @@
 #import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
-#import "UIImageView+WebCache.h"
-#import "SDImageCache.h"
+#import <SDWebImageManager.h>
+#import <UIImageView+WebCache.h>
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
@@ -67,6 +67,7 @@ NSString * const ID = @"cycleCell";
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self initialization];
     [self setupMainView];
 }
@@ -79,6 +80,7 @@ NSString * const ID = @"cycleCell";
     _titleLabelTextFont= [UIFont systemFontOfSize:14];
     _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     _titleLabelHeight = 30;
+    _titleLabelTextAlignment = NSTextAlignmentLeft;
     _autoScroll = YES;
     _infiniteLoop = YES;
     _showPageControl = YES;
@@ -454,7 +456,7 @@ NSString * const ID = @"cycleCell";
 
 + (void)clearImagesCache
 {
-    [[[SDWebImageManager sharedManager] imageCache] clearDisk];
+    [[[SDWebImageManager sharedManager] imageCache] clearDiskOnCompletion:nil];
 }
 
 #pragma mark - life circles
@@ -569,6 +571,7 @@ NSString * const ID = @"cycleCell";
     if (!cell.hasConfigured) {
         cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
         cell.titleLabelHeight = self.titleLabelHeight;
+        cell.titleLabelTextAlignment = self.titleLabelTextAlignment;
         cell.titleLabelTextColor = self.titleLabelTextColor;
         cell.titleLabelTextFont = self.titleLabelTextFont;
         cell.hasConfigured = YES;

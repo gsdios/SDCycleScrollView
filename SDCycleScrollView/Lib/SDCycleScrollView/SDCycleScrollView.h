@@ -173,6 +173,8 @@ typedef enum {
 /** 轮播文字label高度 */
 @property (nonatomic, assign) CGFloat titleLabelHeight;
 
+/** 轮播文字label对齐方式 */
+@property (nonatomic, assign) NSTextAlignment titleLabelTextAlignment;
 
 
 //////////////////////  清除缓存接口  //////////////////////

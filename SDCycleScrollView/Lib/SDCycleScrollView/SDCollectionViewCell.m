@@ -91,6 +91,11 @@
     }
 }
 
+-(void)setTitleLabelTextAlignment:(NSTextAlignment)titleLabelTextAlignment
+{
+    _titleLabelTextAlignment = titleLabelTextAlignment;
+    _titleLabel.textAlignment = titleLabelTextAlignment;
+}
 
 - (void)layoutSubviews
 {
