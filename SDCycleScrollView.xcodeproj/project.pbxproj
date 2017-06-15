@@ -554,7 +554,7 @@
 				INFOPLIST_FILE = SDCycleScrollView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = zm.SDCycleScrollView;
+				PRODUCT_BUNDLE_IDENTIFIER = "-.SDCycleScrollView";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -570,7 +570,7 @@
 				INFOPLIST_FILE = SDCycleScrollView/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = zm.SDCycleScrollView;
+				PRODUCT_BUNDLE_IDENTIFIER = "-.SDCycleScrollView";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
