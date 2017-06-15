@@ -38,6 +38,8 @@
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
+
+NSInteger rate = 2;
 NSString * const ID = @"cycleCell";
 
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
@@ -288,7 +290,7 @@ NSString * const ID = @"cycleCell";
     
     _imagePathsGroup = imagePathsGroup;
     
-    _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count;
+    _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * rate : self.imagePathsGroup.count;
     
     if (imagePathsGroup.count != 1) {
         self.mainView.scrollEnabled = YES;
@@ -598,6 +600,17 @@ NSString * const ID = @"cycleCell";
     if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+        if (scrollView.contentOffset.x >= (_totalItemsCount - 1) * (_flowLayout.itemSize.width) ){
+            
+            [_mainView  scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_totalItemsCount/2 - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            
+            
+        }
+        if (scrollView.contentOffset.x <= 0.0){
+            [_mainView  scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_totalItemsCount/2  inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        }
+    }
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
@@ -613,6 +626,16 @@ NSString * const ID = @"cycleCell";
     if (self.autoScroll) {
         [self invalidateTimer];
     }
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical) {
+        if(scrollView.contentOffset.y >= (_totalItemsCount - 1) * (_flowLayout.itemSize.height)) {
+            NSLog(@"%f", scrollView.contentOffset.y);
+            [_mainView  scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_totalItemsCount/2 - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+        }
+        if (scrollView.contentOffset.y <= 0 ){
+            [_mainView  scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_totalItemsCount/2  inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        }
+    }
+
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
