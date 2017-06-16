@@ -1,4 +1,4 @@
-//
+
 //  SDCycleScrollView.m
 //  SDCycleScrollView
 //
@@ -548,7 +548,6 @@ NSString * const ID = @"cycleCell";
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
     NSString *imagePath = self.imagePathsGroup[itemIndex];
-    
     if (!self.onlyDisplayText && [imagePath isKindOfClass:[NSString class]]) {
         if ([imagePath hasPrefix:@"http"]) {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
@@ -578,7 +577,6 @@ NSString * const ID = @"cycleCell";
         cell.clipsToBounds = YES;
         cell.onlyDisplayText = self.onlyDisplayText;
     }
-    
     return cell;
 }
 
@@ -602,13 +600,23 @@ NSString * const ID = @"cycleCell";
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
     if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
         if (scrollView.contentOffset.x >= (_totalItemsCount - 1) * (_flowLayout.itemSize.width) ){
-            
-            [_mainView  scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_totalItemsCount/2 - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
-            
-            
+            [_mainView setContentOffset:CGPointMake((_totalItemsCount/2 - 1)*_flowLayout.itemSize.width, 0)];
+
         }
         if (scrollView.contentOffset.x <= 0.0){
-            [_mainView  scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_totalItemsCount/2  inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            [_mainView setContentOffset:CGPointMake(_totalItemsCount/2 *_flowLayout.itemSize.width, 0)];
+
+        }
+    }
+    
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical) {
+        if(scrollView.contentOffset.y >= (_totalItemsCount - 1) * (_flowLayout.itemSize.height)) {
+
+            [_mainView setContentOffset:CGPointMake(0, (_totalItemsCount/2 - 1)*_flowLayout.itemSize.height)];
+        }
+        if (scrollView.contentOffset.y <= 0 ){
+            [_mainView setContentOffset:CGPointMake(0, _totalItemsCount/2 *_flowLayout.itemSize.height)];
+
         }
     }
     
@@ -626,16 +634,9 @@ NSString * const ID = @"cycleCell";
     if (self.autoScroll) {
         [self invalidateTimer];
     }
-    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical) {
-        if(scrollView.contentOffset.y >= (_totalItemsCount - 1) * (_flowLayout.itemSize.height)) {
-            NSLog(@"%f", scrollView.contentOffset.y);
-            [_mainView  scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_totalItemsCount/2 - 1 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
-        }
-        if (scrollView.contentOffset.y <= 0 ){
-            [_mainView  scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_totalItemsCount/2  inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
-        }
-    }
+   
 
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -643,6 +644,8 @@ NSString * const ID = @"cycleCell";
     if (self.autoScroll) {
         [self setupTimer];
     }
+    
+
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
