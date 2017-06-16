@@ -598,7 +598,7 @@ NSString * const ID = @"cycleCell";
     if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
-    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal && _infiniteLoop) {
         if (scrollView.contentOffset.x >= (_totalItemsCount - 1) * (_flowLayout.itemSize.width) ){
             [_mainView setContentOffset:CGPointMake((_totalItemsCount/2 - 1)*_flowLayout.itemSize.width, 0)];
 
@@ -609,7 +609,7 @@ NSString * const ID = @"cycleCell";
         }
     }
     
-    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical) {
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical && _infiniteLoop) {
         if(scrollView.contentOffset.y >= (_totalItemsCount - 1) * (_flowLayout.itemSize.height)) {
 
             [_mainView setContentOffset:CGPointMake(0, (_totalItemsCount/2 - 1)*_flowLayout.itemSize.height)];
