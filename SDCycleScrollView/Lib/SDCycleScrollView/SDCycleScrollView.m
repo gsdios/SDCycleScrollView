@@ -290,11 +290,12 @@ NSString * const ID = @"cycleCell";
     
     _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count;
     
-    if (imagePathsGroup.count != 1) {
+    if (imagePathsGroup.count > 1) { // 由于 !=1 包含count == 0等情况
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
     } else {
         self.mainView.scrollEnabled = NO;
+        [self setAutoScroll:NO];
     }
     
     [self setupPageControl];
@@ -344,6 +345,8 @@ NSString * const ID = @"cycleCell";
 
 - (void)setupTimer
 {
+    [self invalidateTimer]; // 创建定时器前先停止定时器，不然会出现僵尸定时器，导致轮播频率错误
+    
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.autoScrollTimeInterval target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
     _timer = timer;
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
