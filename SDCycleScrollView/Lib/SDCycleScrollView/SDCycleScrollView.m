@@ -38,7 +38,7 @@
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
-NSString * const ID = @"cycleCell";
+NSString * const ID = @"SDCycleScrollViewCell";
 
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -142,6 +142,7 @@ NSString * const ID = @"cycleCell";
     mainView.showsHorizontalScrollIndicator = NO;
     mainView.showsVerticalScrollIndicator = NO;
     [mainView registerClass:[SDCollectionViewCell class] forCellWithReuseIdentifier:ID];
+    
     mainView.dataSource = self;
     mainView.delegate = self;
     mainView.scrollsToTop = NO;
@@ -151,6 +152,15 @@ NSString * const ID = @"cycleCell";
 
 
 #pragma mark - properties
+
+- (void)setDelegate:(id<SDCycleScrollViewDelegate>)delegate
+{
+    _delegate = delegate;
+    
+    if ([self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] && [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
+        [self.mainView registerClass:[self.delegate customCollectionViewCellClassForCycleScrollView:self] forCellWithReuseIdentifier:ID];
+    }
+}
 
 - (void)setPlaceholderImage:(UIImage *)placeholderImage
 {
@@ -472,6 +482,8 @@ NSString * const ID = @"cycleCell";
 
 - (void)layoutSubviews
 {
+    self.delegate = self.delegate;
+    
     [super layoutSubviews];
     
     _flowLayout.itemSize = self.frame.size;
@@ -555,7 +567,15 @@ NSString * const ID = @"cycleCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
+    
+    if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
+        [self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] &&
+        [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
+        [self.delegate setupCustomCell:cell forIndex:itemIndex cycleScrollView:self];
+        return cell;
+    }
     
     NSString *imagePath = self.imagePathsGroup[itemIndex];
     
