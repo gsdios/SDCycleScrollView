@@ -340,6 +340,15 @@ NSString * const ID = @"cycleCell";
     }
 }
 
+- (void)disableScrollGesture {
+    self.mainView.canCancelContentTouches = NO;
+    for (UIGestureRecognizer *gesture in self.mainView.gestureRecognizers) {
+        if ([gesture isKindOfClass:[UIPanGestureRecognizer class]]) {
+            [self.mainView removeGestureRecognizer:gesture];
+        }
+    }
+}
+
 #pragma mark - actions
 
 - (void)setupTimer

@@ -138,6 +138,7 @@
     [titlesArray addObject:@"纯文字上下滚动轮播 -- demo轮播图4"];
     [titlesArray addObjectsFromArray:titles];
     cycleScrollView4.titlesGroup = [titlesArray copy];
+    [cycleScrollView4 disableScrollGesture];
     
     [demoContainerView addSubview:cycleScrollView4];
     
