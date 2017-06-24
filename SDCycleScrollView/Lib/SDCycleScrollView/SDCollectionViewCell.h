@@ -32,10 +32,13 @@
 
 #import <UIKit/UIKit.h>
 
+
+
 @interface SDCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) UIImageView *imageView;
 @property (copy, nonatomic) NSString *title;
+@property (nonatomic, copy) NSAttributedString *attributeTitle;
 
 @property (nonatomic, strong) UIColor *titleLabelTextColor;
 @property (nonatomic, strong) UIFont *titleLabelTextFont;
