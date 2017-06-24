@@ -8,6 +8,8 @@ pod 'SDCycleScrollView','~> 1.64'
 
 ### 更改记录：
 
+2017.06.23 -- 1.增加支持轮播自定义cell的代理方法 2.增加禁止拖动手势api
+
 2016.05.27 -- 新增纯文字轮播、增加viewController在来回push时候出现的图片卡在中间的解决方案“解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用 adjustWhenControllerViewWillAppera”
 
 2016.04.21 -- 修复自定义图片的pagecontrol刷新图片数据时崩溃bug；设置单张图片时停止轮播
