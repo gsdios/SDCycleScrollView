@@ -30,12 +30,18 @@
 
 #import "ViewController.h"
 #import "SDCycleScrollView.h"
+#import "CustomCollectionViewCell.h"
+#import <UIImageView+WebCache.h>
 
 @interface ViewController () <SDCycleScrollViewDelegate>
 
 @end
 
 @implementation ViewController
+{
+    NSArray *_imagesURLStrings;
+    SDCycleScrollView *_customCellScrollViewDemo;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -66,9 +72,11 @@
                            @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
                            @"http://c.hiphotos.baidu.com/image/w%3D400/sign=c2318ff84334970a4773112fa5c8d1c0/b7fd5266d0160924c1fae5ccd60735fae7cd340d.jpg"
                            ];
+    _imagesURLStrings = imagesURLStrings;
     
     // 情景三：图片配文字
     NSArray *titles = @[@"新建交流QQ群：185534916 ",
+                        @"disableScrollGesture可以设置禁止拖动",
                         @"感谢您的支持，如果下载的",
                         @"如果代码在使用过程中出现问题",
                         @"您可以发邮件到gsdios@126.com"
@@ -138,9 +146,21 @@
     [titlesArray addObject:@"纯文字上下滚动轮播 -- demo轮播图4"];
     [titlesArray addObjectsFromArray:titles];
     cycleScrollView4.titlesGroup = [titlesArray copy];
+    [cycleScrollView4 disableScrollGesture];
     
     [demoContainerView addSubview:cycleScrollView4];
     
+    
+// >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图5 自定义cell的轮播图 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    
+    // 如果要实现自定义cell的轮播图，必须先实现customCollectionViewCellClassForCycleScrollView:和setupCustomCell:forIndex:代理方法
+    
+    _customCellScrollViewDemo = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 820, w, 120) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    _customCellScrollViewDemo.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
+    _customCellScrollViewDemo.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
+    _customCellScrollViewDemo.imageURLStringsGroup = imagesURLStrings;
+    
+    [demoContainerView addSubview:_customCellScrollViewDemo];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -171,5 +191,46 @@
 }
  
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 不需要自定义轮播cell的请忽略下面的代理方法
+
+// 如果要实现自定义cell的轮播图，必须先实现customCollectionViewCellClassForCycleScrollView:和setupCustomCell:forIndex:代理方法
+
+- (Class)customCollectionViewCellClassForCycleScrollView:(SDCycleScrollView *)view
+{
+    if (view != _customCellScrollViewDemo) {
+        return nil;
+    }
+    return [CustomCollectionViewCell class];
+}
+
+- (void)setupCustomCell:(UICollectionViewCell *)cell forIndex:(NSInteger)index cycleScrollView:(SDCycleScrollView *)view
+{
+    CustomCollectionViewCell *myCell = (CustomCollectionViewCell *)cell;
+    [myCell.imageView sd_setImageWithURL:_imagesURLStrings[index]];
+}
 
 @end

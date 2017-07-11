@@ -2,11 +2,13 @@
 ## ☆☆☆ “iOS图片、文字轮播器” ☆☆☆
 
 ### 支持pod导入
-pod 'SDCycleScrollView','~> 1.64'
+pod 'SDCycleScrollView','~> 1.66'
 
  如果发现pod search SDCycleScrollView 搜索出来的不是最新版本，需要在终端执行cd转换文件路径命令退回到desktop，然后执行pod setup命令更新本地spec缓存（可能需要几分钟），然后再搜索就可以了
 
 ### 更改记录：
+
+2017.06.23 -- 1.增加支持轮播自定义cell的代理方法 2.增加禁止拖动手势api
 
 2016.05.27 -- 新增纯文字轮播、增加viewController在来回push时候出现的图片卡在中间的解决方案“解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用 adjustWhenControllerViewWillAppera”
 

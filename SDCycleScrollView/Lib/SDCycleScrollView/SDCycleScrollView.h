@@ -58,6 +58,21 @@ typedef enum {
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
 
+
+
+
+
+
+// 不需要自定义轮播cell的请忽略以下两个的代理方法
+
+// ========== 轮播自定义cell ==========
+
+/** 如果你需要自定义cell样式，请在实现此代理方法返回你的自定义cell的class。 */
+- (Class)customCollectionViewCellClassForCycleScrollView:(SDCycleScrollView *)view;
+
+/** 如果你自定义了cell样式，请在实现此代理方法为你的cell填充数据以及其它一系列设置 */
+- (void)setupCustomCell:(UICollectionViewCell *)cell forIndex:(NSInteger)index cycleScrollView:(SDCycleScrollView *)view;
+
 @end
 
 @interface SDCycleScrollView : UIView
@@ -76,7 +91,7 @@ typedef enum {
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
 
-//////////////////////  数据源接口  //////////////////////
+//////////////////////  数据源API //////////////////////
 
 /** 网络图片 url string 数组 */
 @property (nonatomic, strong) NSArray *imageURLStringsGroup;
@@ -91,7 +106,7 @@ typedef enum {
 
 
 
-//////////////////////  滚动控制接口 //////////////////////
+//////////////////////  滚动控制API //////////////////////
 
 /** 自动滚动间隔时间,默认2s */
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
@@ -116,8 +131,7 @@ typedef enum {
 /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
 - (void)adjustWhenControllerViewWillAppera;
 
-//////////////////////  自定义样式接口  //////////////////////
-
+//////////////////////  自定义样式API  //////////////////////
 
 /** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
 @property (nonatomic, assign) UIViewContentMode bannerImageViewContentMode;
@@ -176,8 +190,11 @@ typedef enum {
 /** 轮播文字label对齐方式 */
 @property (nonatomic, assign) NSTextAlignment titleLabelTextAlignment;
 
+/** 滚动手势禁用（文字轮播较实用） */
+- (void)disableScrollGesture;
 
-//////////////////////  清除缓存接口  //////////////////////
+
+//////////////////////  清除缓存API  //////////////////////
 
 /** 清除图片缓存（此次升级后统一使用SDWebImage管理图片加载和缓存）  */
 + (void)clearImagesCache;
