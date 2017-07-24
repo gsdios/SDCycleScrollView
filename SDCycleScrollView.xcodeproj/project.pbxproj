@@ -33,7 +33,7 @@
 		999C10981AC14F3B00C11CDB /* h3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10961AC14F3B00C11CDB /* h3.jpg */; };
 		999C109A1AC14F7200C11CDB /* h1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 999C10991AC14F7200C11CDB /* h1.jpg */; };
 		99A732631B24AB660033E878 /* 005.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99A732621B24AB660033E878 /* 005.jpg */; };
-		DA432B81FB7D3AC3A09F49AB /* libPods-SDCycleScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2DAE64BD8356B3DE966B61 /* libPods-SDCycleScrollView.a */; };
+		9BEB00FE3EB709E4FB44BABF /* libPods-SDCycleScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE55CBF170FE2BFA0498D7B2 /* libPods-SDCycleScrollView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +47,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2A2DAE64BD8356B3DE966B61 /* libPods-SDCycleScrollView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SDCycleScrollView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48377B8D1C1027F5007B8C21 /* DemoVCWithXib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoVCWithXib.h; sourceTree = "<group>"; };
 		48377B8E1C1027F5007B8C21 /* DemoVCWithXib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoVCWithXib.m; sourceTree = "<group>"; };
 		48377B8F1C1027F5007B8C21 /* DemoVCWithXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoVCWithXib.xib; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		999C10961AC14F3B00C11CDB /* h3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h3.jpg; sourceTree = "<group>"; };
 		999C10991AC14F7200C11CDB /* h1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = h1.jpg; sourceTree = "<group>"; };
 		99A732621B24AB660033E878 /* 005.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 005.jpg; sourceTree = "<group>"; };
+		EE55CBF170FE2BFA0498D7B2 /* libPods-SDCycleScrollView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SDCycleScrollView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA432B81FB7D3AC3A09F49AB /* libPods-SDCycleScrollView.a in Frameworks */,
+				9BEB00FE3EB709E4FB44BABF /* libPods-SDCycleScrollView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +261,7 @@
 		AB85341EE3F3D30597B024D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2A2DAE64BD8356B3DE966B61 /* libPods-SDCycleScrollView.a */,
+				EE55CBF170FE2BFA0498D7B2 /* libPods-SDCycleScrollView.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
