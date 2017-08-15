@@ -11,5 +11,6 @@
 @interface CustomCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *imageView;
-
+/** 图片滚动方向，默认为水平滚动 */
+@property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
 @end

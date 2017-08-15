@@ -48,4 +48,22 @@
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
+/** 图片滚动方向，默认为水平滚动 */
+@property (nonatomic, assign) UICollectionViewScrollDirection scrollDirection;
+/**
+ *  Will display.
+ */
+- (void)willDisplay;
+
+/**
+ *  Did end display.
+ */
+- (void)didEndDisplay;
+
+/**
+ The contentOffset, you can use this value to do sth.
+ 
+ @param offset The offset.
+ */
+- (void)contentOffset:(CGPoint)offset;
 @end
