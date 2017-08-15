@@ -584,10 +584,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
         } else {
             UIImage *image = [UIImage imageNamed:imagePath];
-            if (!image) {
-                [UIImage imageWithContentsOfFile:imagePath];
-            }
-            cell.imageView.image = image;
+            cell.imageView.image = image ?: [UIImage imageWithContentsOfFile:imagePath];;
         }
     } else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIImage class]]) {
         cell.imageView.image = (UIImage *)imagePath;
