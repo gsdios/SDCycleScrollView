@@ -63,13 +63,14 @@
     self.bannerView.titlesGroup = titles;
     self.bannerView.currentPageDotColor = [UIColor yellowColor]; // 自定义分页控件小圆标颜色
     self.bannerView.placeholderImage = [UIImage imageNamed:@"placeholder"];
-    
+    self.bannerView.scrollAnimationStyle = SDCycleScrollAnimationStyleLight;
     
     
     SDCycleScrollView *banner2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 200, [UIScreen mainScreen].bounds.size.width, 140) delegate:nil placeholderImage:nil];
     banner2.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     banner2.imageURLStringsGroup = imagesURLStrings;
     banner2.titlesGroup = titles;
+    banner2.scrollAnimationStyle = SDCycleScrollAnimationStyleNormal;
     [self.view addSubview:banner2];
 
 }
