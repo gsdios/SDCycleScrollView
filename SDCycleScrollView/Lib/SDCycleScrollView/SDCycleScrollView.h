@@ -46,6 +46,11 @@ typedef enum {
     SDCycleScrollViewPageContolStyleNone            // 不显示pagecontrol
 } SDCycleScrollViewPageContolStyle;
 
+typedef enum {
+    SDCycleScrollAnimationStyleLight,        // 默认样式，比较柔和的一种方式
+    SDCycleScrollAnimationStyleNormal,       // 普通滚动动画样式
+} SDCycleScrollAnimationStyle;
+
 @class SDCycleScrollView;
 
 @protocol SDCycleScrollViewDelegate <NSObject>
@@ -189,7 +194,8 @@ typedef enum {
 
 /** 轮播文字label对齐方式 */
 @property (nonatomic, assign) NSTextAlignment titleLabelTextAlignment;
-
+/** 轮播滚动动画方式 */
+@property (nonatomic,assign) SDCycleScrollAnimationStyle scrollAnimationStyle;
 /** 滚动手势禁用（文字轮播较实用） */
 - (void)disableScrollGesture;
 

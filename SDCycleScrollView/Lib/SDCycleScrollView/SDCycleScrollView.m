@@ -35,6 +35,7 @@
 #import "TAPageControl.h"
 #import "SDWebImageManager.h"
 #import "UIImageView+WebCache.h"
+#import "POP.h"
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
@@ -426,7 +427,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
-
+#pragma mark - ******** 自动滚动
 - (void)automaticScroll
 {
     if (0 == _totalItemsCount) return;
@@ -434,7 +435,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     int targetIndex = currentIndex + 1;
     [self scrollToIndex:targetIndex];
 }
-
+#pragma mark ******** 自动滚动到某一个Item
 - (void)scrollToIndex:(int)targetIndex
 {
     if (targetIndex >= _totalItemsCount) {
@@ -444,9 +445,40 @@ NSString * const ID = @"SDCycleScrollViewCell";
         }
         return;
     }
-    [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+    if (self.scrollAnimationStyle == SDCycleScrollAnimationStyleLight) {
+        __weak typeof(self) weakSelf = self;
+        POPAnimatableProperty *prop = [POPAnimatableProperty propertyWithName:@"prop" initializer:^(POPMutableAnimatableProperty *prop) {
+            // read value
+            prop.readBlock = ^(id obj, CGFloat values[]) {
+            };
+            // write value
+            
+            prop.writeBlock = ^(id obj, const CGFloat values[]) {
+                //NSLog(@"old:%f current:%f,to:%f",offsetX,values[0],offsetX);
+                
+                weakSelf.mainView.contentOffset = self.flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal ? CGPointMake(values[0], 0) : CGPointMake(0,values[0]);
+            };
+            // dynamics threshold
+            prop.threshold = 0.01;
+        }];
+        
+        CGFloat oldOffsetValue = self.flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal ? self.mainView.contentOffset.x : self.mainView.contentOffset.y;
+        CGFloat newOffsetValue = self.flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal ? self.flowLayout.itemSize.width*targetIndex : self.flowLayout.itemSize.height*targetIndex;
+        
+        POPBasicAnimation *anBasic = [POPBasicAnimation easeInEaseOutAnimation];   //秒表当然必须是线性的时间函数
+        anBasic.property = prop;    //自定义属性
+        anBasic.fromValue = @(oldOffsetValue);   //从0开始
+        anBasic.toValue = @(newOffsetValue);  //180秒
+        anBasic.duration = 1.5;   //持续1.5秒
+        anBasic.beginTime = CACurrentMediaTime() + 0.0f;    //延迟1秒开始
+        [self.mainView pop_addAnimation:anBasic forKey:@"autoScroll"];
+    }else{
+        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+    }
+    
+    
 }
-
+#pragma mark - ******** 获取当前index
 - (int)currentIndex
 {
     if (_mainView.sd_width == 0 || _mainView.sd_height == 0) {
@@ -479,15 +511,16 @@ NSString * const ID = @"SDCycleScrollViewCell";
 }
 
 #pragma mark - life circles
-
+#pragma mark - ******** 适配Frame的变化
 - (void)layoutSubviews
 {
     self.delegate = self.delegate;
     
     [super layoutSubviews];
     
+    // 修改layout的大小
     _flowLayout.itemSize = self.frame.size;
-    
+    // 修改Frame的大小
     _mainView.frame = self.bounds;
     if (_mainView.contentOffset.x == 0 &&  _totalItemsCount) {
         int targetIndex = 0;
@@ -574,6 +607,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
         [self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] &&
         [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
         [self.delegate setupCustomCell:cell forIndex:itemIndex cycleScrollView:self];
+        if ([cell respondsToSelector:@selector(setScrollDirection:)]) {
+            cell.scrollDirection = self.flowLayout.scrollDirection;
+        }
+        
         return cell;
     }
     
@@ -608,6 +645,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
         cell.clipsToBounds = YES;
         cell.onlyDisplayText = self.onlyDisplayText;
     }
+    if ([cell respondsToSelector:@selector(setScrollDirection:)]) {
+        cell.scrollDirection = self.flowLayout.scrollDirection;
+    }
     
     return cell;
 }
@@ -622,13 +662,50 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(SDCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    if (self.scrollAnimationStyle == SDCycleScrollAnimationStyleLight) {
+        // 用于竖向
+        CGPoint point = [cell convertPoint:cell.bounds.origin fromView:self];
+        if ([cell respondsToSelector:@selector(contentOffset:)]) {
+            [cell contentOffset:point];
+        }
+        if ([cell respondsToSelector:@selector(willDisplay)]) {
+            [cell willDisplay];
+        }
+        
+    }
+    
+}
 
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(SDCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.scrollAnimationStyle == SDCycleScrollAnimationStyleLight) {
+        // 用于竖向
+        if ([cell respondsToSelector:@selector(didEndDisplay)]) {
+            [cell didEndDisplay];
+        }
+        
+    }
+}
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
-    int itemIndex = [self currentIndex];
+    if (self.scrollAnimationStyle == SDCycleScrollAnimationStyleLight) {
+        __weak typeof(self) weakSelf = self;
+        [self.mainView.visibleCells enumerateObjectsUsingBlock:^(__kindof SDCollectionViewCell *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            // 用于竖向
+            CGPoint point = [obj convertPoint:obj.bounds.origin fromView:weakSelf];
+            if ([obj respondsToSelector:@selector(contentOffset:)]) {
+                [obj contentOffset:point];
+            }
+        }];
+
+    }
+        int itemIndex = [self currentIndex];
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
