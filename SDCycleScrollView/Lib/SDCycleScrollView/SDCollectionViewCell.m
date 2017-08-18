@@ -86,7 +86,9 @@
 {
     _title = [title copy];
     _titleLabel.text = [NSString stringWithFormat:@"   %@", title];
-    if (_titleLabel.hidden) {
+    if ([_title isEqualToString: @""]) {
+        _titleLabel.hidden = YES;
+    } else {
         _titleLabel.hidden = NO;
     }
 }
