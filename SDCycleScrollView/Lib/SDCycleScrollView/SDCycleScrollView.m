@@ -33,31 +33,27 @@
 #import "SDCollectionViewCell.h"
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
-#import "SDWebImageManager.h"
 #import "UIImageView+WebCache.h"
+#import "SDImageCache.h"
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
-NSString * const ID = @"SDCycleScrollViewCell";
+NSString * const ID = @"cycleCell";
 
 @interface SDCycleScrollView () <UICollectionViewDataSource, UICollectionViewDelegate>
-
 
 @property (nonatomic, weak) UICollectionView *mainView; // 显示图片的collectionView
 @property (nonatomic, weak) UICollectionViewFlowLayout *flowLayout;
 @property (nonatomic, strong) NSArray *imagePathsGroup;
-@property (nonatomic, weak) NSTimer *timer;
 @property (nonatomic, assign) NSInteger totalItemsCount;
 @property (nonatomic, weak) UIControl *pageControl;
-
 @property (nonatomic, strong) UIImageView *backgroundImageView; // 当imageURLs为空时的背景图
 
 @end
 
 @implementation SDCycleScrollView
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self initialization];
         [self setupMainView];
@@ -65,21 +61,18 @@ NSString * const ID = @"SDCycleScrollViewCell";
     return self;
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
+- (void)awakeFromNib{
     [self initialization];
     [self setupMainView];
 }
 
-- (void)initialization
-{
+- (void)initialization{
     _pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-    _autoScrollTimeInterval = 2.0;
+    _autoScrollTimeInterval = 5.0;
     _titleLabelTextColor = [UIColor whiteColor];
-    _titleLabelTextFont= [UIFont systemFontOfSize:14];
-    _titleLabelBackgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    _titleLabelHeight = 30;
+    _titleLabelTextFont= [UIFont systemFontOfSize:12];
+    _titleLabelBackgroundColor = [UIColor whiteColor];
+    _titleLabelHeight = 20;
     _titleLabelTextAlignment = NSTextAlignmentLeft;
     _autoScroll = YES;
     _infiniteLoop = YES;
@@ -90,10 +83,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
     _pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
     _hidesForSinglePage = YES;
     _currentPageDotColor = [UIColor whiteColor];
-    _pageDotColor = [UIColor lightGrayColor];
+    _pageDotColor = [UIColor colorWithWhite:1 alpha:0.3];
     _bannerImageViewContentMode = UIViewContentModeScaleToFill;
-    
-    self.backgroundColor = [UIColor lightGrayColor];
+    _displayType = SDDisplayTypeNormalText;
+    self.backgroundColor = [UIColor whiteColor];
     
 }
 
@@ -142,7 +135,6 @@ NSString * const ID = @"SDCycleScrollViewCell";
     mainView.showsHorizontalScrollIndicator = NO;
     mainView.showsVerticalScrollIndicator = NO;
     [mainView registerClass:[SDCollectionViewCell class] forCellWithReuseIdentifier:ID];
-    
     mainView.dataSource = self;
     mainView.delegate = self;
     mainView.scrollsToTop = NO;
@@ -152,15 +144,6 @@ NSString * const ID = @"SDCycleScrollViewCell";
 
 
 #pragma mark - properties
-
-- (void)setDelegate:(id<SDCycleScrollViewDelegate>)delegate
-{
-    _delegate = delegate;
-    
-    if ([self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] && [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
-        [self.mainView registerClass:[self.delegate customCollectionViewCellClassForCycleScrollView:self] forCellWithReuseIdentifier:ID];
-    }
-}
 
 - (void)setPlaceholderImage:(UIImage *)placeholderImage
 {
@@ -300,12 +283,16 @@ NSString * const ID = @"SDCycleScrollViewCell";
     
     _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count;
     
-    if (imagePathsGroup.count > 1) { // 由于 !=1 包含count == 0等情况
+    if (self.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+        if (imagePathsGroup.count != 1) {
+            self.mainView.scrollEnabled = YES;
+            [self setAutoScroll:self.autoScroll];
+        } else {
+            self.mainView.scrollEnabled = NO;
+        }
+    }else{
         self.mainView.scrollEnabled = YES;
         [self setAutoScroll:self.autoScroll];
-    } else {
-        self.mainView.scrollEnabled = NO;
-        [self setAutoScroll:NO];
     }
     
     [self setupPageControl];
@@ -342,6 +329,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
 {
     _titlesGroup = titlesGroup;
     if (self.onlyDisplayText) {
+        if (_titlesGroup.count>0) {
+            self.mainView.contentOffset = CGPointMake(0, 0);
+        }
+        
         NSMutableArray *temp = [NSMutableArray new];
         for (int i = 0; i < _titlesGroup.count; i++) {
             [temp addObject:@""];
@@ -351,35 +342,25 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
-- (void)disableScrollGesture {
-    self.mainView.canCancelContentTouches = NO;
-    for (UIGestureRecognizer *gesture in self.mainView.gestureRecognizers) {
-        if ([gesture isKindOfClass:[UIPanGestureRecognizer class]]) {
-            [self.mainView removeGestureRecognizer:gesture];
-        }
-    }
-}
-
 #pragma mark - actions
 
-- (void)setupTimer
-{
-    [self invalidateTimer]; // 创建定时器前先停止定时器，不然会出现僵尸定时器，导致轮播频率错误
-    
+- (void)setupTimer{
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:self.autoScrollTimeInterval target:self selector:@selector(automaticScroll) userInfo:nil repeats:YES];
     _timer = timer;
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
-- (void)invalidateTimer
-{
+- (void)invalidateTimer{
     [_timer invalidate];
     _timer = nil;
 }
 
-- (void)setupPageControl
-{
+- (void)setupPageControl{
     if (_pageControl) [_pageControl removeFromSuperview]; // 重新加载数据时调整
+    
+    if (self.onlyDisplayText) {
+        _mainView.scrollEnabled = NO;
+    }
     
     if (self.imagePathsGroup.count == 0 || self.onlyDisplayText) return;
     
@@ -426,17 +407,14 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
-
-- (void)automaticScroll
-{
+- (void)automaticScroll{
     if (0 == _totalItemsCount) return;
     int currentIndex = [self currentIndex];
     int targetIndex = currentIndex + 1;
     [self scrollToIndex:targetIndex];
 }
 
-- (void)scrollToIndex:(int)targetIndex
-{
+- (void)scrollToIndex:(int)targetIndex{
     if (targetIndex >= _totalItemsCount) {
         if (self.infiniteLoop) {
             targetIndex = _totalItemsCount * 0.5;
@@ -447,8 +425,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
 }
 
-- (int)currentIndex
-{
+- (int)currentIndex{
     if (_mainView.sd_width == 0 || _mainView.sd_height == 0) {
         return 0;
     }
@@ -463,27 +440,21 @@ NSString * const ID = @"SDCycleScrollViewCell";
     return MAX(0, index);
 }
 
-- (int)pageControlIndexWithCurrentCellIndex:(NSInteger)index
-{
+- (int)pageControlIndexWithCurrentCellIndex:(NSInteger)index{
     return (int)index % self.imagePathsGroup.count;
 }
 
-- (void)clearCache
-{
+- (void)clearCache{
     [[self class] clearImagesCache];
 }
 
-+ (void)clearImagesCache
-{
-    [[[SDWebImageManager sharedManager] imageCache] clearDiskOnCompletion:nil];
++ (void)clearImagesCache{
+    [[[SDWebImageManager sharedManager] imageCache] clearMemory];
 }
 
 #pragma mark - life circles
 
-- (void)layoutSubviews
-{
-    self.delegate = self.delegate;
-    
+- (void)layoutSubviews{
     [super layoutSubviews];
     
     _flowLayout.itemSize = self.frame.size;
@@ -564,18 +535,39 @@ NSString * const ID = @"SDCycleScrollViewCell";
     return _totalItemsCount;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(SDCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
+    if (self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+        if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
+            if (self.displayType == SDDisplayTypeAttributeText) {
+                if (_titlesGroup.count <= 1) {
+                    cell.isOnlyOneLoop = YES;
+                }else{
+                    cell.isOnlyOneLoop = NO;
+                }
+                cell.attributeTitle = _titlesGroup[itemIndex];
+            }else {
+                cell.title = _titlesGroup[itemIndex];
+            }
+        }
+    }
+}
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    
-    long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
-    
-    if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
-        [self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] &&
-        [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
-        [self.delegate setupCustomCell:cell forIndex:itemIndex cycleScrollView:self];
-        return cell;
+    if (!cell.hasConfigured) {
+        cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
+        cell.titleLabelHeight = self.titleLabelHeight;
+        cell.titleLabelTextAlignment = self.titleLabelTextAlignment;
+        cell.titleLabelTextColor = self.titleLabelTextColor;
+        cell.titleLabelTextFont = self.titleLabelTextFont;
+        cell.hasConfigured = YES;
+        cell.imageView.contentMode = self.bannerImageViewContentMode;
+        cell.clipsToBounds = YES;
+        cell.onlyDisplayText = self.onlyDisplayText;
     }
+    long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
     NSString *imagePath = self.imagePathsGroup[itemIndex];
     
@@ -592,23 +584,6 @@ NSString * const ID = @"SDCycleScrollViewCell";
     } else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIImage class]]) {
         cell.imageView.image = (UIImage *)imagePath;
     }
-    
-    if (_titlesGroup.count && itemIndex < _titlesGroup.count) {
-        cell.title = _titlesGroup[itemIndex];
-    }
-    
-    if (!cell.hasConfigured) {
-        cell.titleLabelBackgroundColor = self.titleLabelBackgroundColor;
-        cell.titleLabelHeight = self.titleLabelHeight;
-        cell.titleLabelTextAlignment = self.titleLabelTextAlignment;
-        cell.titleLabelTextColor = self.titleLabelTextColor;
-        cell.titleLabelTextFont = self.titleLabelTextFont;
-        cell.hasConfigured = YES;
-        cell.imageView.contentMode = self.bannerImageViewContentMode;
-        cell.clipsToBounds = YES;
-        cell.onlyDisplayText = self.onlyDisplayText;
-    }
-    
     return cell;
 }
 
@@ -625,8 +600,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
@@ -640,31 +614,31 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    if (self.autoScroll) {
-        [self invalidateTimer];
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    if (!self.onlyDisplayText ) {
+        if (self.autoScroll) {
+            [self invalidateTimer];
+        }
     }
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    if (self.autoScroll) {
-        [self setupTimer];
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    if (!self.onlyDisplayText ) {
+        if (self.autoScroll) {
+            [self setupTimer];
+        }
     }
+    
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     [self scrollViewDidEndScrollingAnimation:self.mainView];
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
-    
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:didScrollToIndex:)]) {
         [self.delegate cycleScrollView:self didScrollToIndex:indexOnPageControl];
     } else if (self.itemDidScrollOperationBlock) {
