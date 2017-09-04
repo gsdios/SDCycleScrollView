@@ -135,6 +135,9 @@ typedef enum : NSUInteger {
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
+/** 文字超出宽度时是否支持滚动 */
+@property (nonatomic, assign) BOOL textScrollEnable;
+
 /** pagecontrol 样式，默认为动画样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
 

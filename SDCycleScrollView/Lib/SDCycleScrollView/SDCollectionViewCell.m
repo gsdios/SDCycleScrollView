@@ -85,16 +85,18 @@
     if (_titleLabel.hidden) {
         _titleLabel.hidden = NO;
     }
-    CGFloat width = [self boundingWidthWithString:_titleLabel.text withFont:_titleLabelTextFont withMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
-    _titleLabel.frame = CGRectMake(0, 0, width, self.frame.size.height);
     
-    [UIView animateWithDuration:defaultInterval delay:delayInterval options:UIViewAnimationOptionTransitionNone animations:^{
-        if (width>defaultWidth) {
-            _titleLabel.frame = CGRectMake(defaultWidth-width, 0, width, self.frame.size.height);
-        }
-    } completion:^(BOOL finished) {
-    }];
-    
+    if (self.textScrollEnable ) {
+        CGFloat width = [self boundingWidthWithString:_titleLabel.text withFont:_titleLabelTextFont withMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
+        _titleLabel.frame = CGRectMake(0, 0, width, self.frame.size.height);
+        
+        [UIView animateWithDuration:defaultInterval delay:delayInterval options:UIViewAnimationOptionTransitionNone animations:^{
+            if (width>defaultWidth) {
+                _titleLabel.frame = CGRectMake(defaultWidth-width, 0, width, self.frame.size.height);
+            }
+        } completion:^(BOOL finished) {
+        }];
+    }
 }
 
 - (void)setAttributeTitle:(NSAttributedString *)attributeTitle {
@@ -106,15 +108,17 @@
         _titleLabel.hidden = NO;
     }
     
-    CGFloat width = [self boundingWidthWithString:_titleLabel.text withFont:_titleLabelTextFont withMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
-    _titleLabel.frame = CGRectMake(0, 0, width, self.frame.size.height);
-    
-    [UIView animateWithDuration:defaultInterval delay:delayInterval options:UIViewAnimationOptionTransitionNone animations:^{
-        if (width>defaultWidth) {
-            _titleLabel.frame = CGRectMake(defaultWidth-width, 0, width, self.frame.size.height);
-        }
-    } completion:^(BOOL finished) {
-    }];
+    if (self.textScrollEnable ) {
+        CGFloat width = [self boundingWidthWithString:_titleLabel.text withFont:_titleLabelTextFont withMaxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
+        _titleLabel.frame = CGRectMake(0, 0, width, self.frame.size.height);
+        
+        [UIView animateWithDuration:defaultInterval delay:delayInterval options:UIViewAnimationOptionTransitionNone animations:^{
+            if (width>defaultWidth) {
+                _titleLabel.frame = CGRectMake(defaultWidth-width, 0, width, self.frame.size.height);
+            }
+        } completion:^(BOOL finished) {
+        }];
+    }
 }
 
 -(void)setTitleLabelTextAlignment:(NSTextAlignment)titleLabelTextAlignment{

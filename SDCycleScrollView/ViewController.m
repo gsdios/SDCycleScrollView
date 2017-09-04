@@ -59,7 +59,7 @@
     cycleScrollView1.backgroundColor = [UIColor whiteColor];
     cycleScrollView1.scrollDirection = UICollectionViewScrollDirectionVertical;
     cycleScrollView1.onlyDisplayText = YES;
-    
+    cycleScrollView1.textScrollEnable = YES;
     cycleScrollView1.titleLabelTextColor = [UIColor blackColor];
     
     NSMutableArray *attributeTitleArray = [NSMutableArray new];
@@ -75,11 +75,23 @@
     [self.view addSubview:cycleScrollView1];
     
     //正常文字+超出固定宽度滚动
-    SDCycleScrollView *cycleScrollView4 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 120, w, 20) delegate:self placeholderImage:nil];
+    SDCycleScrollView *cycleScrollView2 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 120, w, 20) delegate:self placeholderImage:nil];
+    cycleScrollView2.backgroundColor = [UIColor whiteColor];
+    cycleScrollView2.scrollDirection = UICollectionViewScrollDirectionVertical;
+    cycleScrollView2.onlyDisplayText = YES;
+    cycleScrollView2.textScrollEnable = YES;
+    cycleScrollView2.titleLabelTextColor = [UIColor blackColor];
+    cycleScrollView2.displayType = SDDisplayTypeNormalText;
+    cycleScrollView2.titlesGroup = titleArr;
+    [self.view addSubview:cycleScrollView2];
+    
+    //正常文字+不滚动
+    SDCycleScrollView *cycleScrollView4 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 160, w, 20) delegate:self placeholderImage:nil];
     cycleScrollView4.backgroundColor = [UIColor whiteColor];
     cycleScrollView4.scrollDirection = UICollectionViewScrollDirectionVertical;
     cycleScrollView4.onlyDisplayText = YES;
-    
+    //设置是否滚动
+    cycleScrollView4.textScrollEnable = NO;
     cycleScrollView4.titleLabelTextColor = [UIColor blackColor];
     cycleScrollView4.displayType = SDDisplayTypeNormalText;
     cycleScrollView4.titlesGroup = titleArr;

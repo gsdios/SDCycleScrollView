@@ -296,7 +296,9 @@ NSString * const ID = @"cycleCell";
     }
     
     [self setupPageControl];
-    [self.mainView reloadData];
+    [UIView performWithoutAnimation:^{
+      [self.mainView reloadData];
+    }];
 }
 
 - (void)setImageURLStringsGroup:(NSArray *)imageURLStringsGroup
@@ -563,6 +565,7 @@ NSString * const ID = @"cycleCell";
         cell.titleLabelTextColor = self.titleLabelTextColor;
         cell.titleLabelTextFont = self.titleLabelTextFont;
         cell.hasConfigured = YES;
+        cell.textScrollEnable = self.textScrollEnable;
         cell.imageView.contentMode = self.bannerImageViewContentMode;
         cell.clipsToBounds = YES;
         cell.onlyDisplayText = self.onlyDisplayText;
