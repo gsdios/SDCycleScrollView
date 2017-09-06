@@ -360,6 +360,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
+- (void)setAllowBounces:(BOOL)allowBounces {
+    _allowBounces = allowBounces;
+    _mainView.bounces = allowBounces;
+}
+
 #pragma mark - actions
 
 - (void)setupTimer
