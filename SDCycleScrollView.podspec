@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "SDCycleScrollView"
-s.version      = "1.73"
+s.version      = "1.74"
 s.summary      = "简单易用的图片无限轮播器. 1.73版本更新内容：1.增加支持轮播自定义cell的代理方法 2.增加禁止拖动手势api"
 
 s.homepage     = "https://github.com/gsdios/SDCycleScrollView"
