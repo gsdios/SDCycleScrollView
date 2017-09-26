@@ -111,6 +111,9 @@ typedef enum {
 /** 自动滚动间隔时间,默认2s */
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
 
+/** 是否嵌入在CollectionView中使用，如果在Collection中 点击事件代理将会不调用 */
+@property (nonatomic,assign) BOOL isInCollectionView;
+
 /** 是否无限循环,默认Yes */
 @property (nonatomic,assign) BOOL infiniteLoop;
 

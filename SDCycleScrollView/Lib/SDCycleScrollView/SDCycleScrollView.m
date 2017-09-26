@@ -478,6 +478,15 @@ NSString * const ID = @"SDCycleScrollViewCell";
     [[[SDWebImageManager sharedManager] imageCache] clearDiskOnCompletion:nil];
 }
 
+-(void)tapCellAction:(UIGestureRecognizer *)sender
+{
+    UIView *view = sender.view;
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:didSelectItemAtIndex:)]) {
+        [self.delegate cycleScrollView:self didSelectItemAtIndex:[self pageControlIndexWithCurrentCellIndex:view.tag]];
+    }
+    
+}
+
 #pragma mark - life circles
 
 - (void)layoutSubviews
@@ -607,8 +616,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
         cell.imageView.contentMode = self.bannerImageViewContentMode;
         cell.clipsToBounds = YES;
         cell.onlyDisplayText = self.onlyDisplayText;
+        if (self.isInCollectionView) {
+            [cell addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapCellAction:)]];
+        }
     }
-    
+    cell.tag = indexPath.item;
     return cell;
 }
 
