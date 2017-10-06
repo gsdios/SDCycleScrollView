@@ -585,7 +585,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
         } else {
             UIImage *image = [UIImage imageNamed:imagePath];
             if (!image) {
-                [UIImage imageWithContentsOfFile:imagePath];
+                image = [UIImage imageWithContentsOfFile:imagePath];
             }
             cell.imageView.image = image;
         }
