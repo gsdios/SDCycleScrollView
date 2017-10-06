@@ -46,6 +46,11 @@ typedef enum {
     SDCycleScrollViewPageContolStyleNone            // 不显示pagecontrol
 } SDCycleScrollViewPageContolStyle;
 
+typedef enum : NSUInteger {
+    SDDisplayTypeNormalText,  // 显示正常文字
+    SDDisplayTypeAttributeText,   // 显示attribute文字
+} SDDisplayType;
+
 @class SDCycleScrollView;
 
 @protocol SDCycleScrollViewDelegate <NSObject>
@@ -57,21 +62,6 @@ typedef enum {
 
 /** 图片滚动回调 */
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
-
-
-
-
-
-
-// 不需要自定义轮播cell的请忽略以下两个的代理方法
-
-// ========== 轮播自定义cell ==========
-
-/** 如果你需要自定义cell样式，请在实现此代理方法返回你的自定义cell的class。 */
-- (Class)customCollectionViewCellClassForCycleScrollView:(SDCycleScrollView *)view;
-
-/** 如果你自定义了cell样式，请在实现此代理方法为你的cell填充数据以及其它一系列设置 */
-- (void)setupCustomCell:(UICollectionViewCell *)cell forIndex:(NSInteger)index cycleScrollView:(SDCycleScrollView *)view;
 
 @end
 
@@ -91,7 +81,7 @@ typedef enum {
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
 
 
-//////////////////////  数据源API //////////////////////
+//////////////////////  数据源接口  //////////////////////
 
 /** 网络图片 url string 数组 */
 @property (nonatomic, strong) NSArray *imageURLStringsGroup;
@@ -102,11 +92,7 @@ typedef enum {
 /** 本地图片数组 */
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
-
-
-
-
-//////////////////////  滚动控制API //////////////////////
+//////////////////////  滚动控制接口 //////////////////////
 
 /** 自动滚动间隔时间,默认2s */
 @property (nonatomic, assign) CGFloat autoScrollTimeInterval;
@@ -131,7 +117,8 @@ typedef enum {
 /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
 - (void)adjustWhenControllerViewWillAppera;
 
-//////////////////////  自定义样式API  //////////////////////
+//////////////////////  自定义样式接口  //////////////////////
+
 
 /** 轮播图片的ContentMode，默认为 UIViewContentModeScaleToFill */
 @property (nonatomic, assign) UIViewContentMode bannerImageViewContentMode;
@@ -148,11 +135,17 @@ typedef enum {
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
+/** 文字超出宽度时是否支持滚动 */
+@property (nonatomic, assign) BOOL textScrollEnable;
+
 /** pagecontrol 样式，默认为动画样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
 
 /** 分页控件位置 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolAliment pageControlAliment;
+
+/** 文字显示样式 */
+@property (nonatomic, assign) SDDisplayType displayType;
 
 /** 分页控件距离轮播图的底部间距（在默认间距基础上）的偏移量 */
 @property (nonatomic, assign) CGFloat pageControlBottomOffset;
@@ -190,16 +183,20 @@ typedef enum {
 /** 轮播文字label对齐方式 */
 @property (nonatomic, assign) NSTextAlignment titleLabelTextAlignment;
 
-/** 滚动手势禁用（文字轮播较实用） */
-- (void)disableScrollGesture;
+/** 定时器拿出来启动暂停 */
+@property (nonatomic, weak) NSTimer *timer ;
 
 
-//////////////////////  清除缓存API  //////////////////////
+//////////////////////  清除缓存接口  //////////////////////
 
 /** 清除图片缓存（此次升级后统一使用SDWebImage管理图片加载和缓存）  */
 + (void)clearImagesCache;
 
 /** 清除图片缓存（兼容旧版本方法） */
 - (void)clearCache;
+
+- (void)invalidateTimer;
+
+- (void)setupTimer;
 
 @end
