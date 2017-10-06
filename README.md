@@ -1,4 +1,4 @@
-# SDCycleScrollView（新建QQ交流群：185534916）
+# SDCycleScrollView（新建QQ交流群：185534916、675995250）
 ## ☆☆☆ “iOS图片、文字轮播器” ☆☆☆
 
 ### 支持pod导入
