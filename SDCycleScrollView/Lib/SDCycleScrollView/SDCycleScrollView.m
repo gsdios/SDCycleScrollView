@@ -157,8 +157,15 @@ NSString * const ID = @"SDCycleScrollViewCell";
 {
     _delegate = delegate;
     
-    if ([self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] && [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
-        [self.mainView registerClass:[self.delegate customCollectionViewCellClassForCycleScrollView:self] forCellWithReuseIdentifier:ID];
+    if ([self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)]) {
+        id class = [self.delegate customCollectionViewCellClassForCycleScrollView:self];
+        if (!class) {return;}
+        if ([class isKindOfClass:[UINib class]]) {
+            UINib *nib = class;
+            [self.mainView registerNib:nib forCellWithReuseIdentifier:ID];
+        } else {
+            [self.mainView registerClass:class forCellWithReuseIdentifier:ID];
+        }
     }
 }
 
@@ -566,16 +573,19 @@ NSString * const ID = @"SDCycleScrollViewCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+
     
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
     if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
         [self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] &&
         [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
         [self.delegate setupCustomCell:cell forIndex:itemIndex cycleScrollView:self];
         return cell;
     }
+    
+    SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
     
     NSString *imagePath = self.imagePathsGroup[itemIndex];
     
