@@ -13,6 +13,8 @@ pod 'SDCycleScrollView','~> 1.73'
 
 ### 更改记录：
 
+2017.10.28 -- 更新SDWebImage的版本依赖
+
 2017.06.23 -- 1.增加支持轮播自定义cell的代理方法 2.增加禁止拖动手势api
 
 2016.05.27 -- 新增纯文字轮播、增加viewController在来回push时候出现的图片卡在中间的解决方案“解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用 adjustWhenControllerViewWillAppera”
