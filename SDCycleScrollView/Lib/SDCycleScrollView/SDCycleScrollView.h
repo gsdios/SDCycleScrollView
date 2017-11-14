@@ -67,8 +67,12 @@ typedef enum {
 
 // ========== 轮播自定义cell ==========
 
-/** 如果你需要自定义cell样式，请在实现此代理方法返回你的自定义cell的class。 */
-- (Class)customCollectionViewCellClassForCycleScrollView:(SDCycleScrollView *)view;
+/**
+ * 如果你需要自定义cell样式，请在实现此代理方法
+ * 返回自定义cell的class。
+ * 如使用Xib创建cell，返回UINib
+ */
+- (id)customCollectionViewCellClassForCycleScrollView:(SDCycleScrollView *)view;
 
 /** 如果你自定义了cell样式，请在实现此代理方法为你的cell填充数据以及其它一系列设置 */
 - (void)setupCustomCell:(UICollectionViewCell *)cell forIndex:(NSInteger)index cycleScrollView:(SDCycleScrollView *)view;
