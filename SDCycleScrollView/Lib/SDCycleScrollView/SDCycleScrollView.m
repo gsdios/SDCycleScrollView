@@ -351,6 +351,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
+- (void)setBannerImageViewContentMode:(UIViewContentMode)bannerImageViewContentMode {
+    self.backgroundImageView.contentMode = bannerImageViewContentMode;
+    _bannerImageViewContentMode = bannerImageViewContentMode;
+}
+
 - (void)disableScrollGesture {
     self.mainView.canCancelContentTouches = NO;
     for (UIGestureRecognizer *gesture in self.mainView.gestureRecognizers) {
