@@ -159,6 +159,8 @@ NSString * const ID = @"SDCycleScrollViewCell";
     
     if ([self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] && [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
         [self.mainView registerClass:[self.delegate customCollectionViewCellClassForCycleScrollView:self] forCellWithReuseIdentifier:ID];
+    }else if ([self.delegate respondsToSelector:@selector(customCollectionViewCellNibForCycleScrollView:)] && [self.delegate customCollectionViewCellNibForCycleScrollView:self]) {
+        [self.mainView registerNib:[self.delegate customCollectionViewCellNibForCycleScrollView:self] forCellWithReuseIdentifier:ID];
     }
 }
 
@@ -571,8 +573,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
     if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
-        [self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] &&
-        [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
+        [self.delegate respondsToSelector:@selector(customCollectionViewCellClassForCycleScrollView:)] && [self.delegate customCollectionViewCellClassForCycleScrollView:self]) {
+        [self.delegate setupCustomCell:cell forIndex:itemIndex cycleScrollView:self];
+        return cell;
+    }else if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
+              [self.delegate respondsToSelector:@selector(customCollectionViewCellNibForCycleScrollView:)] && [self.delegate customCollectionViewCellNibForCycleScrollView:self]) {
         [self.delegate setupCustomCell:cell forIndex:itemIndex cycleScrollView:self];
         return cell;
     }
@@ -672,5 +677,17 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
+- (void)makeScrollViewScrollToIndex:(NSInteger)index{
+    if (self.autoScroll) {
+        [self invalidateTimer];
+    }
+    if (0 == _totalItemsCount) return;
+    
+    [self scrollToIndex:(int)index];
+    
+    if (self.autoScroll) {
+        [self setupTimer];
+    }
+}
 
 @end
