@@ -131,6 +131,9 @@ typedef enum {
 /** block方式监听滚动 */
 @property (nonatomic, copy) void (^itemDidScrollOperationBlock)(NSInteger currentIndex);
 
+/** 可以调用此方法手动控制滚动到哪一个index */
+- (void)makeScrollViewScrollToIndex:(NSInteger)index;
+
 /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
 - (void)adjustWhenControllerViewWillAppera;
 
@@ -204,8 +207,5 @@ typedef enum {
 
 /** 清除图片缓存（兼容旧版本方法） */
 - (void)clearCache;
-
-/** 可以调用此方法手动控制滚动到哪一个index */
-- (void)makeScrollViewScrollToIndex:(NSInteger)index;
 
 @end
