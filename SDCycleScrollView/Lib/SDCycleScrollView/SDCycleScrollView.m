@@ -307,7 +307,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
         [self setAutoScroll:self.autoScroll];
     } else {
         self.mainView.scrollEnabled = NO;
-        [self setAutoScroll:NO];
+        [self invalidateTimer];
     }
     
     [self setupPageControl];
