@@ -3,4 +3,4 @@ target 'SDCycleScrollView'
 
 #use_frameworks!
 
-pod 'SDWebImage', '~> 4.0.0'
+pod 'SDWebImage', '>= 4.0.0'
