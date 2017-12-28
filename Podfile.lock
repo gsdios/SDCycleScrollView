@@ -1,14 +1,22 @@
 PODS:
+  - SDCycleScrollView (1.75):
+    - SDWebImage (>= 4.0.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
 
 DEPENDENCIES:
-  - SDWebImage (~> 4.0.0)
+  - SDCycleScrollView (from `./SDCycleScrollView/Lib`)
+  - SDWebImage (>= 4.0.0)
+
+EXTERNAL SOURCES:
+  SDCycleScrollView:
+    :path: ./SDCycleScrollView/Lib
 
 SPEC CHECKSUMS:
+  SDCycleScrollView: c9f9896cc3ced741dd73423d62c4b86d9b6cdb0e
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: 15dea9690d6001704f1e5d2a3d5fe6a8628a9d3f
+PODFILE CHECKSUM: fca7d246ba33b7540bd280e9957d419d67da6c16
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.3.1
