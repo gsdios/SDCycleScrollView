@@ -326,7 +326,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
         } else if ([obj isKindOfClass:[NSURL class]]) {
             NSURL *url = (NSURL *)obj;
             urlString = [url absoluteString];
+        } else if ([obj isKindOfClass:[UIImage class]]) {//兼容相册选择的图像
+            [temp addObject:obj];
         }
+        
         if (urlString) {
             [temp addObject:urlString];
         }
