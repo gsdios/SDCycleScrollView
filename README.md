@@ -5,10 +5,6 @@
 pod 'SDCycleScrollView','~> 1.75'
 
  如果发现pod search SDCycleScrollView 搜索出来的不是最新版本，需要在终端执行cd转换文件路径命令退回到desktop，然后执行pod setup命令更新本地spec缓存（可能需要几分钟），然后再搜索就可以了
- 
-### 我的公众号
-主要用于编程经验分享+SD系列开源库答疑解惑，有需要的请关注！
- ![](https://github.com/gsdios/SDCycleScrollView/blob/master/qrcode_for_gh_a69e5c4e13c4_430.jpg?raw=true)
 
 
 ### 更改记录：
