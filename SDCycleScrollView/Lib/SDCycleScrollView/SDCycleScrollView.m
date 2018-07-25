@@ -84,6 +84,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     _autoScroll = YES;
     _infiniteLoop = YES;
     _showPageControl = YES;
+    _needPageControl = YES;
     _pageControlDotSize = kCycleScrollViewInitialPageControlDotSize;
     _pageControlBottomOffset = 0;
     _pageControlRightOffset = 0;
@@ -309,8 +310,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
         self.mainView.scrollEnabled = NO;
         [self invalidateTimer];
     }
-    
-    [self setupPageControl];
+    if(self.needPageControl){   //需要的时候才添加分页控件
+        [self setupPageControl];
+    }
     [self.mainView reloadData];
 }
 
