@@ -442,9 +442,12 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (targetIndex >= _totalItemsCount) {
         if (self.infiniteLoop) {
             targetIndex = _totalItemsCount * 0.5;
+            // 先滚动到目标图片前一个图片的位置
             [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex-1 inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            // 以动画形式滚动到当前图片
+            [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
         }
-//        return;
+        return;
     }
     [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
 }
