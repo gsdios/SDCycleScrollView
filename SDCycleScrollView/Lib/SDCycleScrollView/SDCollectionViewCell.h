@@ -48,4 +48,7 @@
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
+/** 标题是否在顶部显示 */
+@property (nonatomic, assign) BOOL showOnTop;
+
 @end

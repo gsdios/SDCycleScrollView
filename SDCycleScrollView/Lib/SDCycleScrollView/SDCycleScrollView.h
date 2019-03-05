@@ -199,6 +199,9 @@ typedef enum {
 /** 滚动手势禁用（文字轮播较实用） */
 - (void)disableScrollGesture;
 
+/** 标题是否在顶部显示 */
+@property (nonatomic, assign) BOOL showOnTop;
+
 
 //////////////////////  清除缓存API  //////////////////////
 
