@@ -2,12 +2,12 @@
 ## ☆☆☆ “iOS图片、文字轮播器” ☆☆☆
 
 ### 支持pod导入
-pod 'SDCycleScrollView','~> 1.75'
-
- 如果发现pod search SDCycleScrollView 搜索出来的不是最新版本，需要在终端执行cd转换文件路径命令退回到desktop，然后执行pod setup命令更新本地spec缓存（可能需要几分钟），然后再搜索就可以了
+pod 'SDCycleScrollView','>= 1.80'
 
 
 ### 更改记录：
+
+2019.04.10 -- 适配SDWebImage 5.0.0
 
 2017.11.26 -- 增加滚动到指定index接口
 
