@@ -154,6 +154,9 @@ typedef enum {
 /** 只展示文字轮播 */
 @property (nonatomic, assign) BOOL onlyDisplayText;
 
+/** 多行文字同时轮播显示,仅文字轮播有效 */
+@property (nonatomic, assign) NSUInteger lineCount;
+
 /** pagecontrol 样式，默认为动画样式 */
 @property (nonatomic, assign) SDCycleScrollViewPageContolStyle pageControlStyle;
 

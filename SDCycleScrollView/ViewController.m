@@ -161,6 +161,24 @@
     _customCellScrollViewDemo.imageURLStringsGroup = imagesURLStrings;
     
     [demoContainerView addSubview:_customCellScrollViewDemo];
+    
+    
+    // >>>>>>>>>>>>>>>>>>>>>>>>> demo轮播图6 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    
+    // 网络加载 --- 创建只上下滚动展示文字的轮播器
+    // 由于模拟器的渲染问题，如果发现轮播时有一条线不必处理，模拟器放大到100%或者真机调试是不会出现那条线的
+    SDCycleScrollView *cycleScrollView6 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 1000, w, 60) delegate:self placeholderImage:nil];
+    cycleScrollView6.scrollDirection = UICollectionViewScrollDirectionVertical;
+    cycleScrollView6.onlyDisplayText = YES;
+    cycleScrollView6.lineCount = 2;
+    NSMutableArray *titlesArray1 = [NSMutableArray new];
+    [titlesArray1 addObject:@"纯文字上下多行滚动轮播"];
+    [titlesArray1 addObject:@"纯文字上下多行滚动轮播 -- demo轮播图6"];
+    [titlesArray1 addObjectsFromArray:titles];
+    cycleScrollView6.titlesGroup = [titlesArray1 copy];
+    [cycleScrollView6 disableScrollGesture];
+    
+    [demoContainerView addSubview:cycleScrollView6];
 }
 
 - (void)viewWillAppear:(BOOL)animated

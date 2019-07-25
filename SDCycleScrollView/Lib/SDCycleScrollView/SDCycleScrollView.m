@@ -434,6 +434,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (0 == _totalItemsCount) return;
     int currentIndex = [self currentIndex];
     int targetIndex = currentIndex + 1;
+    if (self.onlyDisplayText && self.lineCount > 0 && self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+        targetIndex = currentIndex + (int)self.lineCount;
+    }
     [self scrollToIndex:targetIndex];
 }
 
@@ -460,6 +463,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
         index = (_mainView.contentOffset.x + _flowLayout.itemSize.width * 0.5) / _flowLayout.itemSize.width;
     } else {
         index = (_mainView.contentOffset.y + _flowLayout.itemSize.height * 0.5) / _flowLayout.itemSize.height;
+        if (self.onlyDisplayText && self.lineCount > 0) {
+            index = (_mainView.contentOffset.y + _flowLayout.itemSize.height * 0.5 + _flowLayout.itemSize.height * (self.lineCount - 1)) / _flowLayout.itemSize.height;
+        }
     }
     
     return MAX(0, index);
@@ -488,7 +494,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
     
     [super layoutSubviews];
     
-    _flowLayout.itemSize = self.frame.size;
+    if (self.onlyDisplayText && self.lineCount > 0 && self.scrollDirection == UICollectionViewScrollDirectionVertical) {
+        _flowLayout.itemSize = CGSizeMake(self.frame.size.width, self.frame.size.height/self.lineCount);
+    }else{
+        _flowLayout.itemSize = self.frame.size;
+    }
     
     _mainView.frame = self.bounds;
     if (_mainView.contentOffset.x == 0 &&  _totalItemsCount) {
