@@ -14,7 +14,7 @@ s.platform     = :ios
 s.platform     = :ios, "8.0"
 
 
-s.source       = { :git => "https://github.com/gsdios/SDCycleScrollView.git", :tag => "1.80"}
+s.source       = { :git => "https://github.com/gsdios/SDCycleScrollView.git", :branch => 'master'}
 
 
 s.source_files  = "SDCycleScrollView/Lib/SDCycleScrollView/**/*.{h,m}"
