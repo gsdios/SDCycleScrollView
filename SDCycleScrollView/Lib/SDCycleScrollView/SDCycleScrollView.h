@@ -199,6 +199,9 @@ typedef enum {
 /** 滚动手势禁用（文字轮播较实用） */
 - (void)disableScrollGesture;
 
+/** 刷新视图 */
+- (void)reloadData;
+
 
 //////////////////////  清除缓存API  //////////////////////
 

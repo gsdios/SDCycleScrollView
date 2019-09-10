@@ -362,6 +362,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
+- (void)reloadData{
+    [self.mainView reloadData];
+}
+
 #pragma mark - actions
 
 - (void)setupTimer
