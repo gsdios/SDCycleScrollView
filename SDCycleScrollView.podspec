@@ -17,7 +17,7 @@ s.platform     = :ios, "8.0"
 s.source       = { :git => "https://github.com/shengjiehou123/SDCycleScrollView.git", :tag => "1.81"}
 
 
-s.source_files  = "SDCycleScrollView/Lib/SDCycleScrollView/**/*.{h,m}"
+s.source_files  = "SDCycleScrollView-SH/Lib/SDCycleScrollView/**/*.{h,m}"
 
 
 s.requires_arc = true
