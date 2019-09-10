@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
 s.name         = "SDCycleScrollView-SH"
 s.version      = "1.80"
-s.summary      = "简单易用的图片无限轮播器. 1.80版本更新内容：适配SDWebImage 5.0.0"
+s.summary      = "简单易用的图片无限轮播器. 1.81版本更新内容：增加刷新视图"
 
 s.homepage     = "https://github.com/shengjiehou123/SDCycleScrollView"
 
@@ -14,7 +14,7 @@ s.platform     = :ios
 s.platform     = :ios, "8.0"
 
 
-s.source       = { :git => "git@github.com:shengjiehou123/SDCycleScrollView.git", :tag => "1.80"}
+s.source       = { :git => "git@github.com:shengjiehou123/SDCycleScrollView.git", :tag => "1.81"}
 
 
 s.source_files  = "SDCycleScrollView-SH/Lib/SDCycleScrollView/**/*.{h,m}"
