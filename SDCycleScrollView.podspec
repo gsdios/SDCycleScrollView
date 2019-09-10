@@ -4,7 +4,7 @@ s.name         = "SDCycleScrollView"
 s.version      = "1.81"
 s.summary      = "简单易用的图片无限轮播器. 1.81版本更新内容：增加刷新视图"
 
-s.homepage     = "https://github.com/gsdios/SDCycleScrollView"
+s.homepage     = "https://github.com/shengjiehou123/SDCycleScrollView.git"
 
 s.license      = "MIT"
 
