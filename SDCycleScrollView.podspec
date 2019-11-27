@@ -1,3 +1,5 @@
+
+
 Pod::Spec.new do |s|
 
 s.name         = "SDCycleScrollView"
@@ -14,7 +16,7 @@ s.platform     = :ios
 s.platform     = :ios, "8.0"
 
 
-s.source       = { :git => "https://github.com/gsdios/SDCycleScrollView.git", :tag => "1.80"}
+s.source       = { :git => "https://github.com/liuaaaddxiaoer/SDCycleScrollView.git", :branch => 'master'}
 
 
 s.source_files  = "SDCycleScrollView/Lib/SDCycleScrollView/**/*.{h,m}"
@@ -23,6 +25,6 @@ s.source_files  = "SDCycleScrollView/Lib/SDCycleScrollView/**/*.{h,m}"
 s.requires_arc = true
 
 
-s.dependency 'SDWebImage', '>= 5.0.0'
+s.dependency 'SDWebImage', '4.0.0'
 
 end
