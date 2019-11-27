@@ -1,3 +1,11 @@
+#每次都刷新1
+begin
+    puts <<-`EOF`
+    pod repo update DQ_Component
+    EOF
+rescue
+end
+
 Pod::Spec.new do |s|
 
 s.name         = "SDCycleScrollView"
