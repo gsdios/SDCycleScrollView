@@ -317,7 +317,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
 - (void)setImageURLStringsGroup:(NSArray *)imageURLStringsGroup
 {
     _imageURLStringsGroup = imageURLStringsGroup;
-    
+    if(imageURLStringsGroup.count<=1){
+        self.infiniteLoop = NO;
+    }
     NSMutableArray *temp = [NSMutableArray new];
     [_imageURLStringsGroup enumerateObjectsUsingBlock:^(NSString * obj, NSUInteger idx, BOOL * stop) {
         NSString *urlString;
