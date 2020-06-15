@@ -61,6 +61,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (self = [super initWithFrame:frame]) {
         [self initialization];
         [self setupMainView];
+        [self addObserver];
     }
     return self;
 }
@@ -70,6 +71,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     [super awakeFromNib];
     [self initialization];
     [self setupMainView];
+    [self addObserver];
 }
 
 - (void)initialization
@@ -95,6 +97,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
     
     self.backgroundColor = [UIColor lightGrayColor];
     
+}
+
+- (void)addObserver{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTimer) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(invalidateTimer) name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup
@@ -550,6 +557,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
 - (void)dealloc {
     _mainView.delegate = nil;
     _mainView.dataSource = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - public actions

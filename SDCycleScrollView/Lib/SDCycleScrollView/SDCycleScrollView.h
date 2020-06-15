@@ -211,4 +211,10 @@ typedef enum {
 /** 清除图片缓存（兼容旧版本方法） */
 - (void)clearCache;
 
+/** 开启定时器 */
+- (void)setupTimer;
+
+/** 关闭定时器 */
+- (void)invalidateTimer;
+
 @end
