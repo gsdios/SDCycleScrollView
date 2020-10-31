@@ -2,10 +2,12 @@
 ## ☆☆☆ “iOS图片、文字轮播器” ☆☆☆
 
 ### 支持pod导入
-pod 'SDCycleScrollView','>= 1.80'
+pod 'SDCycleScrollView','>= 1.82'
 
 
 ### 更改记录：
+
+2020.10.31 -- 修复iOS14上系统自带pagecontrol显示不出来bug
 
 2019.04.10 -- 适配SDWebImage 5.0.0
 
