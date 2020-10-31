@@ -7,7 +7,7 @@ pod 'SDCycleScrollView','>= 1.82'
 
 ### 更改记录：
 
-2020.10.31 -- 修复iOS14上系统自带pagecontrol显示不出来bug
+2020.10.31 -- 修复iOS14上系统自带pagecontrol显示不出来bug （已发布到1.82版本）
 
 2019.04.10 -- 适配SDWebImage 5.0.0
 
