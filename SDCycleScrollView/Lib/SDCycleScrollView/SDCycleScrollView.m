@@ -156,7 +156,12 @@ NSString * const ID = @"SDCycleScrollViewCell";
 //    [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
     
     //下面方法这样避免了轮播view宽度为小数的时候轮播错乱的情况
-    [_mainView setContentOffset:CGPointMake(index*_flowLayout.itemSize.width, 0) animated:animated];
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+        [_mainView setContentOffset:CGPointMake(index*_flowLayout.itemSize.width, 0) animated:animated];
+    }else{
+        [_mainView setContentOffset:CGPointMake(0, index*_flowLayout.itemSize.width) animated:animated];
+    }
+    
 }
 
 #pragma mark - properties
