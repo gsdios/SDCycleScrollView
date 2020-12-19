@@ -34,7 +34,7 @@
 #import "UIView+SDExtension.h"
 #import "TAPageControl.h"
 #import "SDWebImageManager.h"
-#import "UIImageView+WebCache.h"
+#import <SDWebImage/SDWebImage.h>
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
 
