@@ -2,7 +2,7 @@
 ## ☆☆☆ “iOS图片、文字轮播器” ☆☆☆
 
 ### 字节跳动 iOS 岗位招聘
-大量招人，各种研发岗位都在找，有意向者可以直接点击后面链接投递简历或者联系我 gsdios@126.com https://job.toutiao.com/s/eL91QMm，
+北上广深杭大量招人，各种研发岗位都在找，有意向者可以直接点击后面链接投递简历或者联系我 gsdios@126.com https://job.toutiao.com/s/eL91QMm，
 
 ### 支持pod导入
 pod 'SDCycleScrollView','>= 1.82'
