@@ -1,4 +1,4 @@
-//
+
 //  SDCycleScrollView.m
 //  SDCycleScrollView
 //
@@ -37,6 +37,7 @@
 #import "UIImageView+WebCache.h"
 
 #define kCycleScrollViewInitialPageControlDotSize CGSizeMake(10, 10)
+
 
 NSString * const ID = @"SDCycleScrollViewCell";
 
@@ -300,7 +301,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     
     _imagePathsGroup = imagePathsGroup;
     
-    _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count;
+    _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 500 : self.imagePathsGroup.count;
     
     if (imagePathsGroup.count > 1) { // 由于 !=1 包含count == 0等情况
         self.mainView.scrollEnabled = YES;
@@ -590,7 +591,6 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
     
     NSString *imagePath = self.imagePathsGroup[itemIndex];
-    
     if (!self.onlyDisplayText && [imagePath isKindOfClass:[NSString class]]) {
         if ([imagePath hasPrefix:@"http"]) {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
@@ -620,7 +620,6 @@ NSString * const ID = @"SDCycleScrollViewCell";
         cell.clipsToBounds = YES;
         cell.onlyDisplayText = self.onlyDisplayText;
     }
-    
     return cell;
 }
 
@@ -642,6 +641,27 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (!self.imagePathsGroup.count) return; // 解决清除timer时偶尔会出现的问题
     int itemIndex = [self currentIndex];
     int indexOnPageControl = [self pageControlIndexWithCurrentCellIndex:itemIndex];
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal && _infiniteLoop) {
+        if (scrollView.contentOffset.x >= (_totalItemsCount - 1) * (_flowLayout.itemSize.width) ){
+            [_mainView setContentOffset:CGPointMake((_totalItemsCount/2 - 1)*_flowLayout.itemSize.width, 0)];
+
+        }
+        if (scrollView.contentOffset.x <= 0.0){
+            [_mainView setContentOffset:CGPointMake(_totalItemsCount/2 *_flowLayout.itemSize.width, 0)];
+
+        }
+    }
+    
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical && _infiniteLoop) {
+        if(scrollView.contentOffset.y >= (_totalItemsCount - 1) * (_flowLayout.itemSize.height)) {
+
+            [_mainView setContentOffset:CGPointMake(0, (_totalItemsCount/2 - 1)*_flowLayout.itemSize.height)];
+        }
+        if (scrollView.contentOffset.y <= 0 ){
+            [_mainView setContentOffset:CGPointMake(0, _totalItemsCount/2 *_flowLayout.itemSize.height)];
+
+        }
+    }
     
     if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
         TAPageControl *pageControl = (TAPageControl *)_pageControl;
@@ -657,6 +677,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (self.autoScroll) {
         [self invalidateTimer];
     }
+   
+
+    
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -664,6 +687,8 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (self.autoScroll) {
         [self setupTimer];
     }
+    
+
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
