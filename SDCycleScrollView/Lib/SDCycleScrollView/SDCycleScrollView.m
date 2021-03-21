@@ -150,6 +150,19 @@ NSString * const ID = @"SDCycleScrollViewCell";
     _mainView = mainView;
 }
 
+- (void)scrollToItemAtIndex:(NSInteger)index animated:(BOOL)animated {
+    
+    //在ipx上宽度为小数的时候会出现错乱的情况,所以不能使用
+//    [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+    
+    //下面方法这样避免了轮播view宽度为小数的时候轮播错乱的情况
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal) {
+        [_mainView setContentOffset:CGPointMake(index*_flowLayout.itemSize.width, 0) animated:animated];
+    }else{
+        [_mainView setContentOffset:CGPointMake(0, index*_flowLayout.itemSize.width) animated:animated];
+    }
+    
+}
 
 #pragma mark - properties
 
@@ -442,11 +455,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (targetIndex >= _totalItemsCount) {
         if (self.infiniteLoop) {
             targetIndex = _totalItemsCount * 0.5;
-            [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+            [self scrollToItemAtIndex:targetIndex animated:NO];
         }
         return;
     }
-    [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+    [self scrollToItemAtIndex:targetIndex animated:YES];
 }
 
 - (int)currentIndex
@@ -498,7 +511,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
         }else{
             targetIndex = 0;
         }
-        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        [self scrollToItemAtIndex:targetIndex animated:NO];
     }
     
     CGSize size = CGSizeZero;
@@ -561,7 +574,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
 {
     long targetIndex = [self currentIndex];
     if (targetIndex < _totalItemsCount) {
-        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+        [self scrollToItemAtIndex:targetIndex animated:NO];
     }
 }
 
