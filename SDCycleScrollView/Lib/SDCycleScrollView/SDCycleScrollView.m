@@ -499,6 +499,8 @@ NSString * const ID = @"SDCycleScrollViewCell";
             targetIndex = 0;
         }
         [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    }else if (_mainView.contentOffset.x != 0){
+        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:[self currentIndex] inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
     }
     
     CGSize size = CGSizeZero;
