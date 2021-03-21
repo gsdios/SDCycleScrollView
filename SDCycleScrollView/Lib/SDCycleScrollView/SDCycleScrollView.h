@@ -196,9 +196,11 @@ typedef enum {
 /** 轮播文字label对齐方式 */
 @property (nonatomic, assign) NSTextAlignment titleLabelTextAlignment;
 
+/** 设置边缘回弹 (不自动轮播 第一张 和 最后一张 拖动边缘 回弹设置) **/
+@property (nonatomic, assign) BOOL allowBounces;
+
 /** 滚动手势禁用（文字轮播较实用） */
 - (void)disableScrollGesture;
-
 
 //////////////////////  清除缓存API  //////////////////////
 
