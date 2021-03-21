@@ -97,6 +97,12 @@
     _titleLabel.textAlignment = titleLabelTextAlignment;
 }
 
+- (void)setTitleLabelNumberOfLines:(NSInteger)titleLabelNumberOfLines
+{
+    _titleLabelNumberOfLines = titleLabelNumberOfLines;
+    _titleLabel.numberOfLines = titleLabelNumberOfLines;
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
