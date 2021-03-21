@@ -84,6 +84,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     _autoScroll = YES;
     _infiniteLoop = YES;
     _showPageControl = YES;
+    _useMemoryImage = YES;
     _pageControlDotSize = kCycleScrollViewInitialPageControlDotSize;
     _pageControlBottomOffset = 0;
     _pageControlRightOffset = 0;
@@ -595,10 +596,15 @@ NSString * const ID = @"SDCycleScrollViewCell";
         if ([imagePath hasPrefix:@"http"]) {
             [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:self.placeholderImage];
         } else {
-            UIImage *image = [UIImage imageNamed:imagePath];
+            UIImage *image = nil;
+            if (_useMemoryImage) {
+                image = [UIImage imageNamed:imagePath];
+            }
+            
             if (!image) {
                 image = [UIImage imageWithContentsOfFile:imagePath];
             }
+
             cell.imageView.image = image;
         }
     } else if (!self.onlyDisplayText && [imagePath isKindOfClass:[UIImage class]]) {
