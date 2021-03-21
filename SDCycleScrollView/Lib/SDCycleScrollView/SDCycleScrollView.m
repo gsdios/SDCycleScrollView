@@ -576,7 +576,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    
+    cell.showOnTop = self.showOnTop;
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     
     if ([self.delegate respondsToSelector:@selector(setupCustomCell:forIndex:cycleScrollView:)] &&
