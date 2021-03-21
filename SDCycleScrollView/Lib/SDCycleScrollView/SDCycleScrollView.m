@@ -310,7 +310,9 @@ NSString * const ID = @"SDCycleScrollViewCell";
         [self invalidateTimer];
     }
     
-    [self setupPageControl];
+    if (self.showPageControl) {
+        [self setupPageControl];
+    }
     [self.mainView reloadData];
 }
 
