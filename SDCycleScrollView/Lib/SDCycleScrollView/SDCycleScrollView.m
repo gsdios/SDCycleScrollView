@@ -682,6 +682,18 @@ NSString * const ID = @"SDCycleScrollViewCell";
     } else if (self.itemDidScrollOperationBlock) {
         self.itemDidScrollOperationBlock(indexOnPageControl);
     }
+    
+    if (self.infiniteLoop) {
+        int targetIndex = itemIndex;
+        if (targetIndex == _totalItemsCount-1) {//最后一个
+            targetIndex = _totalItemsCount * 0.5 - 1;
+        }else if (targetIndex == 0){//第一个
+            targetIndex = _totalItemsCount * 0.5;
+        }else{
+            return;
+        }
+        [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+    }
 }
 
 - (void)makeScrollViewScrollToIndex:(NSInteger)index{
