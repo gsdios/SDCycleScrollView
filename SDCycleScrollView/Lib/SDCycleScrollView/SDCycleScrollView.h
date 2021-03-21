@@ -35,16 +35,16 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    SDCycleScrollViewPageContolAlimentRight,
+typedef NS_ENUM(NSInteger, SDCycleScrollViewPageContolAliment) {
+    SDCycleScrollViewPageContolAlimentRight = 0,
     SDCycleScrollViewPageContolAlimentCenter
-} SDCycleScrollViewPageContolAliment;
+};
 
-typedef enum {
-    SDCycleScrollViewPageContolStyleClassic,        // 系统自带经典样式
+typedef NS_ENUM(NSInteger, SDCycleScrollViewPageContolStyle) {
+    SDCycleScrollViewPageContolStyleClassic = 0,    // 系统自带经典样式
     SDCycleScrollViewPageContolStyleAnimated,       // 动画效果pagecontrol
     SDCycleScrollViewPageContolStyleNone            // 不显示pagecontrol
-} SDCycleScrollViewPageContolStyle;
+};
 
 @class SDCycleScrollView;
 
