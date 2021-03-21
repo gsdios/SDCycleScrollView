@@ -300,7 +300,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     
     _imagePathsGroup = imagePathsGroup;
     
-    _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100 : self.imagePathsGroup.count;
+    _totalItemsCount = self.infiniteLoop ? self.imagePathsGroup.count * 100000000 : self.imagePathsGroup.count;
     
     if (imagePathsGroup.count > 1) { // 由于 !=1 包含count == 0等情况
         self.mainView.scrollEnabled = YES;
