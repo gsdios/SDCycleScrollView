@@ -70,6 +70,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
     [super awakeFromNib];
     [self initialization];
     [self setupMainView];
+    [self setupPageControl];
 }
 
 - (void)initialization
