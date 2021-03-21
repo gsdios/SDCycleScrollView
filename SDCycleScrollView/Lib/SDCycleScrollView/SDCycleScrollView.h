@@ -148,6 +148,9 @@ typedef enum {
 /** 是否显示分页控件 */
 @property (nonatomic, assign) BOOL showPageControl;
 
+/** 是否需要分页控件，默认为YES，如果只设置隐藏，在需要加载很多张图片的时候会增加大量内存 */
+@property (nonatomic, assign) BOOL needPageControl;
+
 /** 是否在只有一张图时隐藏pagecontrol，默认为YES */
 @property(nonatomic) BOOL hidesForSinglePage;
 
