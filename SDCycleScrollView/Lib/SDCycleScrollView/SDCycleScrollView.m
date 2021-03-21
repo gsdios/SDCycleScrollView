@@ -311,7 +311,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
     
     [self setupPageControl];
-    [self.mainView reloadData];
+    [UIView performWithoutAnimation:^{
+        [self.mainView reloadData];
+    }];
+    
 }
 
 - (void)setImageURLStringsGroup:(NSArray *)imageURLStringsGroup
