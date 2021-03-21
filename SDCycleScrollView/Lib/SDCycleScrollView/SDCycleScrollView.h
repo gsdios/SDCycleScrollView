@@ -59,7 +59,7 @@ typedef enum {
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index;
 
 
-
+- (void)cycleScrollViewDidScroll:(UIScrollView *)scrollView index:(NSInteger)index;
 
 
 
