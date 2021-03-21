@@ -147,6 +147,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
     mainView.delegate = self;
     mainView.scrollsToTop = NO;
     [self addSubview:mainView];
+    //ios11 兼容性适配
+    if (@available(iOS 11.0, *)) {
+        mainView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        mainView.insetsLayoutMarginsFromSafeArea = NO;
+    }
     _mainView = mainView;
 }
 
