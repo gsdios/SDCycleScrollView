@@ -650,6 +650,27 @@ NSString * const ID = @"SDCycleScrollViewCell";
         UIPageControl *pageControl = (UIPageControl *)_pageControl;
         pageControl.currentPage = indexOnPageControl;
     }
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionHorizontal && _infiniteLoop) {
+        if (scrollView.contentOffset.x >= (_totalItemsCount - 1) * (_flowLayout.itemSize.width) ){
+            [_mainView setContentOffset:CGPointMake((_totalItemsCount/2 - 1)*_flowLayout.itemSize.width, 0)];
+            
+        }
+        if (scrollView.contentOffset.x <= 0.0){
+            [_mainView setContentOffset:CGPointMake(_totalItemsCount/2 *_flowLayout.itemSize.width, 0)];
+            
+        }
+    }
+    
+    if (_flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical && _infiniteLoop) {
+        if(scrollView.contentOffset.y >= (_totalItemsCount - 1) * (_flowLayout.itemSize.height)) {
+            
+            [_mainView setContentOffset:CGPointMake(0, (_totalItemsCount/2 - 1)*_flowLayout.itemSize.height)];
+        }
+        if (scrollView.contentOffset.y <= 0 ){
+            [_mainView setContentOffset:CGPointMake(0, _totalItemsCount/2 *_flowLayout.itemSize.height)];
+            
+        }
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
