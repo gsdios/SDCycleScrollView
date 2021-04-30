@@ -529,10 +529,11 @@ NSString * const ID = @"SDCycleScrollViewCell";
         [pageControl sizeToFit];
     }
     
-    CGRect pageControlFrame = CGRectMake(x, y, size.width, size.height);
-    pageControlFrame.origin.y -= self.pageControlBottomOffset;
-    pageControlFrame.origin.x -= self.pageControlRightOffset;
-    self.pageControl.frame = pageControlFrame;
+    self.pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    [[self.pageControl.centerXAnchor constraintEqualToAnchor:self.centerXAnchor] setActive:YES];
+    [[self.pageControl.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-self.pageControlBottomOffset] setActive:YES];
+    [[self.pageControl.widthAnchor constraintEqualToConstant:size.width] setActive:YES];
+    [[self.pageControl.heightAnchor constraintEqualToConstant:self.pageControlDotSize.height] setActive:YES];
     self.pageControl.hidden = !_showPageControl;
     
     if (self.backgroundImageView) {
