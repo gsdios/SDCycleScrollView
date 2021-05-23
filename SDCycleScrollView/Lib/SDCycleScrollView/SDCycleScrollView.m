@@ -195,6 +195,26 @@ NSString * const ID = @"SDCycleScrollViewCell";
     _pageControl.hidden = !showPageControl;
 }
 
+- (void)setPageControlSize:(CGSize)pageControlSize {
+
+    _pageControlSize = pageControlSize;
+    [self setupPageControl];
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageContol = (TAPageControl *)_pageControl;
+        pageContol.pageControlSize = pageControlSize;
+    }
+}
+
+- (void)setCurrentPageControlSize:(CGSize)currentPageControlSize {
+    _currentPageControlSize = currentPageControlSize;
+    [self setupPageControl];
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageContol = (TAPageControl *)_pageControl;
+        pageContol.currentPageControlSize = currentPageControlSize;
+    }
+}
+
+
 - (void)setCurrentPageDotColor:(UIColor *)currentPageDotColor
 {
     _currentPageDotColor = currentPageDotColor;
@@ -397,6 +417,8 @@ NSString * const ID = @"SDCycleScrollViewCell";
             pageControl.dotColor = self.currentPageDotColor;
             pageControl.userInteractionEnabled = NO;
             pageControl.currentPage = indexOnPageControl;
+            pageControl.currentPageControlSize = self.currentPageControlSize;
+            pageControl.pageControlSize = self.pageControlSize;
             [self addSubview:pageControl];
             _pageControl = pageControl;
         }
