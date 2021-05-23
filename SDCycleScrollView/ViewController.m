@@ -91,7 +91,11 @@
     // 本地加载 --- 创建不带标题的图片轮播器
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, w, 180) shouldInfiniteLoop:YES imageNamesGroup:imageNames];
     cycleScrollView.delegate = self;
-    cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+    cycleScrollView.currentPageDotImage = [UIImage imageNamed:@"轮播当前标志"];
+    cycleScrollView.pageDotImage = [UIImage imageNamed:@"轮播普通标志"];
+    cycleScrollView.currentPageControlSize = CGSizeMake(12, 5);
+    cycleScrollView.pageControlSize = CGSizeMake(5, 5);
+
     [demoContainerView addSubview:cycleScrollView];
     cycleScrollView.scrollDirection = UICollectionViewScrollDirectionVertical;
     //         --- 轮播时间间隔，默认1.0秒，可自定义
