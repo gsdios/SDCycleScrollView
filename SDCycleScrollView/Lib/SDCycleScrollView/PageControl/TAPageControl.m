@@ -251,6 +251,14 @@ static CGSize const kDefaultDotSize = {8, 8};
     } else if (self.dotImage && self.currentDotImage) {
         UIImageView *dotView = (UIImageView *)[self.dots objectAtIndex:index];
         dotView.image = (active) ? self.currentDotImage : self.dotImage;
+        
+        if (self.pageControlSize.width  && self.currentPageControlSize.width) {
+            if (dotView.image == self.currentDotImage) {
+                dotView.frame = CGRectMake(dotView.frame.origin.x-((self.currentPageControlSize.width - self.pageControlSize.width) * 1.0)/2, dotView.frame.origin.y, self.currentPageControlSize.width, self.currentPageControlSize.height);
+            }else{
+                dotView.frame = CGRectMake(dotView.frame.origin.x+((self.currentPageControlSize.width - self.pageControlSize.width) * 1.0)/2, dotView.frame.origin.y,  self.pageControlSize.width, self.pageControlSize.height);
+            }
+        }
     }
 }
 
@@ -356,6 +364,8 @@ static CGSize const kDefaultDotSize = {8, 8};
     } else if (self.dotViewClass && CGSizeEqualToSize(_dotSize, CGSizeZero)) {
         _dotSize = kDefaultDotSize;
         return _dotSize;
+    }else if(self.currentPageControlSize.width && self.pageControlSize.width){
+        _dotSize = self.pageControlSize;
     }
     
     return _dotSize;
