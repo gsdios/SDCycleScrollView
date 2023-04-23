@@ -132,7 +132,7 @@ typedef enum {
 @property (nonatomic, copy) void (^itemDidScrollOperationBlock)(NSInteger currentIndex);
 
 /** 可以调用此方法手动控制滚动到哪一个index */
-- (void)makeScrollViewScrollToIndex:(NSInteger)index;
+- (void)makeScrollViewScrollToIndex:(NSInteger)index animated:(BOOL)animated;
 
 /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
 - (void)adjustWhenControllerViewWillAppera;
@@ -147,6 +147,12 @@ typedef enum {
 
 /** 是否显示分页控件 */
 @property (nonatomic, assign) BOOL showPageControl;
+
+/** 分页控件大小 */
+@property (nonatomic, assign) CGSize pageControlSize;
+
+/** 当前分页控件大小 */
+@property (nonatomic, assign) CGSize currentPageControlSize;
 
 /** 是否在只有一张图时隐藏pagecontrol，默认为YES */
 @property(nonatomic) BOOL hidesForSinglePage;

@@ -195,6 +195,24 @@ NSString * const ID = @"SDCycleScrollViewCell";
     _pageControl.hidden = !showPageControl;
 }
 
+- (void)setPageControlSize:(CGSize)pageControlSize {
+    _pageControlSize = pageControlSize;
+    [self setupPageControl];
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageContol = (TAPageControl *)_pageControl;
+        pageContol.pageControlSize = pageControlSize;
+    }
+}
+
+- (void)setCurrentPageControlSize:(CGSize)currentPageControlSize {
+    _currentPageControlSize = currentPageControlSize;
+    [self setupPageControl];
+    if ([self.pageControl isKindOfClass:[TAPageControl class]]) {
+        TAPageControl *pageContol = (TAPageControl *)_pageControl;
+        pageContol.currentPageControlSize = currentPageControlSize;
+    }
+}
+
 - (void)setCurrentPageDotColor:(UIColor *)currentPageDotColor
 {
     _currentPageDotColor = currentPageDotColor;
@@ -397,6 +415,8 @@ NSString * const ID = @"SDCycleScrollViewCell";
             pageControl.dotColor = self.currentPageDotColor;
             pageControl.userInteractionEnabled = NO;
             pageControl.currentPage = indexOnPageControl;
+            pageControl.currentPageControlSize = self.currentPageControlSize;
+            pageControl.pageControlSize = self.pageControlSize;
             [self addSubview:pageControl];
             _pageControl = pageControl;
         }
@@ -434,10 +454,10 @@ NSString * const ID = @"SDCycleScrollViewCell";
     if (0 == _totalItemsCount) return;
     int currentIndex = [self currentIndex];
     int targetIndex = currentIndex + 1;
-    [self scrollToIndex:targetIndex];
+    [self scrollToIndex:targetIndex animated:YES];
 }
 
-- (void)scrollToIndex:(int)targetIndex
+- (void)scrollToIndex:(int)targetIndex animated:(BOOL)animated
 {
     if (targetIndex >= _totalItemsCount) {
         if (self.infiniteLoop) {
@@ -446,7 +466,7 @@ NSString * const ID = @"SDCycleScrollViewCell";
         }
         return;
     }
-    [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
+    [_mainView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:targetIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:animated];
 }
 
 - (int)currentIndex
@@ -684,13 +704,17 @@ NSString * const ID = @"SDCycleScrollViewCell";
     }
 }
 
-- (void)makeScrollViewScrollToIndex:(NSInteger)index{
+- (void)makeScrollViewScrollToIndex:(NSInteger)index animated:(BOOL)animated {
     if (self.autoScroll) {
         [self invalidateTimer];
     }
     if (0 == _totalItemsCount) return;
     
-    [self scrollToIndex:(int)(_totalItemsCount * 0.5 + index)];
+    if (self.infiniteLoop) {
+        [self scrollToIndex:(int)(_totalItemsCount * 0.5 + index) animated:animated];
+    }else {
+        [self scrollToIndex:(int)index animated:animated];
+    }
     
     if (self.autoScroll) {
         [self setupTimer];

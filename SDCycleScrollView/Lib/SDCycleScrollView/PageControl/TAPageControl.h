@@ -41,6 +41,9 @@
  */
 @property (nonatomic) CGSize dotSize;
 
+@property (nonatomic, assign) CGSize pageControlSize;
+
+@property (nonatomic, assign) CGSize currentPageControlSize;
 
 @property (nonatomic, strong) UIColor *dotColor;
 
